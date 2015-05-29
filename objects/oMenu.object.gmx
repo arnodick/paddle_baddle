@@ -37,17 +37,25 @@ while (!file_text_eof(file))
 }
 */
 
+var file = file_text_open_read(working_directory + "menu.txt");
+
+var i = 0, file_length = 0;
+while (!file_text_eof(file))
+{
+    file_text_readln(file);
+    file_length += 1;
+}
+//file_text_close(file);
+
 selection = 0;
-buttonamount = 2;
+buttonamount = file_length;
 button[buttonamount] = 1;
 button_text[buttonamount] = "A";
 selected_alpha = 1;
 unselected_alpha = 0.2;
 lastturn = 0;
 
-file = file_text_open_read(working_directory + "menu.txt");
-
-var i = 0;
+//file = file_text_open_read(working_directory + "menu.txt");
 for (i = 0; i &lt; buttonamount; i += 1)
 {
     button_text[i] = file_text_readln(file);
