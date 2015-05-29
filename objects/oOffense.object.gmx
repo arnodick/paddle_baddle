@@ -224,14 +224,20 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[
 if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3] + speed) and horwall.y &gt; y
 {
     vspeed = -vspeed;
-    controltimer = bouncetimer;
+    if controltimer &lt; bouncetimer
+    {
+        controltimer = bouncetimer;
+    }
     audio_play_sound(sndSelect, 1, false);
 }
 
 else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1] - speed, horwall.wall[2], horwall.wall[3]) and horwall.y &lt; y
 {
     vspeed = -vspeed;
-    controltimer = bouncetimer;
+    if controltimer &lt; bouncetimer
+    {
+        controltimer = bouncetimer;
+    }
     audio_play_sound(sndSelect, 1, false);
 }
 
@@ -259,7 +265,10 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     if player_num == sidewall.side
     {
         hspeed = -hspeed;
-        controltimer = bouncetimer;
+        if controltimer &lt; bouncetimer
+        {
+            controltimer = bouncetimer;
+        }
         audio_play_sound(sndSelect, 1, false);
     }
 
