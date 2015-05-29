@@ -31,7 +31,7 @@ player_num = 0;
 colour = c_white;
 width = 1;
 length = 12;
-move_speed = 2;
+move_speed = 1.5;
 vspeed = 0;
 
 top = y;

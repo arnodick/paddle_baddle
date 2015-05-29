@@ -23,10 +23,10 @@
     <object>objects\oOffense</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\rTitle</room>
+    <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41955.1628708565</constant>
+    <constant name="GM_build_date">41955.7229538194</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

@@ -69,6 +69,13 @@ for (var i = 0; i &lt; gamepadCount; i++;)
 instance_create(0, 0, oScreen);
 instance_create(0, 0, oPlayer1);
 instance_create(0, 0, oPlayer2);
+global.bottom_wall[0] = 0;
+global.bottom_wall[1] = room_height;
+global.bottom_wall[2] = room_width;
+global.bottom_wall[3] = room_height + 10;
+
+
+
 </string>
           </argument>
         </arguments>

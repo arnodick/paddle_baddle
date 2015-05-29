@@ -42,6 +42,11 @@ slap_timer_threshhold = 1;
 slap_length = 0.85;
 
 last_length = 0;
+
+col_top[2] = 0;
+col_bot[2] = 0;
+col_lft[2] = 0;
+col_rgt[2] = 0;
 </string>
           </argument>
         </arguments>
@@ -110,6 +115,16 @@ if (global.gamepads[player_num] == true)
     last_length = length;
     debug = string(last_length);
 }
+
+
+col_bot[0] = x + lengthdir_x(speed, direction);
+col_bot[1] = y + lengthdir_y(speed, direction) + 1;
+
+if point_in_rectangle(col_bot[0], col_bot[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3])
+{
+    vspeed = -vspeed;
+}
+
 </string>
           </argument>
         </arguments>
