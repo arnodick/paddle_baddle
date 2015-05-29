@@ -27,7 +27,11 @@
             <kind>1</kind>
             <string>///Variables
 
-wall_thickness = 10;
+global.wall_thickness = 10;
+left_wall[0] = 0 - global.wall_thickness;
+left_wall[1] = 0 - global.wall_thickness;
+right_wall[0] = room_width;
+right_wall[1] = 0 - global.wall_thickness;
 
 gamepadCount = gamepad_get_device_count();
 global.gamepads[gamepadCount] = false;
@@ -71,26 +75,18 @@ for (var i = 0; i &lt; gamepadCount; i++;)
 instance_create(0, 0, oScreen);
 instance_create(0, 0, oPlayer1);
 instance_create(0, 0, oPlayer2);
+createSidewall(left_wall[0], left_wall[1], 0);
+createSidewall(right_wall[0], right_wall[1], 1);
 
 global.bottom_wall[0] = 0;
 global.bottom_wall[1] = room_height;
 global.bottom_wall[2] = room_width;
-global.bottom_wall[3] = room_height + wall_thickness;
+global.bottom_wall[3] = room_height + global.wall_thickness;
 
 global.top_wall[0] = 0;
-global.top_wall[1] = -wall_thickness;
+global.top_wall[1] = -global.wall_thickness;
 global.top_wall[2] = room_width;
 global.top_wall[3] = 0;
-
-global.left_wall[0] = 0 - wall_thickness;
-global.left_wall[1] = 0 - wall_thickness;
-global.left_wall[2] = 0;
-global.left_wall[3] = room_height + wall_thickness;
-
-global.right_wall[0] = room_width;
-global.right_wall[1] = 0 - wall_thickness;
-global.right_wall[2] = room_width + wall_thickness;
-global.right_wall[3] = room_height + wall_thickness;
 </string>
           </argument>
         </arguments>
@@ -114,6 +110,7 @@ global.right_wall[3] = room_height + wall_thickness;
           <argument>
             <kind>1</kind>
             <string>player1points = string(oPlayer1.points);
+player2points = string(oPlayer2.points);
 </string>
           </argument>
         </arguments>
@@ -139,7 +136,7 @@ global.right_wall[3] = room_height + wall_thickness;
             <string>///Score
 surface_set_target(global.screen);
     draw_set_font(fontScore);
-    draw_text(room_width/2, wall_thickness, player1points);
+    draw_text(room_width/2, global.wall_thickness, player1points);
 surface_reset_target();
 </string>
           </argument>

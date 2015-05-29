@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>///Variables
 player_num = 0;
+player_num_str = "0";
 
 colur = c_maroon;
 
@@ -109,6 +110,7 @@ if (global.gamepads[player_num] == true)
 }
 
 paddle = instance_nearest(x, y, oDefense);
+sidewall = instance_nearest(x, y, oWall);
 
 coll_vert[0] = x ;
 coll_vert[1] = y + lengthdir_y(speed, direction);
@@ -130,32 +132,18 @@ or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed
     hspeed = -hspeed;
 }
 
-if point_in_rectangle(coll_horz[0], coll_horz[1], global.right_wall[0], global.right_wall[1], global.right_wall[2], global.right_wall[3])
+if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
 {
-    if player_num == 0 
+    if player_num == sidewall.side
+    {
+        hspeed = -hspeed;
+    }
+    else
     {
         speed = 0;
-        x = oPlayer1.offxpos;
-        y = oPlayer1.offypos;
+        x = oPlayer1.off_pos[0];
+        y = oPlayer1.off_pos[1];
         oPlayer1.points += 1;
-    }
-    else
-    {
-        hspeed = -hspeed;
-    }
-}
-if point_in_rectangle(coll_horz[0], coll_horz[1], global.left_wall[0], global.left_wall[1], global.left_wall[2], global.left_wall[3])
-{
-    if player_num == 1 
-    {
-        speed = 0;
-        x = oPlayer2.offxpos;
-        y = oPlayer2.offypos;
-        oPlayer2.points += 1;
-    }
-    else
-    {
-        hspeed = -hspeed;
     }
 }
 </string>
