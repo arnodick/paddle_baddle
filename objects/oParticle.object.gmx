@@ -57,6 +57,13 @@ if (speed &gt; 0)
 {
     speed -= 0.01;
 }
+/*
+if cm == true
+{
+    part_colour = make_color_hsv(part_hue, 255, 255);
+    part_hue += 10;
+}
+*/
 timer += 1;
 if timer &gt;= oGame.deathtimer
 {

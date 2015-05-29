@@ -31,6 +31,7 @@ playerpoints[0] = 0;
 playerpoints[1] = 0;
 
 gameover = false;
+goal = false;
 winner = 0;
 
 playercolour[0] = c_maroon;
@@ -83,15 +84,15 @@ hue = 0;
 
 anal_sticks[2, 4] = 0; // huhuhu, anal
 
-anal_stick[0, 0] = gp_axislh
-anal_stick[0, 1] = gp_axislv
-anal_stick[0, 2] = gp_axisrh
-anal_stick[0, 3] = gp_axisrv
+anal_stick[0, 0] = gp_axislh;
+anal_stick[0, 1] = gp_axislv;
+anal_stick[0, 2] = gp_axisrh;
+anal_stick[0, 3] = gp_axisrv;
 
-anal_stick[1, 0] = gp_axisrh
-anal_stick[1, 1] = gp_axisrv
-anal_stick[1, 2] = gp_axislh
-anal_stick[1, 3] = gp_axislv
+anal_stick[1, 0] = gp_axisrh;
+anal_stick[1, 1] = gp_axisrv;
+anal_stick[1, 2] = gp_axislh;
+anal_stick[1, 3] = gp_axislv;
 </string>
           </argument>
         </arguments>
@@ -158,6 +159,18 @@ createSide(def_pos[1, 0], def_pos[1, 1], 1);
           <argument>
             <kind>1</kind>
             <string>///Object Controller
+
+// Makes colours all crazy if cool mode was selected
+if global.coolmode == true
+{
+    base_colour = make_color_hsv(hue, 255, 255);
+    hue += 10;
+}
+else
+{
+    base_colour = c_white;
+}
+
 // Creates both the balls if none exist (Should only happen when the game starts)
 if instance_number(oOffense) == 0
 {
@@ -201,34 +214,16 @@ if countdown == true
         switch (countdownswitch)
         {
             case 3:
-                if !audio_is_playing(sndSelect)
-                {
-                    audio_play_sound(sndSelect, 1, false);
-                }
+                audio_play_sound(sndSelect, 2, false);
                 break;
             case 2:
-                if !audio_is_playing(sndSelect)
-                {
-                    audio_play_sound(sndSelect, 1, false);
-                }
+                audio_play_sound(sndSelect, 2, false);
                 break;
             case 1:
-                if !audio_is_playing(sndSelect)
-                {
-                    audio_play_sound(sndSelect, 1, false);
-                }
+                audio_play_sound(sndSelect, 2, false);
                 break;
             case 0:
-                if !audio_is_playing(sndBounce)
-                {
-                    audio_play_sound(sndBounce, 1, false);
-                }
-                break;
-            default:
-                if !audio_is_playing(sndBounce)
-                {
-                    audio_play_sound(sndBounce, 1, false);
-                }
+                audio_play_sound(sndBounce, 2, false);
                 break;
         }
     }
@@ -239,37 +234,43 @@ if countdown == true
         countdownswitch = countdowninit - 1;
     }
 }
-// Brings up the menu and sets a winner once 5 points are scored
-if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
+
+if goal == true
 {
-    gameover = true;
-    if !instance_exists(oMenu)
+    // Brings up the menu and sets a winner once 5 points are scored
+    if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
     {
-        instance_create(0, 0, oMenu);
-    }
-    var i;
-    for (i = 0; i &lt; 2; i++)
-    {
-        if playerpoints[i] &gt;= 5
+        gameover = true;
+        if !instance_exists(oMenu)
         {
-            winner = i + 1;
+            instance_create(0, 0, oMenu);
+        }
+        var i;
+        for (i = 0; i &lt; 2; i++)
+        {
+            if playerpoints[i] &gt;= 5
+            {
+                winner = i + 1;
+            }
         }
     }
+    //global.coolmode = true;
+    else if !audio_is_playing(sndGoal)
+    {
+        goal = false;
+        countdown = true;
+    }
+    else
+    {
+        base_colour = make_color_hsv(hue, 255, 255);
+        hue += 10;
+    }
 }
+
 // Quits the game if escape is pressed
 if keyboard_check(vk_escape)
 {
     game_end();
-}
-// Makes colours all crazy if cool mode was selected
-if global.coolmode == true
-{
-    base_colour = make_color_hsv(hue, 255, 255);
-    hue += 10;
-}
-else
-{
-    base_colour = c_white;
 }
 </string>
           </argument>
@@ -310,6 +311,10 @@ draw_set_alpha(1);
 if countdown == true
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, countdowndisplay[countdownswitch], 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
+}
+if audio_is_playing(sndGoal)
+{
+    draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
 </string>
           </argument>

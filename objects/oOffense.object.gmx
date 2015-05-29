@@ -45,7 +45,7 @@ decel = 40;
 slap_timer = 0;
 start_slap_timer = false;
 slap_timer_threshhold = 1;
-slap_length = 0.75;
+slap_length = 0.55;
 if global.coolmode == true
 {
     slap_length = 0;
@@ -98,7 +98,7 @@ offense = instance_furthest(x, y, oOffense);
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]));
-    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and oGame.gameover == false 
+    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
         control = true;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
@@ -198,9 +198,10 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
 
     else
     {
-        audio_play_sound(sndGoal, 1, false);
         resetOffense();
+        audio_play_sound(sndGoal, 1, false);
         oGame.playerpoints[player_num] += 1;
+        oGame.goal = true;
     }
 }
 
