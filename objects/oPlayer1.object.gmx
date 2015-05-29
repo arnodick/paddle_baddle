@@ -30,6 +30,8 @@ defxpos = 10;
 defypos = room_height/2;
 offxpos = 20;
 offypos = room_height/2;
+
+points = 0;
 player_num = 0;
 
 colour = c_maroon;

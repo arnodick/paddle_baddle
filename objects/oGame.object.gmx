@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>///Variables
 
+wall_thickness = 10;
+
 gamepadCount = gamepad_get_device_count();
 global.gamepads[gamepadCount] = false;
 global.dead_zone = 0.35;
@@ -70,8 +72,6 @@ instance_create(0, 0, oScreen);
 instance_create(0, 0, oPlayer1);
 instance_create(0, 0, oPlayer2);
 
-wall_thickness = 10;
-
 global.bottom_wall[0] = 0;
 global.bottom_wall[1] = room_height;
 global.bottom_wall[2] = room_width;
@@ -81,6 +81,16 @@ global.top_wall[0] = 0;
 global.top_wall[1] = -wall_thickness;
 global.top_wall[2] = room_width;
 global.top_wall[3] = 0;
+
+global.left_wall[0] = 0 - wall_thickness;
+global.left_wall[1] = 0 - wall_thickness;
+global.left_wall[2] = 0;
+global.left_wall[3] = room_height + wall_thickness;
+
+global.right_wall[0] = room_width;
+global.right_wall[1] = 0 - wall_thickness;
+global.right_wall[2] = room_width + wall_thickness;
+global.right_wall[3] = room_height + wall_thickness;
 </string>
           </argument>
         </arguments>
@@ -103,11 +113,34 @@ global.top_wall[3] = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Object Controller
-
-// Deactivate objects outside of the view
-//instance_deactivate_region(0, 0, room_width, room_height, false, true);
-//instance_activate_region(view_xview[0], 0, view_wview[0], room_height, true);
+            <string>player1points = string(oPlayer1.points);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Score
+surface_set_target(global.screen);
+    draw_set_font(fontScore);
+    draw_text(room_width/2, wall_thickness, player1points);
+surface_reset_target();
 </string>
           </argument>
         </arguments>

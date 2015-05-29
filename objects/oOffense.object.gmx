@@ -45,7 +45,6 @@ slap_length = 0.8;
 
 last_length = 0;
 
-
 coll_vert[2] = 0;
 coll_horz[2] = 0;
 </string>
@@ -115,8 +114,8 @@ coll_vert[0] = x ;
 coll_vert[1] = y + lengthdir_y(speed, direction);
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
-    or point_in_rectangle(coll_vert[0], coll_vert[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
-    or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle.defense_wall[1], paddle.defense_wall[2], paddle.defense_wall[3])
+or point_in_rectangle(coll_vert[0], coll_vert[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
+or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle.defense_wall[1], paddle.defense_wall[2], paddle.defense_wall[3])
 {
     vspeed = -vspeed;
 }
@@ -125,10 +124,39 @@ coll_horz[0] = x + lengthdir_x(speed, direction);
 coll_horz[1] = y;
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
-    or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
-    or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] +speed, paddle.defense_wall[3])
+or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
+or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3])
 {
     hspeed = -hspeed;
+}
+
+if point_in_rectangle(coll_horz[0], coll_horz[1], global.right_wall[0], global.right_wall[1], global.right_wall[2], global.right_wall[3])
+{
+    if player_num == 0 
+    {
+        speed = 0;
+        x = oPlayer1.offxpos;
+        y = oPlayer1.offypos;
+        oPlayer1.points += 1;
+    }
+    else
+    {
+        hspeed = -hspeed;
+    }
+}
+if point_in_rectangle(coll_horz[0], coll_horz[1], global.left_wall[0], global.left_wall[1], global.left_wall[2], global.left_wall[3])
+{
+    if player_num == 1 
+    {
+        speed = 0;
+        x = oPlayer2.offxpos;
+        y = oPlayer2.offypos;
+        oPlayer2.points += 1;
+    }
+    else
+    {
+        hspeed = -hspeed;
+    }
 }
 </string>
           </argument>

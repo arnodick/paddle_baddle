@@ -14,6 +14,9 @@
     <script>scripts\screenEnd.gml</script>
     <script>scripts\createPaddles.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fontScore</font>
+  </fonts>
   <objects name="objects">
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
@@ -26,7 +29,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41956.0972490509</constant>
+    <constant name="GM_build_date">41956.1586817708</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

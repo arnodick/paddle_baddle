@@ -30,6 +30,8 @@ defxpos = room_width - 10;
 defypos = room_height/2;
 offxpos = room_width - 20;
 offypos = room_height/2;
+
+points = 0;
 player_num = 1;
 
 colour = c_blue;
