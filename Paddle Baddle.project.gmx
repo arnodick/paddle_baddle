@@ -54,9 +54,15 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
+    <script>scripts\textfileLength.gml</script>
+    <script>scripts\textfileReadlines.gml</script>
     <script>scripts\screenInit.gml</script>
     <script>scripts\screenBegin.gml</script>
     <script>scripts\screenEnd.gml</script>
+    <script>scripts\menuInit.gml</script>
+    <script>scripts\menuSelect.gml</script>
+    <script>scripts\menuConfirm.gml</script>
+    <script>scripts\menuButtons.gml</script>
     <script>scripts\createPaddles.gml</script>
     <script>scripts\createDefense.gml</script>
     <script>scripts\createOffense.gml</script>
@@ -65,11 +71,7 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
-    <script>scripts\menuInit.gml</script>
-    <script>scripts\menuSelect.gml</script>
-    <script>scripts\menuConfirm.gml</script>
-    <script>scripts\textfileLength.gml</script>
-    <script>scripts\textfileReadlines.gml</script>
+    <script>scripts\gamepadsInit.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>

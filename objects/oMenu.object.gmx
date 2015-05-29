@@ -26,16 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-title_pos = room_height/2 - 20;
 
-text_line = 10;
-menu_pos = text_line*4;
+title_pos = room_height/2 - 20; // the y position of the title
 
-var file = file_text_open_read(working_directory + "menu.txt");
-menuInit(file);
-
-var file = file_text_open_read(working_directory + "menu.txt");
-textfileReadlines(file);
+menuInit(working_directory + "menu.txt", 40, 10); //opens and reads a text file, making buttons out of each line of text. argument1 is y position of top of menu, argument2 is line height
 </string>
           </argument>
         </arguments>
@@ -59,28 +53,27 @@ textfileReadlines(file);
           <argument>
             <kind>1</kind>
             <string>///Game Over
-menuSelect();
 
-for (var j = 0; j &lt; global.gamepadCount; j += 1)
+menuSelect(); //checks which button is selected given gamepad left stick input
+
+//checks for confirmation button press of selected option (can't really make a generic script out of this, because each menu does different things, so switch will vary a lot
+if menuConfirm() == true //checks if gamepad has pressed A or Start
 {
-    if menuConfirm(j) == true
+    switch (selection) //executes whichever option was selected when button pressed
     {
-        switch (selection)
-        {
-            case 0:
-                audio_play_sound(sndBounce, 1, false);
-                room_restart();
-                instance_destroy();
-                break;
-            case 1:
-                room_goto(rTitle);
-                instance_destroy();
-                break;
-            default: 
-                room_goto(rTitle);
-                instance_destroy();
-                break;
-        }
+        case 0: //rematch
+            audio_play_sound(sndBounce, 1, false);
+            room_restart();
+            instance_destroy();
+            break;
+        case 1: //return to title
+            room_goto(rTitle);
+            instance_destroy();
+            break;
+        default: //default return to title (it's important to have this, in case you don't set switch option for all of the buttons that were created!)
+            room_goto(rTitle);
+            instance_destroy();
+            break;
     }
 }
 </string>
@@ -106,16 +99,14 @@ for (var j = 0; j &lt; global.gamepadCount; j += 1)
           <argument>
             <kind>1</kind>
             <string>///Menu
-surface_set_target(global.screen);
+surface_set_target(global.screen); //sets the drawing surface to the screen
+    //winner title stuff
+    //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
     draw_text_colour(room_width/2, title_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, title_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, title_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
-    draw_set_colour(global.colour);
-
-    for (var j = 0; j &lt; buttonamount; j += 1)
-    {
-        draw_text_colour(room_width/2, menu_pos + text_line*(j), button_text[j], global.colour, global.colour, global.colour, global.colour, button_value[j]);
-    }
+    
+    menuButtons(menu_pos, text_line, global.colour);
 
 surface_reset_target();
 </string>

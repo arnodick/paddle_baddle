@@ -1,8 +1,8 @@
-if gamepad_button_check_pressed(argument0, gp_start) or gamepad_button_check_pressed(argument0, gp_face1)
+for (var j = 0; j < global.gamepadCount; j += 1) //loops through each gamepad
 {
-    return true;
+    if gamepad_button_check_pressed(j, gp_start) or gamepad_button_check_pressed(j, gp_face1)
+    {
+        return true;
+    }
 }
-else
-{
-    return false;
-}
+return false;
