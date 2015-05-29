@@ -262,7 +262,7 @@ else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
 {
-    if player_num == sidewall.side
+    if player_num == sidewall.side or oGame.gameover == true
     {
         hspeed = -hspeed;
         if controltimer &lt; bouncetimer
