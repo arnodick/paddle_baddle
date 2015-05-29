@@ -72,6 +72,7 @@
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
     <script>scripts\gamepadsInit.gml</script>
+    <script>scripts\keyArrowspressed.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>

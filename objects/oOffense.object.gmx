@@ -33,6 +33,7 @@ tail_length = 8;
 tail_width = 2;
 
 length = 0;
+length_max = 0.8
 
 hor = 0;
 ver = 0;
@@ -116,7 +117,7 @@ if (global.gamepads[player_num] == true)
     if (length != 0) and speed &lt; slow_speed and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
         direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
-        speed = length;
+        speed = length * length_max;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side)// or global.coolmode == true //and x!= (room_width/2) - 1
         {
             //if slap_timer &lt; slap_timer_threshhold
@@ -146,31 +147,31 @@ if (global.gamepads[player_num] == true)
     last_length = length;
     //debug = string(last_length);
 }
-else if vk_anykey == true
+else
 {
-    
-    switch (keyboard_key)
+    if keyArrowspressed() == true and speed &lt; slow_speed and control == true
     {
-    case vk_left:
-        hor = -1;
-    case vk_right:
-        hor = 1;
-    case vk_up:
-        ver = -1;
-    case vk_down:
-        ver = 1;
-        break;
-    }
-    length = point_distance( 0, 0, hor, ver );
-    if (length != 0) and speed &lt; slow_speed and control == true
-    {
+        length = length_max;
+        if keyboard_check (vk_left)
+            {hor = -1;}
+        else if keyboard_check (vk_right)
+            {hor = 1;}
+        else
+            {hor = 0;}
+        if keyboard_check (vk_up)
+            {ver = -1;}
+        else if keyboard_check (vk_down)
+            {ver = 1;}
+        else
+            {ver = 0;} 
         direction = point_direction( 0, 0, hor, ver );
         speed = length;
     }
-}
-else
-{
-    speed -= speed/decel;
+    else
+    {
+        length = 0;
+        speed -= speed/decel;
+    }
 }
 
 coll_vert[0] = ceil(x);
@@ -332,7 +333,7 @@ if control == false
 draw_set_blend_mode( bm_normal );
 draw_set_alpha(1);
 
-draw_text_transformed_colour(room_width/2, room_height/2 - 5 - (player_num+1)*5, length, 1, 1, 0, c_white, c_white, c_white, c_white, 1);
+//draw_text_transformed_colour(room_width/2, room_height/2 - 5 - (player_num+1)*5, length, 1, 1, 0, c_white, c_white, c_white, c_white, 1);
 
 
 /*
