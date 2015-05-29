@@ -49,7 +49,6 @@ coll_vert[2] = 0;
 coll_horz[2] = 0;
 
 bouncetimer = 25;
-crashtimer = 50;
 controltimer = 0;
 control = true;
 
@@ -134,7 +133,7 @@ coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
 if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
     vspeed = -vspeed;
-    controltimer = crashtimer;
+    controltimer = global.crashtimer;
 }
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3] + speed) and horwall.y &gt; y
@@ -155,13 +154,13 @@ coll_horz[1] = ceil(y);
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
     hspeed = -hspeed;
-    controltimer = crashtimer;    
+    controltimer = global.crashtimer;    
 }
 
 else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
 {
     hspeed = -hspeed;
-    controltimer = crashtimer;    
+    controltimer = global.crashtimer;    
 }
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])

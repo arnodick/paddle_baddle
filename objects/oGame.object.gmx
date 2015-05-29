@@ -36,6 +36,10 @@ global.playercolour[1] = c_blue;
 count = 0;
 global.deathtimer = 45;
 
+countdowntimer = 0;
+global.countdown = true;
+global.crashtimer = 50;
+
 def_pos[0, 0] = 10;
 def_pos[0, 1] = room_height/2;
 off_pos[0, 0] = 20;
@@ -102,8 +106,11 @@ instance_create(0, 0, oScreen);
 //global.player[0] = instance_create(0, 0, oPlayer);
 //global.player[1] = instance_create(0, 0, oPlayer);
 
-createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
-createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
+//createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
+//createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
+
+createDefense(def_pos[0, 0], def_pos[0, 1], 0);
+createDefense(def_pos[1, 0], def_pos[1, 1], 1);
 
 createSidewall(left_wall[0], left_wall[1], 0);
 createSidewall(right_wall[0], right_wall[1], 1);
@@ -140,6 +147,7 @@ if instance_number(oOffense) == 0
 {
     createOffense(off_pos[0, 0], off_pos[0, 1], 0, global.playercolour[0]);
     createOffense(off_pos[1, 0], off_pos[1, 1], 1, global.playercolour[1]);
+    resetOffense();
 }
 if instance_number(oOffense) == 1
 {
@@ -159,6 +167,15 @@ if count &gt;= global.deathtimer
     createOffense(off_pos[num, 0], off_pos[num, 1], num, global.playercolour[num]);
     createParticles(off_pos[num, 0], off_pos[num, 1], global.playercolour[num]);
     count = 0;
+}
+if global.countdown == true
+{
+    countdowntimer += 1;
+    if countdowntimer &gt;= global.crashtimer
+    {
+        global.countdown = false;
+        countdowntimer = 0;
+    }
 }
 </string>
           </argument>
@@ -192,6 +209,10 @@ surface_set_target(global.screen);
     draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, c_white, c_white);
     draw_set_alpha(1);
     draw_set_circle_precision(4);
+    if countdowntimer &gt; 0
+    {
+        draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), c_white, c_white, c_white, c_white, 1);
+    }
 surface_reset_target();
 </string>
           </argument>
