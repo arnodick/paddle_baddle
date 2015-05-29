@@ -101,7 +101,10 @@ for (var i = 0; i &lt; gamepadCount; i++;)
           <argument>
             <kind>1</kind>
             <string>///Instances
-instance_create(0, 0, oScreen);
+if !instance_exists(oScreen)
+{
+    instance_create(0, 0, oScreen);
+}
 
 //global.player[0] = instance_create(0, 0, oPlayer);
 //global.player[1] = instance_create(0, 0, oPlayer);

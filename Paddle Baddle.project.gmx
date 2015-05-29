@@ -25,6 +25,7 @@
     <font>fonts\fontScore</font>
   </fonts>
   <objects name="objects">
+    <object>objects\oTitle</object>
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
     <object>objects\oDefense</object>
@@ -35,10 +36,11 @@
     <object>objects\oParticle</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rTitle</room>
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41962.8818875694</constant>
+    <constant name="GM_build_date">41963.1195731019</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
