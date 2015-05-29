@@ -191,6 +191,7 @@ if count &gt;= deathtimer
 // Starts countdown when balls (huhuhu) are reset after goal (Only used for display of countodwn on screen?)
 if countdown == true
 {
+    with (oOffense) control = false; //makes ball uncontrollable
     if countduration &gt; 0
     {
         countduration -= 1;
@@ -225,6 +226,7 @@ if countdown == true
 
 if goal == true
 {
+    with (oOffense) control = false;
     // Brings up the menu and sets a winner once 5 points are scored
     if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
     {
@@ -304,6 +306,8 @@ if audio_is_playing(sndGoal)
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
+
+//draw_text(32, 32, "FPS = " + string(fps));
 </string>
           </argument>
         </arguments>

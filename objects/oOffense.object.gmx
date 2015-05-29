@@ -110,40 +110,35 @@ offense = instance_furthest(x, y, oOffense);
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]));
-    if (control == true) and (length != 0)
+    if (length != 0) and speed &lt; slow_speed and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
-        if speed &lt; slow_speed and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
+        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
-            //control = true;
-            if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
+            start_slap_timer = true;
+        }
+        direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
+        speed = length;
+        if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
+        {
+            if length &gt; slap_length
             {
-                start_slap_timer = true;
-            }
-            direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
-            speed = length;
-            if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
-            {
-                if length &gt; slap_length
-                {
-                    speed = slap_speed;
-                    start_slap_timer = false;
-                    slap_timer = 0;
-                }
-                else
-                {
-                    slap_timer += 1;
-                }
-            }
-            else
-            {
+                speed = slap_speed;
                 start_slap_timer = false;
                 slap_timer = 0;
             }
+            else
+            {
+                slap_timer += 1;
+            }
+        }
+        else
+        {
+            start_slap_timer = false;
+            slap_timer = 0;
         }
     }
     else
     {
-        //control = false;
         speed -= speed/decel;
     }
     last_length = length;
