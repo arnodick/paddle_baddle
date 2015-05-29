@@ -343,7 +343,7 @@ draw_point_colour(x, y, colour);
 if speed &gt; slow_speed + 0.1
 {
     draw_set_blend_mode( bm_add );
-    draw_line_width_colour(x, y - 1, x - lengthdir_x(speed*tail_length, direction), y - 1 -lengthdir_y(speed*tail_length, direction), tail_width, colour, c_black);
+    draw_line_width_colour(x, y, x - lengthdir_x(speed*tail_length, direction), y - lengthdir_y(speed*tail_length, direction), tail_width, colour, c_black);
     //draw_point(x - lengthdir_x(speed, direction), y - 1 - lengthdir_y(speed, direction));
 }
 
