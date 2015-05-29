@@ -73,11 +73,11 @@ wall[3] = bottom;
 
 if (global.gamepads[player_num] == true)
 {
-    if gamepad_axis_value(player_num, gp_axislv) &gt; 0 and bottom + speed &lt; room_height and global.gameover == false
+    if gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &gt; 0 and bottom + speed &lt; room_height and global.gameover == false
     {
         vspeed = move_speed;   
     }
-    else if (gamepad_axis_value(player_num, gp_axislv) &lt; 0) and (top + speed &gt; 0) and global.gameover == false
+    else if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &lt; 0) and (top + speed &gt; 0) and global.gameover == false
     {
         vspeed = -move_speed;   
     }

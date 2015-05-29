@@ -67,6 +67,18 @@ bot_wall[1] = room_height;
 
 global.colour = c_white;
 hue = 0;
+
+anal_sticks[2, 4] = 0; // huhuhu, anal
+
+anal_stick[0, 0] = gp_axislh
+anal_stick[0, 1] = gp_axislv
+anal_stick[0, 2] = gp_axisrh
+anal_stick[0, 3] = gp_axisrv
+
+anal_stick[1, 0] = gp_axisrh
+anal_stick[1, 1] = gp_axisrv
+anal_stick[1, 2] = gp_axislh
+anal_stick[1, 3] = gp_axislv
 </string>
           </argument>
         </arguments>
