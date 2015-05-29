@@ -78,8 +78,8 @@
   </fonts>
   <objects name="objects">
     <object>objects\oTitle</object>
-    <object>objects\oGame</object>
     <object>objects\oScreen</object>
+    <object>objects\oGame</object>
     <object>objects\oMenu</object>
     <object>objects\oDefense</object>
     <object>objects\oOffense</object>
