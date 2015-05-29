@@ -34,6 +34,9 @@ tail_width = 2;
 
 length = 0;
 
+hor = 0;
+ver = 0;
+
 hp = 1;
 
 debug = "no";
@@ -142,6 +145,32 @@ if (global.gamepads[player_num] == true)
     }
     last_length = length;
     //debug = string(last_length);
+}
+else if vk_anykey == true
+{
+    
+    switch (keyboard_key)
+    {
+    case vk_left:
+        hor = -1;
+    case vk_right:
+        hor = 1;
+    case vk_up:
+        ver = -1;
+    case vk_down:
+        ver = 1;
+        break;
+    }
+    length = point_distance( 0, 0, hor, ver );
+    if (length != 0) and speed &lt; slow_speed and control == true
+    {
+        direction = point_direction( 0, 0, hor, ver );
+        speed = length;
+    }
+}
+else
+{
+    speed -= speed/decel;
 }
 
 coll_vert[0] = ceil(x);
