@@ -64,6 +64,9 @@ top_wall[0] = 0;
 top_wall[1] = 0;
 bot_wall[0] = 0;
 bot_wall[1] = room_height;
+
+text_pos = room_height/2 - 20;
+text_line = 10;
 </string>
           </argument>
         </arguments>
@@ -217,9 +220,9 @@ surface_set_target(global.screen);
     }
     if global.gameover == true
     {
-        draw_text_colour(room_width/2, room_height/2 - 10, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
-        draw_text_colour(room_width/2, room_height/2, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
-        draw_text_colour(room_width/2, room_height/2 + 10, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
+        draw_text_colour(room_width/2, text_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
+        draw_text_colour(room_width/2, text_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
+        draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
     }
 surface_reset_target();
 </string>
