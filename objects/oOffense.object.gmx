@@ -79,13 +79,14 @@ control = true;
 defense = instance_nearest(x, y, oDefense);
 sidewall = instance_nearest(x, y, oSidewall);
 horwall = instance_nearest(x, y, oWall);
+rinkside = instance_nearest(x, y, oSide);
 
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
     if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer == 0
     {
-        if last_length &lt; global.dead_zone and player_num == sidewall.side
+        if last_length &lt; global.dead_zone and player_num == rinkside.player_side //and x!= (room_width/2) - 1
         {
             start_slap_timer = true;
         }
@@ -170,7 +171,6 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
         controltimer = 0;
         global.playerpoints[player_num] += 1;
     }
-
 }
 
 if controltimer &gt; 0
@@ -225,7 +225,9 @@ surface_set_target(global.screen);
     if control == false
     {
         draw_set_blend_mode( bm_add );
+        //draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
         draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
+        draw_roundrect_colour_ext(x + 1 - random_range(-controltimer, controltimer)/10, y - random_range(-controltimer, controltimer)/10, x + 1 + random_range(-controltimer, controltimer)/10, y + random_range(-controltimer, controltimer)/10, 1, 1, colour, c_black, false);
         draw_set_blend_mode( bm_normal );
     }
     
