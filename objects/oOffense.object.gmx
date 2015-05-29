@@ -26,17 +26,21 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-count = 0;
+player_num = 0;
 
 length = 0;
 
 debug = "no";
 
 slow_speed = 1;
-slap_speed = 2;
+slap_speed = 2.5;
+decel = 40;
 
 slap_timer = 0;
 start_slap_timer = false;
+slap_timer_threshhold = 1;
+slap_length = 0.85;
+
 last_length = 0;
 </string>
           </argument>
@@ -61,7 +65,7 @@ last_length = 0;
           <argument>
             <kind>1</kind>
             <string>///Controls
-if (count == 0)
+if (player_num == 0)
 {
     colour = c_maroon;
 }
@@ -69,22 +73,22 @@ else
 {
     colour = c_blue;
 }
-if (global.gamepads[count] == true)
+if (global.gamepads[player_num] == true)
 {
-    length = point_distance(0, 0, gamepad_axis_value(count, gp_axisrh), gamepad_axis_value(count, gp_axisrv));
-    if (gamepad_axis_value(count, gp_axisrh) != 0 or gamepad_axis_value(count, gp_axisrv) != 0) and speed &lt; slow_speed
+    length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
+    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed
     {
         if last_length &lt; global.dead_zone
         {
             start_slap_timer = true;
         }
-        direction = point_direction( 0, 0, gamepad_axis_value(count, gp_axisrh), gamepad_axis_value(count, gp_axisrv) );
+        direction = point_direction( 0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv) );
         speed = length;
-        if start_slap_timer == true
+        if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
         {
-            if length &gt; 0.9
+            if length &gt; slap_length
             {
-                speed = speed*4;
+                speed = slap_speed;
                 start_slap_timer = false;
                 slap_timer = 0;
             }
@@ -93,12 +97,15 @@ if (global.gamepads[count] == true)
                 slap_timer += 1;
             }
         }
-
+        else
+        {
+            start_slap_timer = false;
+            slap_timer = 0;
+        }
     }
     else
     {
-        
-        speed -= speed/16;
+        speed -= speed/decel;
     }
     last_length = length;
     debug = string(last_length);
@@ -129,7 +136,7 @@ if (global.gamepads[count] == true)
 surface_set_target(global.screen);
     draw_set_colour(colour);
     draw_point(x, y);
-    if (count == 1)
+    if (player_num == 1)
 {
     draw_text(room_width/2, 10, debug);
     }

@@ -26,11 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-count = 0;
+player_num = 0;
 
 colour = c_white;
 width = 1;
-length = 10;
+length = 12;
 move_speed = 2;
 vspeed = 0;
 
@@ -62,13 +62,13 @@ bottom = y + length;
 top = y;
 bottom = y + length;
 
-if (global.gamepads[count] == true)
+if (global.gamepads[player_num] == true)
 {
-    if gamepad_axis_value(count, gp_axislv) &gt; 0 and bottom + move_speed &lt; room_height
+    if gamepad_axis_value(player_num, gp_axislv) &gt; 0 and bottom + move_speed &lt; room_height
     {
         vspeed = move_speed;   
     }
-    else if (gamepad_axis_value(count, gp_axislv) &lt; 0) and (top - move_speed &gt; 0)
+    else if (gamepad_axis_value(player_num, gp_axislv) &lt; 0) and (top - move_speed &gt; 0)
     {
         vspeed = -move_speed;   
     }
