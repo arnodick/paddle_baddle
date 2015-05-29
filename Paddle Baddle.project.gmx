@@ -47,8 +47,8 @@
     <sound>sound\sndBounce</sound>
     <sound>sound\sndHurt</sound>
     <sound>sound\sndDeath</sound>
-    <sound>sound\sndGoal</sound>
     <sound>sound\sndRespawn</sound>
+    <sound>sound\sndGoal</sound>
   </sounds>
   <sprites name="sprites"/>
   <backgrounds name="background"/>

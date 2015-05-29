@@ -164,7 +164,7 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[
 else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1] - speed, horwall.wall[2], horwall.wall[3]) and horwall.y &lt; y
 {
     vspeed = -vspeed;
-    controltimer = bouncetimer;    
+    controltimer = bouncetimer;
     audio_play_sound(sndSelect, 1, false);
 }
 
@@ -201,13 +201,6 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
         audio_play_sound(sndGoal, 1, false);
         resetOffense();
         oGame.playerpoints[player_num] += 1;
-        /*
-        speed = 0;
-        x = oGame.off_pos[player_num, 0];
-        y = oGame.off_pos[player_num, 1];
-        controltimer = 0;
-        */
-        
     }
 }
 
