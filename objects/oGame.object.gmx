@@ -41,12 +41,12 @@ global.countdown = true;
 global.crashtimer = 50;
 
 def_pos[0, 0] = 10;
-def_pos[0, 1] = room_height/2;
+def_pos[0, 1] = room_height/2 - 6;
 off_pos[0, 0] = 20;
 off_pos[0, 1] = room_height/2;
 
 def_pos[1, 0] = room_width - 10;
-def_pos[1, 1] = room_height/2;
+def_pos[1, 1] = room_height/2  - 6;
 off_pos[1, 0] = room_width - 20;
 off_pos[1, 1] = room_height/2;
 
@@ -150,6 +150,7 @@ if count &gt;= global.deathtimer
     }
     createOffense(off_pos[num, 0], off_pos[num, 1], num, global.playercolour[num]);
     createParticles(off_pos[num, 0], off_pos[num, 1], global.playercolour[num]);
+    audio_play_sound(sndRespawn, 1, false);
     count = 0;
 }
 if global.countdown == true

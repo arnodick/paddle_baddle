@@ -34,6 +34,9 @@ if !instance_exists(oScreen)
 text1position = 15;
 text2position = text1position + 15
 
+text1positionmenu = 5;
+text2positionmenu = text1positionmenu + 15
+
 angle = 0;
 rotatespeed = 1;
 angle_limit = 25;
@@ -44,6 +47,13 @@ extrasizelimit = 0.2;
 
 sound[0] = sndPaddull;
 sound[1] = sndBaddull;
+
+menu = false;
+
+button = 0;
+lastturn = 0;
+
+startgame = false;
 
 j = 0;
 
@@ -88,34 +98,67 @@ for (var i = 0; i &lt; gamepadCount; i++;)
           <argument>
             <kind>1</kind>
             <string>///Text Transform + Sound
-if angle &gt; angle_limit or angle &lt; -angle_limit
+if menu == false
 {
-    rotatespeed = -rotatespeed;
-}
-angle += rotatespeed;
-
-if extrasize &gt; extrasizelimit or extrasize &lt; -extrasizelimit
-{
-    extrasizespeed = -extrasizespeed;
-}
-extrasize += extrasizespeed;
-
-//Sound
-if !audio_is_playing(sound[0]) and !audio_is_playing(sound[1])
-{
-    audio_sound_pitch(sound[j], 1 /*0.9 + random(0.2) - 0.1*/);
-    audio_play_sound(sound[j], 1, false);
-    j += 1;
-    if j &gt; 1
+    if angle &gt; angle_limit or angle &lt; -angle_limit
     {
-        j = 0;
+        rotatespeed = -rotatespeed;
+    }
+    angle += rotatespeed;
+    
+    if extrasize &gt; extrasizelimit or extrasize &lt; -extrasizelimit
+    {
+        extrasizespeed = -extrasizespeed;
+    }
+    extrasize += extrasizespeed;
+    
+    //Sound
+    if !audio_is_playing(sound[0]) and !audio_is_playing(sound[1])
+    {
+        audio_sound_pitch(sound[j], 1 /*0.9 + random(0.2) - 0.1*/);
+        audio_play_sound(sound[j], 1, false);
+        j += 1;
+        if j &gt; 1
+        {
+            j = 0;
+        }
+    }
+    
+    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
+    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
+    {
+        menu = true;
     }
 }
-
-if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
-or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
+else if menu == true
 {
-    room_goto(rRink);
+    angle  = 0;
+    
+    if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0
+    {
+        button += 1;
+        audio_play_sound(sndSelect, 1, false);
+        if button &gt; 1
+        {
+            button = 0;
+        }
+    }
+    
+    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
+    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
+    {
+        audio_play_sound(sndBounce, 1, false);
+        startgame = true;
+    }
+    
+}
+lastturn = gamepad_axis_value(0, gp_axislv);
+if startgame == true
+{
+    if !audio_is_playing(sndBounce)
+    {
+        room_goto(rRink);
+    }
 }
 </string>
           </argument>
@@ -145,15 +188,40 @@ surface_set_target(global.screen);
     draw_set_halign(fa_center);
     //draw_text_colour(room_width/2, 10, "PADDLE", c_red, c_red, c_red, c_red, 1);
     //draw_text_colour(room_width/2, 20, "BADDLE", c_blue, c_blue, c_blue, c_blue, 1);
-    if !audio_is_playing(sound[1])
+    if menu == false
     {
-        draw_set_colour(c_maroon);
-        draw_text_transformed(room_width/2, text1position, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        if !audio_is_playing(sound[1])
+        {
+            draw_set_colour(c_maroon);
+            draw_text_transformed(room_width/2, text1position, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        }
+        else
+        {
+            draw_set_colour(c_blue);
+            draw_text_transformed(room_width/2, text2position, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        }
     }
     else
     {
+        draw_set_colour(c_maroon);
+        draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_set_colour(c_white);
+        if button == 0
+        {
+            draw_text(room_width/2, text1position + 25, "Versus");
+            draw_set_alpha(0.2);
+            draw_text(room_width/2, text2position + 18, "Cool Mode");
+            draw_set_alpha(1);
+        }
+        else
+        {
+            draw_set_alpha(0.2);
+            draw_text(room_width/2, text1position + 25, "Versus");
+            draw_set_alpha(1);
+            draw_text(room_width/2, text2position + 18, "Cool Mode");
+        }
         draw_set_colour(c_blue);
-        draw_text_transformed(room_width/2, text2position, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
     }
     //draw_set_alpha(0.1);
     //draw_set_alpha(1);
