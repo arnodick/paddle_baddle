@@ -221,13 +221,24 @@ if collHor(defense)
 
 if collVer(defense)
 {
-    if round(vspeed) == 0
+    if point_in_rectangle(x, y, defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
     {
-        vspeed = defense.vspeed*2;
+        if defense.y &lt; y
+        {
+            y = defense.wall[3] + 1;
+        }
+        else
+        {
+            y = defense.wall[1] - 1;
+        }
     }
-    else
+    if defense.speed &gt; 0
     {
-        vspeed = -vspeed;
+        vspeed = defense.vspeed * 1.2;
+    }
+    else 
+    {
+        vspeed =  -vspeed;
     }
     controltimer = crashtimer;
     audio_play_sound(sndHurt, 1, false);
@@ -297,6 +308,12 @@ if controltimer &gt; 0
 else
 {
     control = true;
+}
+if y &gt; room_height or y &lt; 0
+{
+    createParticles(x, y, colour);
+    audio_play_sound(sndDeath, 1, false);
+    hp = 0;
 }
 if hp == 0
 {

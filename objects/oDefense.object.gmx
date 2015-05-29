@@ -35,15 +35,15 @@ length = 12;
 move_speed = 1.2;
 vspeed = 0;
 
-top = y;
-bottom = y + length;
+top = y - length/2;
+bottom = y + length/2;
 
 wall[0] = x - 1;
 wall[1] = top;
 wall[2] = x;
 wall[3] = bottom;
 
-anal_sticks[2, 4] = 0; // huhuhu, anal
+//anal_sticks[2, 4] = 0; // huhuhu, anal
 
 anal_stick[0, 0] = gp_axislh;
 anal_stick[0, 1] = gp_axislv;
@@ -90,8 +90,8 @@ key_control[1, 3] = vk_down;
 
 colour = oGame.base_colour;
 
-top = y;
-bottom = y + length;
+top = y - length/2;
+bottom = y + length/2;
 
 wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shot (width of paddle wall = 0)
 wall[1] = top;
