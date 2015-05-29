@@ -27,7 +27,18 @@
             <kind>1</kind>
             <string>///Variables
 
+def_pos[0, 0] = 10;
+def_pos[0, 1] = room_height/2;
+off_pos[0, 0] = 20;
+off_pos[0, 1] = room_height/2;
+
+def_pos[1, 0] = room_width - 10;
+def_pos[1, 1] = room_height/2;
+off_pos[1, 0] = room_width - 20;
+off_pos[1, 1] = room_height/2;
+
 global.wall_thickness = 10;
+
 left_wall[0] = 0 - global.wall_thickness;
 left_wall[1] = 0 - global.wall_thickness;
 right_wall[0] = room_width;
@@ -73,19 +84,13 @@ for (var i = 0; i &lt; gamepadCount; i++;)
             <kind>1</kind>
             <string>///Instances
 instance_create(0, 0, oScreen);
-global.player1 = instance_create(0, 0, oPlayer);
 
-global.player1.def_pos[0] = 10;
-global.player1.def_pos[1] = room_height/2;
-global.player1.off_pos[0] = 20;
-global.player1.off_pos[1] = room_height/2;
+global.player[0] = instance_create(0, 0, oPlayer);
+global.player[1] = instance_create(0, 0, oPlayer);
 
-global.player1.points = 0;
-global.player1.player_num = 0;
+createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
+createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
 
-global.player1.colour = c_maroon;
-
-//instance_create(0, 0, oPlayer);
 createSidewall(left_wall[0], left_wall[1], 0);
 createSidewall(right_wall[0], right_wall[1], 1);
 
@@ -98,30 +103,6 @@ global.top_wall[0] = 0;
 global.top_wall[1] = -global.wall_thickness;
 global.top_wall[2] = room_width;
 global.top_wall[3] = 0;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>player1points = string(global.player1.points);
-//player2points = string(oPlayer.points);
 </string>
           </argument>
         </arguments>
@@ -147,7 +128,8 @@ global.top_wall[3] = 0;
             <string>///Score
 surface_set_target(global.screen);
     draw_set_font(fontScore);
-    draw_text(room_width/2, global.wall_thickness, player1points);
+    draw_text(0 + 5, global.wall_thickness, string(global.player[0].points));
+    draw_text(room_width - 10, global.wall_thickness, string(global.player[1].points));
 surface_reset_target();
 </string>
           </argument>

@@ -26,37 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-def_pos[0] = room_width - 10;
-def_pos[1] = room_height/2;
-off_pos[0] = room_width - 20;
-off_pos[1] = room_height/2;
-
 points = 0;
 player_num = 1;
 
 colour = c_blue;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Instances
-createPaddles(def_pos[0], def_pos[1], off_pos[0], off_pos[1], player_num, colour);
 </string>
           </argument>
         </arguments>

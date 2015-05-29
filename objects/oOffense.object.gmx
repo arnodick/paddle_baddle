@@ -27,9 +27,8 @@
             <kind>1</kind>
             <string>///Variables
 player_num = 0;
-player_num_str = "0";
 
-colur = c_maroon;
+colur = c_white;
 
 length = 0;
 
@@ -141,9 +140,9 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     else
     {
         speed = 0;
-        x = global.player1.off_pos[0];
-        y = global.player1.off_pos[1];
-        oPlayer1.points += 1;
+        x = oGame.off_pos[player_num, 0];
+        y = oGame.off_pos[player_num, 1];
+        global.player[player_num].points += 1;
     }
 }
 </string>
