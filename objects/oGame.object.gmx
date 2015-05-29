@@ -92,10 +92,6 @@ if !instance_exists(oScreen)
 {
     instance_create(0, 0, oScreen);
 }
-if !instance_exists(oMenu)
-{
-    instance_create(0, 0, oMenu);
-}
 
 //global.player[0] = instance_create(0, 0, oPlayer);
 //global.player[1] = instance_create(0, 0, oPlayer);
@@ -175,6 +171,10 @@ if global.countdown == true
 if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
 {
     global.gameover = true;
+    if !instance_exists(oMenu)
+    {
+        instance_create(0, 0, oMenu);
+    }
     var i;
     for (i = 0; i &lt; 2; i++)
     {

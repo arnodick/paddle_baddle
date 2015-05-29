@@ -28,9 +28,11 @@
             <string>///Variables
 player_num = 0;
 
-colur = c_white;
+colour = c_white;
 
 length = 0;
+
+hp = 1;
 
 debug = "no";
 
@@ -47,10 +49,10 @@ if global.coolmode == true
     slap_length = 0;
 }
 
-last_length = 0;
+last_length = 1;
 
-coll_vert[2] = 0;
-coll_horz[2] = 0;
+coll_vert[4] = 0;
+coll_horz[4] = 0;
 
 bouncetimer = 25;
 controltimer = 0;
@@ -133,6 +135,8 @@ if (global.gamepads[player_num] == true)
 
 coll_vert[0] = ceil(x);
 coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
+coll_vert[2] = floor(x);
+coll_vert[3] = floor(y + lengthdir_y(speed, direction));
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
@@ -157,6 +161,8 @@ else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.
 
 coll_horz[0] = ceil(x + lengthdir_x(speed, direction));
 coll_horz[1] = ceil(y);
+coll_horz[2] = floor(x + lengthdir_x(speed, direction));
+coll_horz[3] = floor(y);
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
@@ -211,17 +217,25 @@ if
 // This code causes a bug: when this instance kills the enemy, the "offense.x" variables get set so that this instance's collision point is always in the given rectangle. (Why is this rectangle so big?)
 point_in_rectangle(coll_horz[0], coll_horz[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+or point_in_rectangle(coll_horz[2], coll_horz[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+or point_in_rectangle(coll_vert[2], coll_vert[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+//point_in_rectangle(offense.x, offense.y, ceil(x), ceil(y), ceil( ), ceil(offense.y))
+//or point_in_rectangle(offense.x, offense.y, ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 )
 and
-control == false
+offense.control == false
 and
 // This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
 instance_number(oOffense) == 2
 {
-    createParticles(x, y, c_white);
+    createParticles(offense.x, offense.y, global.colour);
     audio_play_sound(sndDeath, 1, false);
-    instance_destroy();
+    offense.hp = 0;
     //resetOffense();
+}
+if hp == 0
+{
+    instance_destroy();
 }
 </string>
           </argument>
@@ -264,7 +278,6 @@ surface_set_target(global.screen);
         draw_set_blend_mode( bm_add );
         draw_line_colour(x, y - 1, x - lengthdir_x(speed*5, direction), y - 1 -lengthdir_y(speed*5, direction), colour, c_black);
         //draw_point(x - lengthdir_x(speed, direction), y - 1 - lengthdir_y(speed, direction));
-        draw_set_blend_mode( bm_normal );
     }
     
     if control == false
@@ -273,8 +286,8 @@ surface_set_target(global.screen);
         //draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
         draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
         draw_roundrect_colour_ext(x + 1 - random_range(-controltimer, controltimer)/10, y - random_range(-controltimer, controltimer)/10, x + 1 + random_range(-controltimer, controltimer)/10, y + random_range(-controltimer, controltimer)/10, 1, 1, colour, c_black, false);
-        draw_set_blend_mode( bm_normal );
     }
+    draw_set_blend_mode( bm_normal );
     draw_set_alpha(1);
     /*
     if defense.x &lt; x

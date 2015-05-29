@@ -73,10 +73,12 @@ if global.gameover == true
         {
             audio_play_sound(sndBounce, 1, false);
             room_restart();
+            instance_destroy();
         }
         else
         {
             room_goto(rTitle);
+            instance_destroy();
         }
     }
     lastturn = gamepad_axis_value(0, gp_axislv);
@@ -105,8 +107,6 @@ if global.gameover == true
             <kind>1</kind>
             <string>///Menu
 surface_set_target(global.screen);
-if global.gameover == true
-{
     draw_text_colour(room_width/2, text_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, text_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
@@ -125,7 +125,6 @@ if global.gameover == true
         draw_set_alpha(1);
         draw_text(room_width/2, text_pos + text_line*4, "Exit");
     }
-}
 surface_reset_target();
 </string>
           </argument>
