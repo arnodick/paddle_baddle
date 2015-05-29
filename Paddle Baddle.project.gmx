@@ -14,6 +14,7 @@
     <script>scripts\screenEnd.gml</script>
     <script>scripts\createPaddles.gml</script>
     <script>scripts\createSidewall.gml</script>
+    <script>scripts\createPlayer.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>
@@ -21,8 +22,7 @@
   <objects name="objects">
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
-    <object>objects\oPlayer1</object>
-    <object>objects\oPlayer2</object>
+    <object>objects\oPlayer</object>
     <object>objects\oDefense</object>
     <object>objects\oOffense</object>
     <object>objects\oWall</object>
@@ -31,7 +31,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41957.2906146296</constant>
+    <constant name="GM_build_date">41957.272999919</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

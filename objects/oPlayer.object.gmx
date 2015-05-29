@@ -26,15 +26,15 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-defxpos = room_width - 10;
-defypos = room_height/2;
-offxpos = room_width - 20;
-offypos = room_height/2;
-
 points = 0;
-player_num = 1;
 
-colour = c_blue;
+player_num = 0;
+colour = c_white;
+
+paddle_pos[0] = 0;
+paddle_pos[1] = 0;
+paddle_pos[2] = 0;
+paddle_pos[3] = 0;
 </string>
           </argument>
         </arguments>
@@ -56,7 +56,7 @@ colour = c_blue;
           <argument>
             <kind>1</kind>
             <string>///Instances
-createPaddles(defxpos, defypos, offxpos, offypos, player_num, colour);
+createPaddles(paddle_pos[0], paddle_pos[1], paddle_pos[2], paddle_pos[3], player_num, colour);
 </string>
           </argument>
         </arguments>
