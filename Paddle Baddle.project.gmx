@@ -21,7 +21,6 @@
   <objects name="objects">
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
-    <object>objects\oPlayer</object>
     <object>objects\oDefense</object>
     <object>objects\oOffense</object>
     <object>objects\oWall</object>
@@ -30,7 +29,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41958.1759101505</constant>
+    <constant name="GM_build_date">41960.1722430093</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

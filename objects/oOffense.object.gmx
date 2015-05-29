@@ -47,6 +47,9 @@ last_length = 0;
 
 coll_vert[2] = 0;
 coll_horz[2] = 0;
+
+maxtimer = 50;
+controltimer = maxtimer;
 </string>
           </argument>
         </arguments>
@@ -73,7 +76,7 @@ coll_horz[2] = 0;
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
-    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed
+    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer &gt;= maxtimer
     {
         if last_length &lt; global.dead_zone
         {
@@ -119,6 +122,7 @@ or point_in_rectangle(coll_vert[0], coll_vert[1], global.top_wall[0], global.top
 or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle.defense_wall[1], paddle.defense_wall[2], paddle.defense_wall[3])
 {
     vspeed = -vspeed;
+    controltimer = 0;
 }
 
 coll_horz[0] = x + lengthdir_x(speed, direction);
@@ -129,6 +133,7 @@ or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top
 or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3])
 {
     hspeed = -hspeed;
+    controltimer = 0;
 }
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
@@ -136,15 +141,23 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     if player_num == sidewall.side
     {
         hspeed = -hspeed;
+        controltimer = 0;
     }
     else
     {
         speed = 0;
         x = oGame.off_pos[player_num, 0];
         y = oGame.off_pos[player_num, 1];
+        controltimer = maxtimer;
         global.playerpoints[player_num] += 1;
     }
 }
+
+if controltimer &lt; maxtimer
+{
+    controltimer += 1;
+}
+
 </string>
           </argument>
         </arguments>
