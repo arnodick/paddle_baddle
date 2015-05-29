@@ -74,6 +74,7 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
+    <script>scripts\menuCreate.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>
@@ -81,8 +82,8 @@
   <objects name="objects">
     <object>objects\oTitle</object>
     <object>objects\oScreen</object>
-    <object>objects\oOffense</object>
     <object>objects\oMenu</object>
+    <object>objects\oOffense</object>
     <object>objects\oDefense</object>
     <object>objects\oSidewall</object>
     <object>objects\oWall</object>

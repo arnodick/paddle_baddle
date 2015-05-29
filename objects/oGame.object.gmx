@@ -30,12 +30,12 @@
 playerpoints[0] = 0;
 playerpoints[1] = 0;
 
+playercolour[0] = c_maroon;
+playercolour[1] = c_blue;
+
 gameover = false;
 goal = false;
 winner = 0;
-
-playercolour[0] = c_maroon;
-playercolour[1] = c_blue;
 
 count = 0;
 deathtimer = 45;
@@ -81,8 +81,8 @@ bot_wall[1] = room_height;
 
 base_colour = c_white;
 hue = colour_get_hue(c_yellow);
-sat_min = 60;
-sat_max = 100;
+sat_min = 90;
+sat_max = 140;
 sat = sat_min;
 sat_inc = 4;
 base_alpha = 0.5;
@@ -199,29 +199,33 @@ if goal == true
 {
     with (oOffense) control = false;
     // Brings up the menu and sets a winner once 5 points are scored
-    if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
-    {
-        //with (oOffense) control = false;
-        gameover = true;
-        goal = false;
-        if !instance_exists(oMenu)
-        {
-            instance_create(0, 0, oMenu);
-        }
-        var i;
-        for (i = 0; i &lt; 2; i++)
-        {
-            if playerpoints[i] &gt;= 5
-            {
-                winner = i + 1;
-            }
-        }
-    }
     //global.coolmode = true;
     if !audio_is_playing(sndGoal)
     {
         goal = false;
-        countdown = true;
+        if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
+        {
+            //with (oOffense) control = false;
+            gameover = true;
+            goal = false;
+        
+            var i;
+            for (i = 0; i &lt; 2; i++)
+            {
+                if playerpoints[i] &gt;= 5
+                {
+                    winner = i + 1;
+                    if !instance_exists(oMenu)
+                    {
+                        menuCreate(playercolour[i]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            countdown = true;
+        }
     }
     else
     {
