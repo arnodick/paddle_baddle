@@ -29,19 +29,29 @@
 text_pos = room_height/2 - 20;
 text_line = 10;
 
+/*
+var file_length = 0, file = file_text_open_read(working_directory + "menu.txt");
+while (!file_text_eof(file))
+{
+    file_length += 1;
+}
+*/
+
 selection = 0;
 buttonamount = 2;
 button[buttonamount] = 1;
+button_text[buttonamount] = "A";
 selected_alpha = 1;
 unselected_alpha = 0.2;
 lastturn = 0;
 
-file = file_text_open_read(working_directory + "\Game_Data.txt");
-while (!file_text_eof(file))
-   {
-   file_text_readln(file);
-   }
-file_text_write_string(file, level_data);
+file = file_text_open_read(working_directory + "menu.txt");
+
+var i = 0;
+for (i = 0; i &lt; buttonamount; i += 1)
+{
+    button_text[i] = file_text_readln(file);
+}
 file_text_close(file);
 </string>
           </argument>
@@ -147,8 +157,8 @@ surface_set_target(global.screen);
     draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
     draw_set_colour(global.colour);
 
-    draw_text_colour(room_width/2, text_pos + text_line*3, "Rematch", global.colour, global.colour, global.colour, global.colour, button[0]);
-    draw_text_colour(room_width/2, text_pos + text_line*4, "Exit", global.colour, global.colour, global.colour, global.colour, button[1]);
+    draw_text_colour(room_width/2, text_pos + text_line*3, button_text[0], global.colour, global.colour, global.colour, global.colour, button[0]);
+    draw_text_colour(room_width/2, text_pos + text_line*4, button_text[1], global.colour, global.colour, global.colour, global.colour, button[1]);
 
 surface_reset_target();
 </string>
