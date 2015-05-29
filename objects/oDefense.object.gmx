@@ -54,6 +54,16 @@ anal_stick[1, 0] = gp_axisrh;
 anal_stick[1, 1] = gp_axisrv;
 anal_stick[1, 2] = gp_axislh;
 anal_stick[1, 3] = gp_axislv;
+
+key_control[0, 0] = ord('A');
+key_control[0, 1] = ord('D');
+key_control[0, 2] = ord('W');
+key_control[0, 3] = ord('S');
+
+key_control[1, 0] = vk_left;
+key_control[1, 1] = vk_right;
+key_control[1, 2] = vk_up;
+key_control[1, 3] = vk_down;
 </string>
           </argument>
         </arguments>
@@ -104,6 +114,21 @@ if (global.gamepads[player_num] == true)
         vspeed += -vspeed/8;
     }
     */
+    else
+    {
+        vspeed = 0;
+    }
+}
+else
+{
+    if keyboard_check(key_control[player_num, 2]) and top + speed &gt; 0 and oGame.gameover == false
+    {
+        vspeed = -move_speed;   
+    }
+    else if keyboard_check(key_control[player_num, 3]) and bottom + speed &lt; room_height  and oGame.gameover == false
+    {
+        vspeed = move_speed;   
+    }
     else
     {
         vspeed = 0;

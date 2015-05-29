@@ -59,6 +59,9 @@
     <script>scripts\screenInit.gml</script>
     <script>scripts\screenBegin.gml</script>
     <script>scripts\screenEnd.gml</script>
+    <script>scripts\keyArrowspressed.gml</script>
+    <script>scripts\keyArrowspress.gml</script>
+    <script>scripts\gamepadsInit.gml</script>
     <script>scripts\menuInit.gml</script>
     <script>scripts\menuSelect.gml</script>
     <script>scripts\menuConfirm.gml</script>
@@ -71,8 +74,6 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
-    <script>scripts\gamepadsInit.gml</script>
-    <script>scripts\keyArrowspressed.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>

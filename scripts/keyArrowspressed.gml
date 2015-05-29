@@ -1,4 +1,4 @@
-if ( keyboard_check(vk_left) or keyboard_check(vk_right) or keyboard_check(vk_up) or keyboard_check(vk_down) )
+if ( keyboard_check(argument0[player_num, 0]) or keyboard_check(argument0[player_num, 1]) or keyboard_check(argument0[player_num, 2]) or keyboard_check(argument0[player_num, 3]) )
 {
     return true;
 }

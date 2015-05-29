@@ -45,6 +45,9 @@ debug = "no";
 slow_speed = 1;
 slap_speed = 2.5;
 decel = 40;
+slap_ready = false;
+slap_timer = 0;
+
 
 //slap_timer = 0;
 //start_slap_timer = false;
@@ -56,6 +59,7 @@ if global.coolmode == true
 }
 
 last_length = 1;
+second_last_length = 0;
 
 coll_vert[4] = 0;
 coll_horz[4] = 0;
@@ -70,7 +74,7 @@ horwall = 0;
 rinkside = 0;
 offense = 0;
 
-anal_sticks[2, 4] = 0; // huhuhu, anal
+//anal_sticks[2, 4] = 0; // huhuhu, anal
 
 anal_stick[0, 0] = gp_axislh;
 anal_stick[0, 1] = gp_axislv;
@@ -81,6 +85,16 @@ anal_stick[1, 0] = gp_axisrh;
 anal_stick[1, 1] = gp_axisrv;
 anal_stick[1, 2] = gp_axislh;
 anal_stick[1, 3] = gp_axislv;
+
+key_control[0, 0] = ord('F');
+key_control[0, 1] = ord('H');
+key_control[0, 2] = ord('T');
+key_control[0, 3] = ord('G');
+
+key_control[1, 0] = ord('J');
+key_control[1, 1] = ord('L');
+key_control[1, 2] = ord('I');
+key_control[1, 3] = ord('K');
 </string>
           </argument>
         </arguments>
@@ -120,24 +134,10 @@ if (global.gamepads[player_num] == true)
         speed = length * length_max;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side)// or global.coolmode == true //and x!= (room_width/2) - 1
         {
-            //if slap_timer &lt; slap_timer_threshhold
-            //{
-                if length &gt;= slap_length
-                {
-                    speed = slap_speed;
-                    //slap_timer = 0;
-                }
-                /*
-                else
-                {
-                    slap_timer += 1;
-                }
-            }
-            else
+            if length &gt;= slap_length
             {
-                slap_timer = 0;
+                speed = slap_speed;
             }
-            */
         }
     }
     else
@@ -149,29 +149,56 @@ if (global.gamepads[player_num] == true)
 }
 else
 {
-    if keyArrowspressed() == true and speed &lt; slow_speed and control == true
+    if keyArrowspressed(key_control) == true and speed &lt; slow_speed and control == true
     {
         length = length_max;
-        if keyboard_check (vk_left)
+        if keyboard_check (key_control[player_num, 0]) 
             {hor = -1;}
-        else if keyboard_check (vk_right)
+        else if keyboard_check (key_control[player_num, 1])
             {hor = 1;}
         else
             {hor = 0;}
-        if keyboard_check (vk_up)
+        if keyboard_check (key_control[player_num, 2])
             {ver = -1;}
-        else if keyboard_check (vk_down)
+        else if keyboard_check (key_control[player_num, 3])
             {ver = 1;}
         else
-            {ver = 0;} 
+            {ver = 0;}
         direction = point_direction( 0, 0, hor, ver );
         speed = length;
+        if slap_ready == true 
+        {
+            if slap_timer &lt; 5
+            {
+                slap_timer += 1;
+                if player_num == rinkside.player_side
+                {
+                    if keyArrowspress(key_control) == true
+                    {
+                        speed = slap_speed;
+                        slap_ready = false;
+                        slap_timer = 0;
+                    }
+                }
+            }
+            else 
+            {
+                slap_ready = false;
+                slap_timer = 0;
+            }
+        }
+        else if keyArrowspress(key_control) == true
+        {
+            slap_ready = true;
+        }
     }
     else
     {
         length = 0;
         speed -= speed/decel;
     }
+    second_last_length = last_length;
+    last_length = length;
 }
 
 coll_vert[0] = ceil(x);
