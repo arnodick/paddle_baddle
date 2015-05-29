@@ -63,6 +63,7 @@
     <script>scripts\keyArrowspress.gml</script>
     <script>scripts\gamepadsInit.gml</script>
     <script>scripts\menuInit.gml</script>
+    <script>scripts\menuCreate.gml</script>
     <script>scripts\menuSelect.gml</script>
     <script>scripts\menuConfirm.gml</script>
     <script>scripts\menuButtons.gml</script>
@@ -74,7 +75,6 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
-    <script>scripts\menuCreate.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>

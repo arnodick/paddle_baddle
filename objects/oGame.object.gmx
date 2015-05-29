@@ -78,10 +78,10 @@ bot_wall[1] = room_height;
 
 base_colour = c_white;
 hue = colour_get_hue(c_yellow);
-sat_min = 90;
-sat_max = 140;
+sat_min = 100;
+sat_max = 200;
 sat = sat_min;
-sat_inc = 4;
+sat_inc = 20;
 base_alpha = 0.5;
 </string>
           </argument>

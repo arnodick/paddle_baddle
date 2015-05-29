@@ -273,16 +273,6 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     }
 }
 
-if controltimer &gt; 0
-{
-    control = false;
-    controltimer -= 1;
-}
-else
-{
-    control = true;
-}
-
 if
 (
 // This code causes a bug: when this instance kills the enemy, the "offense.x" variables get set so that this instance's collision point is always in the given rectangle. (Why is this rectangle so big?)
@@ -305,6 +295,15 @@ or point_in_rectangle(coll_vert[2], coll_vert[3], ceil(offense.x), ceil(offense.
             //resetOffense();
         }
     }
+}
+if controltimer &gt; 0
+{
+    control = false;
+    controltimer -= 1;
+}
+else
+{
+    control = true;
 }
 if hp == 0
 {

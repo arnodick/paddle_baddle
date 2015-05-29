@@ -27,6 +27,9 @@
             <kind>1</kind>
             <string>///Variables
 
+colour = c_yellow;
+colour2 = c_orange;
+
 title_pos = room_height/2 - 20; // the y position of the title
 
 restartgame = false;
@@ -111,9 +114,9 @@ if restartgame == true
             <string>///Menu
 //winner title stuff
 //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
-draw_text_colour(room_width/2, title_pos, "PLAYER " + string(oGame.winner), colour, colour, colour, colour, 1);
-draw_text_colour(room_width/2, title_pos + text_line, "HAS BECOME", colour, colour, colour, colour, 1);
-draw_text_colour(room_width/2, title_pos + text_line*2, "THE WINNER", colour, colour, colour, colour, 1);
+draw_text_colour(room_width/2, title_pos,               "PLAYER " + string(oGame.winner),   colour, colour, colour2, colour2, 1);
+draw_text_colour(room_width/2, title_pos + text_line,   "HAS BECOME",                       colour, colour, colour2, colour2, 1);
+draw_text_colour(room_width/2, title_pos + text_line*2, "THE WINNER",                       colour, colour, colour2, colour2, 1);
 
 menuButtons(menu_pos, text_line, oGame.base_colour);
 </string>
