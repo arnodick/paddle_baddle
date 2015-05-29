@@ -48,6 +48,10 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
+    <script>scripts\menuSelect.gml</script>
+    <script>scripts\menuConfirm.gml</script>
+    <script>scripts\textfileLength.gml</script>
+    <script>scripts\textfileReadlines.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>

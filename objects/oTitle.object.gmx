@@ -61,10 +61,10 @@ global.coolmode = false;
 
 j = 0;
 
-gamepadCount = gamepad_get_device_count();
-global.gamepads[gamepadCount] = false;
+global.gamepadCount = gamepad_get_device_count();
+global.gamepads[global.gamepadCount] = false;
 global.dead_zone = 0.35;
-for (var i = 0; i &lt; gamepadCount; i++;)
+for (var i = 0; i &lt; global.gamepadCount; i++;)
 {
     if gamepad_is_connected(i)
     {
