@@ -57,9 +57,10 @@ startgame = false;
 global.coolmode = false;
 secret = false;
 
+gamepadsInit();
+
 global.reverse[2] = false;
 
-gamepadsInit();
 menuInit(working_directory + "title.txt", text1position + 25, 8);
 </string>
           </argument>
