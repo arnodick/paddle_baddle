@@ -116,8 +116,13 @@ if (global.gamepads[player_num] == true)
             <kind>1</kind>
             <string>///Images
 surface_set_target(global.screen);
+    if global.gameover == true
+    {
+        draw_set_alpha(0.2);
+    }
     draw_set_colour(global.colour);
     draw_line(x, top - 1, x, bottom - 1);
+    draw_set_alpha(1);
 surface_reset_target();
 </string>
           </argument>

@@ -171,7 +171,6 @@ if global.countdown == true
 if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
 {
     global.gameover = true;
-    global.colour = merge_color(global.colour, c_gray, 0.2);
     if !instance_exists(oMenu)
     {
         instance_create(0, 0, oMenu);
@@ -223,6 +222,10 @@ else
             <string>///Score
 surface_set_target(global.screen);
 
+    if global.gameover == true
+    {
+        draw_set_alpha(0.2);
+    }
     draw_set_font(fontScore);
     draw_set_halign(fa_center);
     draw_set_circle_precision(4);
