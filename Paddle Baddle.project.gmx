@@ -81,14 +81,14 @@
   <objects name="objects">
     <object>objects\oTitle</object>
     <object>objects\oScreen</object>
-    <object>objects\oGame</object>
+    <object>objects\oOffense</object>
     <object>objects\oMenu</object>
     <object>objects\oDefense</object>
-    <object>objects\oOffense</object>
     <object>objects\oSidewall</object>
     <object>objects\oWall</object>
     <object>objects\oSide</object>
     <object>objects\oParticle</object>
+    <object>objects\oGame</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rTitle</room>

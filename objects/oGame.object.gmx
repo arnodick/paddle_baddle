@@ -80,7 +80,11 @@ bot_wall[0] = 0;
 bot_wall[1] = room_height;
 
 base_colour = c_white;
-hue = 0;
+hue = colour_get_hue(c_yellow);
+sat_min = 60;
+sat_max = 100;
+sat = sat_min;
+sat_inc = 4;
 base_alpha = 0.5;
 </string>
           </argument>
@@ -152,8 +156,8 @@ createSide(def_pos[1, 0], def_pos[1, 1], 1);
 // Makes colours all crazy if cool mode was selected
 if global.coolmode == true
 {
-    base_colour = make_color_hsv(hue, 255, 255);
-    hue += 10;
+    base_colour = make_color_hsv(sat, 255, 255);
+    sat += 10;
 }
 else
 {
@@ -221,8 +225,12 @@ if goal == true
     }
     else
     {
-        base_colour = make_color_hsv(hue, 255, 255);
-        hue += 10;
+        base_colour = make_color_hsv(hue, 255, sat);
+        if sat &gt; sat_max or sat &lt; sat_min
+        {
+            sat_inc = -sat_inc;
+        }
+        sat += sat_inc;
     }
 }
 // Starts countdown when balls (huhuhu) are reset after goal (Only used for display of countodwn on screen?)
@@ -297,18 +305,20 @@ draw_set_font(fontScore);
 draw_set_halign(fa_center);
 draw_set_circle_precision(4);
 
-draw_text_colour(10, 2, string(playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
+draw_text_colour(10, 2, string(playerpoints[0]), c_red, c_red, c_red, c_red, base_alpha);
 draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_blue, c_blue, base_alpha);
 draw_set_alpha(0.1);
 draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, base_colour, base_colour);
 draw_set_alpha(1);
-if countdown == true
+
+if goal == true
+{
+    if gameover == false
+        {draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);}
+}
+else if countdown == true
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, countdowndisplay[countdownswitch], 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
-}
-if goal == true and gameover == false
-{
-    draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
 
 //draw_text(32, 32, "FPS = " + string(fps));
