@@ -30,6 +30,9 @@
 global.playerpoints[0] = 0;
 global.playerpoints[1] = 0;
 
+global.gameover = false;
+global.winner = 0;
+
 global.playercolour[0] = c_maroon;
 global.playercolour[1] = c_blue;
 
@@ -41,12 +44,12 @@ global.countdown = true;
 global.crashtimer = 50;
 
 def_pos[0, 0] = 10;
-def_pos[0, 1] = room_height/2;
+def_pos[0, 1] = room_height/2 - 6;
 off_pos[0, 0] = 20;
 off_pos[0, 1] = room_height/2;
 
 def_pos[1, 0] = room_width - 10;
-def_pos[1, 1] = room_height/2;
+def_pos[1, 1] = room_height/2  - 6;
 off_pos[1, 0] = room_width - 20;
 off_pos[1, 1] = room_height/2;
 
@@ -150,6 +153,7 @@ if count &gt;= global.deathtimer
     }
     createOffense(off_pos[num, 0], off_pos[num, 1], num, global.playercolour[num]);
     createParticles(off_pos[num, 0], off_pos[num, 1], global.playercolour[num]);
+    audio_play_sound(sndRespawn, 1, false);
     count = 0;
 }
 if global.countdown == true
@@ -161,6 +165,20 @@ if global.countdown == true
         countdowntimer = 0;
     }
 }
+
+if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
+{
+    global.gameover = true;
+    var i;
+    for (i = 0; i &lt; 2; i++)
+    {
+        if global.playerpoints[i] &gt;= 5
+        {
+            global.winner = i + 1;
+        }
+    }
+}
+
 </string>
           </argument>
         </arguments>
@@ -196,6 +214,12 @@ surface_set_target(global.screen);
     if countdowntimer &gt; 0
     {
         draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), c_white, c_white, c_white, c_white, 1);
+    }
+    if global.gameover == true
+    {
+        draw_text_colour(room_width/2, room_height/2 - 10, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
+        draw_text_colour(room_width/2, room_height/2, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
+        draw_text_colour(room_width/2, room_height/2 + 10, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
     }
 surface_reset_target();
 </string>
