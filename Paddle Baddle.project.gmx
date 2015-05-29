@@ -43,7 +43,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41964.1604515625</constant>
+    <constant name="GM_build_date">41963.6984547569</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
