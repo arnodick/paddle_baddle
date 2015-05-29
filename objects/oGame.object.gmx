@@ -81,6 +81,7 @@ bot_wall[1] = room_height;
 
 base_colour = c_white;
 hue = 0;
+base_alpha = 0.5;
 </string>
           </argument>
         </arguments>
@@ -281,7 +282,7 @@ if keyboard_check(vk_escape)
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>oGame</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -290,14 +291,14 @@ if keyboard_check(vk_escape)
             <string>///Score
 if gameover == true
 {
-    draw_set_alpha(0.2);
+    draw_set_alpha(base_alpha);
 }
 draw_set_font(fontScore);
 draw_set_halign(fa_center);
 draw_set_circle_precision(4);
 
 draw_text_colour(10, 2, string(playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
-draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
+draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_blue, c_blue, base_alpha);
 draw_set_alpha(0.1);
 draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, base_colour, base_colour);
 draw_set_alpha(1);
