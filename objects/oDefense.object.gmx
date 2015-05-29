@@ -93,7 +93,7 @@ colour = oGame.base_colour;
 top = y - length/2;
 bottom = y + length/2;
 
-wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shot (width of paddle wall = 0)
+wall[0] = x ; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shot (width of paddle wall = 0)
 wall[1] = top;
 wall[2] = x;
 wall[3] = bottom;

@@ -277,26 +277,12 @@ if collHor(sidewall)
 }
 
 if collHor(offense) or collVer(offense)
-/*
-(
-// This code causes a bug: when this instance kills the enemy, the "offense.x" variables get set so that this instance's collision point is always in the given rectangle. (Why is this rectangle so big?)
-point_in_rectangle(coll_horz[0], coll_horz[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-or point_in_rectangle(coll_horz[2], coll_horz[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-or point_in_rectangle(coll_vert[2], coll_vert[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-)
-*/
-
 {
     if instance_number(oOffense) == 2
     {
         if offense.control == false
         {
-            // This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
-            createParticles(offense.x, offense.y, offense.colour);
-            audio_play_sound(sndDeath, 1, false);
             offense.hp = 0;
-            //resetOffense();
         }
     }
 }
@@ -311,12 +297,12 @@ else
 }
 if y &gt; room_height or y &lt; 0
 {
-    createParticles(x, y, colour);
-    audio_play_sound(sndDeath, 1, false);
     hp = 0;
 }
 if hp == 0
 {
+    createParticles(x, y, colour);
+    audio_play_sound(sndDeath, 1, false);
     instance_destroy();
 }
 </string>
@@ -352,7 +338,7 @@ if oGame.gameover == true
     draw_set_alpha(0.2);
 }
 
-draw_point_colour(x, y - 1, colour);
+draw_point_colour(x, y, colour);
 
 if speed &gt; slow_speed + 0.1
 {

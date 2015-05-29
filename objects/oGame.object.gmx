@@ -54,13 +54,13 @@ countdowndisplay[2] = "2";
 countdowndisplay[1] = "1";
 countdowndisplay[0] = "GO!";
 
-def_pos[0, 0] = 10;
-def_pos[0, 1] = room_height/2 - 6;
+def_pos[0, 0] = 5;
+def_pos[0, 1] = room_height/2;
 off_pos[0, 0] = 20;
 off_pos[0, 1] = room_height/2;
 
-def_pos[1, 0] = room_width - 10;
-def_pos[1, 1] = room_height/2  - 6;
+def_pos[1, 0] = room_width - 5;
+def_pos[1, 1] = room_height/2;
 off_pos[1, 0] = room_width - 20;
 off_pos[1, 1] = room_height/2;
 
@@ -312,6 +312,9 @@ draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_
 draw_set_alpha(0.1);
 draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, base_colour, base_colour);
 draw_set_alpha(1);
+
+draw_line_width_colour(top_wall[0], top_wall[1], room_width, top_wall[1], 1, base_colour, base_colour);
+draw_line_width_colour(bot_wall[0], bot_wall[1] - 1, room_width, bot_wall[1] - 1, 1, base_colour, base_colour);
 
 if goal == true
 {
