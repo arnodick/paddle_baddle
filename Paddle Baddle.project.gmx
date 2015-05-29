@@ -14,7 +14,6 @@
     <script>scripts\screenEnd.gml</script>
     <script>scripts\createPaddles.gml</script>
     <script>scripts\createSidewall.gml</script>
-    <script>scripts\createPlayer.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>
@@ -31,7 +30,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41957.272999919</constant>
+    <constant name="GM_build_date">41957.290308044</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

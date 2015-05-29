@@ -26,15 +26,15 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
+def_pos[0] = 25;
+def_pos[1] = 0;
+off_pos[0] = 0;
+off_pos[1] = 0;
+
 points = 0;
-
 player_num = 0;
-colour = c_white;
 
-paddle_pos[0] = 0;
-paddle_pos[1] = 0;
-paddle_pos[2] = 0;
-paddle_pos[3] = 0;
+colour = c_white;
 </string>
           </argument>
         </arguments>
@@ -56,7 +56,7 @@ paddle_pos[3] = 0;
           <argument>
             <kind>1</kind>
             <string>///Instances
-createPaddles(paddle_pos[0], paddle_pos[1], paddle_pos[2], paddle_pos[3], player_num, colour);
+createPaddles(def_pos[0], def_pos[1], off_pos[0], off_pos[1], player_num, colour);
 </string>
           </argument>
         </arguments>
