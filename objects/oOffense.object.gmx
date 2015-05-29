@@ -48,8 +48,10 @@ last_length = 0;
 coll_vert[2] = 0;
 coll_horz[2] = 0;
 
-maxtimer = 50;
-controltimer = maxtimer;
+bouncetimer = 25;
+crashtimer = 50;
+controltimer = 0;
+control = true;
 </string>
           </argument>
         </arguments>
@@ -73,12 +75,17 @@ controltimer = maxtimer;
           <argument>
             <kind>1</kind>
             <string>///Controls
+
+defense = instance_nearest(x, y, oDefense);
+sidewall = instance_nearest(x, y, oSidewall);
+horwall = instance_nearest(x, y, oWall);
+
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
-    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer &gt;= maxtimer
+    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer == 0
     {
-        if last_length &lt; global.dead_zone
+        if last_length &lt; global.dead_zone and player_num == sidewall.side
         {
             start_slap_timer = true;
         }
@@ -111,29 +118,25 @@ if (global.gamepads[player_num] == true)
     debug = string(last_length);
 }
 
-defense = instance_nearest(x, y, oDefense);
-sidewall = instance_nearest(x, y, oSidewall);
-horwall = instance_nearest(x, y, oWall);
-
 coll_vert[0] = x ;
 coll_vert[1] = y + lengthdir_y(speed, direction);
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
     vspeed = -vspeed;
-    controltimer = 0;
+    controltimer = crashtimer;
 }
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3] + speed) and horwall.y &gt; y
 {
     vspeed = -vspeed;
-    controltimer = 0;    
+    controltimer = bouncetimer;    
 }
 
 else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1] - speed, horwall.wall[2], horwall.wall[3]) and horwall.y &lt; y
 {
     vspeed = -vspeed;
-    controltimer = 0;    
+    controltimer = bouncetimer;    
 }
 
 coll_horz[0] = x + lengthdir_x(speed, direction);
@@ -142,13 +145,13 @@ coll_horz[1] = y;
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
     hspeed = -hspeed;
-    controltimer = 0;    
+    controltimer = crashtimer;    
 }
 
 else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
 {
     hspeed = -hspeed;
-    controltimer = 0;    
+    controltimer = crashtimer;    
 }
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
@@ -156,23 +159,29 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     if player_num == sidewall.side
     {
         hspeed = -hspeed;
-        controltimer = 0;
+        controltimer = bouncetimer;
     }
+
     else
     {
         speed = 0;
         x = oGame.off_pos[player_num, 0];
         y = oGame.off_pos[player_num, 1];
-        controltimer = maxtimer;
+        controltimer = 0;
         global.playerpoints[player_num] += 1;
     }
+
 }
 
-if controltimer &lt; maxtimer
+if controltimer &gt; 0
 {
-    controltimer += 1;
+    control = false;
+    controltimer -= 1;
 }
-
+else
+{
+    control = true;
+}
 </string>
           </argument>
         </arguments>
@@ -204,6 +213,21 @@ surface_set_target(global.screen);
 */
     draw_set_colour(colour);
     draw_point(x, y - 1);
+    
+    if speed &gt; slow_speed
+    {
+        draw_set_blend_mode( bm_add );
+        draw_line_colour(x, y - 1, x - lengthdir_x(speed*5, direction), y - 1 -lengthdir_y(speed*5, direction), colour, c_black);
+        //draw_point(x - lengthdir_x(speed, direction), y - 1 - lengthdir_y(speed, direction));
+        draw_set_blend_mode( bm_normal );
+    }
+    
+    if control == false
+    {
+        draw_set_blend_mode( bm_add );
+        draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
+        draw_set_blend_mode( bm_normal );
+    }
     
     /*
     if defense.x &lt; x
