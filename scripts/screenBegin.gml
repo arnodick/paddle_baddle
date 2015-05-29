@@ -1,14 +1,14 @@
     // If the screen surface is destroyed (b/c of alt+enter for example) then:
     // Re-create the screen surface
-if !surface_exists(global.screen)
+if !surface_exists(screen)
 {
-    global.screen = surface_create(view_wview[0], view_hview[0]);
+    screen = surface_create(view_wview[0], view_hview[0]);
 }
 
     // If the screen surface does exist, then:
     // Clear the screen of last step's images, 
 
-    surface_set_target(global.screen);
+    surface_set_target(screen);
     // Removing draw_clear makes this into a painting game!
     draw_clear(0);
     //Don't know why any of this stuff was here
