@@ -66,6 +66,14 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
     {
     case 0: //Invert sticks? Y/N
         audio_play_sound(sndBounce, 1, false);
+        if global.reverse[1] = true
+        {
+            global.reverse[1] = false;
+        }
+        else
+        {
+            global.reverse[1] = true;
+        }
         break;
     case 1: //return to title
         room_goto(rTitle);
@@ -102,7 +110,7 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
             <string>///Menu
 //winner title stuff
 //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
-draw_text_colour(room_width/2, title_pos, "OPTIONS", colour, colour, colour2, colour2, 1);
+draw_text_colour(room_width/2, title_pos, "OPTION", colour, colour, colour2, colour2, 1);
 menuButtons(title_pos + 15, 10, colour);
 </string>
           </argument>

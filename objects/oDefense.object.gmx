@@ -28,6 +28,8 @@
             <string>///Variables
 player_num = 0;
 
+player_stick = false;
+
 colour = c_yellow;
 
 width = 1;
@@ -100,11 +102,11 @@ wall[3] = bottom;
 
 if (global.gamepads[player_num] == true)
 {
-    if gamepad_axis_value(player_num, anal_stick[player_num, 1]) &gt; 0 and bottom + speed &lt; room_height and oGame.gameover == false
+    if gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &gt; 0 and bottom + speed &lt; room_height and oGame.gameover == false
     {
         vspeed = move_speed;   
     }
-    else if (gamepad_axis_value(player_num, anal_stick[player_num, 1]) &lt; 0) and (top + speed &gt; 0) and oGame.gameover == false
+    else if (gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &lt; 0) and (top + speed &gt; 0) and oGame.gameover == false
     {
         vspeed = -move_speed;   
     }

@@ -28,6 +28,8 @@
             <string>///Variables
 player_num = 0;
 
+player_stick = false;
+
 wall[4] = 0;
 
 colour = c_white;
@@ -134,10 +136,10 @@ offense = instance_furthest(x, y, oOffense);
 
 if (global.gamepads[player_num] == true)
 {
-    length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]));
+    length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]));
     if (length != 0) and speed &lt; slow_speed and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
-        direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
+        direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]) );
         speed = length * length_max;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side)// or global.coolmode == true //and x!= (room_width/2) - 1
         {

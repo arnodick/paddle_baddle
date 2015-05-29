@@ -4,3 +4,8 @@ var off = instance_create(argument0, argument1, oOffense);
 off.player_num = argument2;
 off.colour = argument3;
 oGame.playerpoints[argument2] = 0;
+off.player_stick = global.reverse[argument2] + argument2;
+if off.player_stick > 1
+{
+    off.player_stick = 0;
+}
