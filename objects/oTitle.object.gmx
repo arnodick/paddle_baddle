@@ -45,8 +45,8 @@ rotatespeed = 1;
 angle_limit = 25;
 
 extrasize = 0;
-extrasizespeed = 0.01;
-extrasizelimit = 0.2;
+extrasizespeed = 0.02;
+extrasizelimit = 0.4;
 
 sound[0] = sndPaddull;
 sound[1] = sndBaddull;
@@ -201,14 +201,14 @@ surface_set_target(global.screen);
     else
     {
         draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + selection, text1positionmenu + selection, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2 + selection, text1positionmenu + selection, "PADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
         draw_set_colour(c_maroon);
-        draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
         
         draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + selection, text2positionmenu + selection, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2 + selection, text2positionmenu + selection, "BADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
         draw_set_colour(c_blue);
-        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
         
         menuButtons(menu_pos, text_line, colour);
     }
