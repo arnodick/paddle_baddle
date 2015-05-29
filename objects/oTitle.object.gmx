@@ -37,6 +37,16 @@ text2position = text1position + 15
 text1positionmenu = 5;
 text2positionmenu = text1positionmenu + 15
 
+text_line = 8;
+menu_pos = text1position + 25;
+
+var file = file_text_open_read(working_directory + "title.txt");
+menuInit(file);
+
+var file = file_text_open_read(working_directory + "title.txt");
+textfileReadlines(file);
+
+flip = 0;
 angle = 0;
 rotatespeed = 1;
 angle_limit = 25;
@@ -52,14 +62,8 @@ colour = c_white;
 hue = 0;
 
 menu = false;
-
-button = 0;
-lastturn = 0;
-
 startgame = false;
 global.coolmode = false;
-
-j = 0;
 
 global.gamepadCount = gamepad_get_device_count();
 global.gamepads[global.gamepadCount] = false;
@@ -119,12 +123,12 @@ if menu == false
     //Sound
     if !audio_is_playing(sound[0]) and !audio_is_playing(sound[1])
     {
-        audio_sound_pitch(sound[j], 1 /*0.9 + random(0.2) - 0.1*/);
-        audio_play_sound(sound[j], 1, false);
-        j += 1;
-        if j &gt; 1
+        audio_sound_pitch(sound[flip], 1 /*0.9 + random(0.2) - 0.1*/);
+        audio_play_sound(sound[flip], 1, false);
+        flip += 1;
+        if flip &gt; 1
         {
-            j = 0;
+            flip = 0;
         }
     }
     
@@ -137,18 +141,9 @@ if menu == false
 else if menu == true
 {
     angle  = 0;
-    
-    if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0
-    {
-        button += 1;
-        audio_play_sound(sndSelect, 1, false);
-        if button &gt; 1
-        {
-            button = 0;
-        }
-    }
-    
-    if button == 1
+
+    menuSelect();
+    if selection == 1
     {
         colour = make_color_hsv(hue, 255, 255);
         hue += 10;
@@ -158,19 +153,29 @@ else if menu == true
         colour = c_white;
     }
     
-    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
-    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
+    for (var j = 0; j &lt; global.gamepadCount; j += 1)
     {
-        if button == 1
+        if menuConfirm(j) == true
         {
-            global.coolmode = true;
+            switch (selection)
+            {
+                case 0:
+                    audio_play_sound(sndBounce, 1, false);
+                    startgame = true;
+                    break;
+                case 1:
+                    global.coolmode = true;
+                    audio_play_sound(sndBounce, 1, false);
+                    startgame = true;
+                    break;
+                default: 
+                    audio_play_sound(sndBounce, 1, false);
+                    startgame = true;
+                    break;
+            }
         }
-        audio_play_sound(sndBounce, 1, false);
-        startgame = true;
     }
-    
 }
-lastturn = gamepad_axis_value(0, gp_axislv);
 if startgame == true
 {
     if !audio_is_playing(sndBounce)
@@ -226,29 +231,19 @@ surface_set_target(global.screen);
     else
     {
         draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + button, text1positionmenu + button, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2 + selection, text1positionmenu + selection, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
         draw_set_colour(c_maroon);
         draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
         
         draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + button, text2positionmenu + button, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2 + selection, text2positionmenu + selection, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
         draw_set_colour(c_blue);
         draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
         draw_set_colour(colour);
-        if button == 0
+        
+        for (var j = 0; j &lt; buttonamount; j += 1)
         {
-            draw_text(room_width/2, text1position + 25, "Versus");
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text2position + 18, "Cool Mode");
-            draw_set_alpha(1);
-        }
-        else
-        {
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text1position + 25, "Versus");
-            draw_set_alpha(1);
-            
-            draw_text(room_width/2, text2position + 18, "Cool Mode");
+            draw_text_colour(room_width/2, menu_pos + text_line*(j), button_text[j], colour, colour, colour, colour, button_value[j]);
         }
     }
     //draw_set_alpha(0.1);
