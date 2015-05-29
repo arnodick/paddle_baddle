@@ -27,6 +27,9 @@
             <kind>1</kind>
             <string>///Variables
 
+global.playerpoints[0] = 0;
+global.playerpoints[1] = 0;
+
 def_pos[0, 0] = 10;
 def_pos[0, 1] = room_height/2;
 off_pos[0, 0] = 20;
@@ -85,8 +88,8 @@ for (var i = 0; i &lt; gamepadCount; i++;)
             <string>///Instances
 instance_create(0, 0, oScreen);
 
-global.player[0] = instance_create(0, 0, oPlayer);
-global.player[1] = instance_create(0, 0, oPlayer);
+//global.player[0] = instance_create(0, 0, oPlayer);
+//global.player[1] = instance_create(0, 0, oPlayer);
 
 createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
 createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
@@ -128,8 +131,8 @@ global.top_wall[3] = 0;
             <string>///Score
 surface_set_target(global.screen);
     draw_set_font(fontScore);
-    draw_text(0 + 5, global.wall_thickness, string(global.player[0].points));
-    draw_text(room_width - 10, global.wall_thickness, string(global.player[1].points));
+    draw_text(0 + 5, global.wall_thickness, string(global.playerpoints[0]));
+    draw_text(room_width - 10, global.wall_thickness, string(global.playerpoints[1]));
 surface_reset_target();
 </string>
           </argument>

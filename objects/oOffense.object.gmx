@@ -142,7 +142,7 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
         speed = 0;
         x = oGame.off_pos[player_num, 0];
         y = oGame.off_pos[player_num, 1];
-        global.player[player_num].points += 1;
+        global.playerpoints[player_num] += 1;
     }
 }
 </string>
