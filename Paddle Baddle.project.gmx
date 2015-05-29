@@ -13,9 +13,11 @@
     <script>scripts\screenBegin.gml</script>
     <script>scripts\screenEnd.gml</script>
     <script>scripts\createPaddles.gml</script>
+    <script>scripts\createOffense.gml</script>
     <script>scripts\createSidewall.gml</script>
     <script>scripts\createHorizontalwall.gml</script>
     <script>scripts\createSide.gml</script>
+    <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
   </scripts>
   <fonts name="fonts">
@@ -35,7 +37,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41962.2097824074</constant>
+    <constant name="GM_build_date">41962.7562026968</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

@@ -28,7 +28,7 @@
             <string>///Variables
 speed = random(0.2) + 0.3;
 direction = random(359);
-colour = c_white;
+colour = c_yellow;
 timer = 0;
 </string>
           </argument>

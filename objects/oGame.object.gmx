@@ -30,6 +30,10 @@
 global.playerpoints[0] = 0;
 global.playerpoints[1] = 0;
 
+global.playercolour[0] = c_maroon;
+global.playercolour[1] = c_blue;
+
+count = 0;
 global.deathtimer = 45;
 
 def_pos[0, 0] = 10;
@@ -98,10 +102,8 @@ instance_create(0, 0, oScreen);
 //global.player[0] = instance_create(0, 0, oPlayer);
 //global.player[1] = instance_create(0, 0, oPlayer);
 
-/*
 createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
 createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
-*/
 
 createSidewall(left_wall[0], left_wall[1], 0);
 createSidewall(right_wall[0], right_wall[1], 1);
@@ -133,10 +135,30 @@ createSide(def_pos[1, 0], def_pos[1, 1], 1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if instance_number(oOffense) == 0
+            <string>///Object Controller
+if instance_number(oOffense) == 0
 {
-    createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
-    createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
+    createOffense(off_pos[0, 0], off_pos[0, 1], 0, global.playercolour[0]);
+    createOffense(off_pos[1, 0], off_pos[1, 1], 1, global.playercolour[1]);
+}
+if instance_number(oOffense) == 1
+{
+    count += 1;
+}
+if count &gt;= global.deathtimer
+{
+    var opp = instance_nearest(x, y, oOffense);
+    if opp.player_num == 0
+    {
+        var num = 1;
+    }
+    else
+    {
+        var num = 0;
+    }
+    createOffense(off_pos[num, 0], off_pos[num, 1], num, global.playercolour[num]);
+    createParticles(off_pos[num, 0], off_pos[num, 1], global.playercolour[num]);
+    count = 0;
 }
 </string>
           </argument>

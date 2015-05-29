@@ -198,17 +198,19 @@ else
 
 if
 (
+// This code causes a bug: when this instance kills the enemy, the "offense.x" variables get set so that this instance's collision point is always in the given rectangle. (Why is this rectangle so big?)
 point_in_rectangle(coll_horz[0], coll_horz[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 )
 and
-(control == false)
+control == false
+and
+// This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
+instance_number(oOffense) == 2
 {
-    repeat (10)
-    {
-        instance_create(x, y, oParticle);
-    }
-    resetOffense();
+    createParticles(x, y, c_white);
+    instance_destroy();
+    //resetOffense();
 }
 </string>
           </argument>
