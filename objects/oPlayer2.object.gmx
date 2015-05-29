@@ -31,6 +31,8 @@ defypos = room_height/2;
 offxpos = room_width - 20;
 offypos = room_height/2;
 player_num = 1;
+
+colour = c_blue;
 </string>
           </argument>
         </arguments>
@@ -52,7 +54,7 @@ player_num = 1;
           <argument>
             <kind>1</kind>
             <string>///Instances
-createPaddles(defxpos, defypos, offxpos, offypos, player_num);
+createPaddles(defxpos, defypos, offxpos, offypos, player_num, colour);
 </string>
           </argument>
         </arguments>

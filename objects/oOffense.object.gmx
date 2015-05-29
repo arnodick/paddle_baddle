@@ -28,6 +28,8 @@
             <string>///Variables
 player_num = 0;
 
+colur = c_maroon;
+
 length = 0;
 
 debug = "no";
@@ -39,14 +41,13 @@ decel = 40;
 slap_timer = 0;
 start_slap_timer = false;
 slap_timer_threshhold = 1;
-slap_length = 0.85;
+slap_length = 0.8;
 
 last_length = 0;
 
-col_top[2] = 0;
-col_bot[2] = 0;
-col_lft[2] = 0;
-col_rgt[2] = 0;
+
+coll_vert[2] = 0;
+coll_horz[2] = 0;
 </string>
           </argument>
         </arguments>
@@ -70,14 +71,6 @@ col_rgt[2] = 0;
           <argument>
             <kind>1</kind>
             <string>///Controls
-if (player_num == 0)
-{
-    colour = c_maroon;
-}
-else
-{
-    colour = c_blue;
-}
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
@@ -116,15 +109,27 @@ if (global.gamepads[player_num] == true)
     debug = string(last_length);
 }
 
+paddle = instance_nearest(x, y, oDefense);
 
-col_bot[0] = x + lengthdir_x(speed, direction);
-col_bot[1] = y + lengthdir_y(speed, direction) + 1;
+coll_vert[0] = x ;
+coll_vert[1] = y + lengthdir_y(speed, direction);
 
-if point_in_rectangle(col_bot[0], col_bot[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3])
+if point_in_rectangle(coll_vert[0], coll_vert[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
+    or point_in_rectangle(coll_vert[0], coll_vert[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
+    or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle.defense_wall[1], paddle.defense_wall[2], paddle.defense_wall[3])
 {
     vspeed = -vspeed;
 }
 
+coll_horz[0] = x + lengthdir_x(speed, direction);
+coll_horz[1] = y;
+
+if point_in_rectangle(coll_horz[0], coll_horz[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
+    or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
+    or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3])
+{
+    hspeed = -hspeed;
+}
 </string>
           </argument>
         </arguments>
@@ -149,13 +154,25 @@ if point_in_rectangle(col_bot[0], col_bot[1], global.bottom_wall[0], global.bott
             <kind>1</kind>
             <string>///Images
 surface_set_target(global.screen);
+/*
+    draw_set_colour(c_white);
+    draw_point(coll_vert[0], coll_vert[1] - 1);
+    draw_point(coll_horz[0], coll_horz[1] - 1);
+*/
     draw_set_colour(colour);
-    draw_point(x, y);
+    draw_point(x, y - 1);
+    /*
     if (player_num == 1)
-{
-    draw_text(room_width/2, 10, debug);
+    {
+        draw_text(room_width/2, 10, debug);
     }
+    */
 surface_reset_target();
+
+coll_vert[0] = x ;
+coll_vert[1] = y + lengthdir_y(speed, direction);
+coll_horz[0] = x + lengthdir_x(speed, direction);
+coll_horz[1] = y;
 </string>
           </argument>
         </arguments>

@@ -36,6 +36,11 @@ vspeed = 0;
 
 top = y;
 bottom = y + length;
+
+defense_wall[0] = x;
+defense_wall[1] = top;
+defense_wall[2] = x + 1;
+defense_wall[3] = bottom;
 </string>
           </argument>
         </arguments>
@@ -61,6 +66,11 @@ bottom = y + length;
             <string>///Controls
 top = y;
 bottom = y + length;
+
+defense_wall[0] = x - 1; // this causes a big: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
+defense_wall[1] = top;
+defense_wall[2] = x;
+defense_wall[3] = bottom;
 
 if (global.gamepads[player_num] == true)
 {
@@ -106,7 +116,7 @@ if (global.gamepads[player_num] == true)
             <string>///Images
 surface_set_target(global.screen);
     draw_set_colour(colour);
-    draw_line(x, top, x, bottom);
+    draw_line(x, top - 1, x, bottom - 1);
 surface_reset_target();
 </string>
           </argument>
