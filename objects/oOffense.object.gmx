@@ -142,7 +142,14 @@ coll_vert[3] = floor(y + lengthdir_y(speed, direction));
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
-    vspeed = -vspeed;
+    if round(vspeed) == 0
+    {
+        vspeed = defense.vspeed*2;
+    }
+    else
+    {
+        vspeed = -vspeed;
+    }
     controltimer = global.crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
