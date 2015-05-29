@@ -59,7 +59,6 @@ if global.coolmode == true
 }
 
 last_length = 1;
-second_last_length = 0;
 
 coll_vert[4] = 0;
 coll_horz[4] = 0;
@@ -198,7 +197,6 @@ else
         length = 0;
         speed -= speed/decel;
     }
-    second_last_length = last_length;
     last_length = length;
 }
 
