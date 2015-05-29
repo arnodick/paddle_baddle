@@ -48,6 +48,9 @@ extrasizelimit = 0.2;
 sound[0] = sndPaddull;
 sound[1] = sndBaddull;
 
+colour = c_white;
+hue = 0;
+
 menu = false;
 
 button = 0;
@@ -144,6 +147,15 @@ else if menu == true
             button = 0;
         }
     }
+    if button == 1
+    {
+        colour = make_color_hsv(hue, 255, 255);
+        hue += 10;
+    }
+    else
+    {
+        colour = c_white;
+    }
     
     if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
     or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
@@ -212,9 +224,16 @@ surface_set_target(global.screen);
     }
     else
     {
+        draw_set_colour(colour);
+        draw_text_transformed(room_width/2 + button, text1positionmenu + button, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
         draw_set_colour(c_maroon);
         draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
-        draw_set_colour(c_white);
+        
+        draw_set_colour(colour);
+        draw_text_transformed(room_width/2 + button, text2positionmenu + button, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_set_colour(c_blue);
+        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_set_colour(colour);
         if button == 0
         {
             draw_text(room_width/2, text1position + 25, "Versus");
@@ -227,10 +246,9 @@ surface_set_target(global.screen);
             draw_set_alpha(0.2);
             draw_text(room_width/2, text1position + 25, "Versus");
             draw_set_alpha(1);
+            
             draw_text(room_width/2, text2position + 18, "Cool Mode");
         }
-        draw_set_colour(c_blue);
-        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
     }
     //draw_set_alpha(0.1);
     //draw_set_alpha(1);

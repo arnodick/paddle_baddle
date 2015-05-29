@@ -110,7 +110,7 @@ if global.gameover == true
     draw_text_colour(room_width/2, text_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, text_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
     draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
-    draw_set_colour(c_white);
+    draw_set_colour(global.colour);
     if button == 0
     {
         draw_text(room_width/2, text_pos + text_line*3, "Rematch");

@@ -28,7 +28,6 @@
             <string>///Variables
 player_num = 0;
 
-colour = c_white;
 width = 1;
 length = 12;
 move_speed = 1.5;
@@ -67,7 +66,7 @@ wall[3] = bottom;
 top = y;
 bottom = y + length;
 
-wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
+wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shot (width of paddle wall = 0)
 wall[1] = top;
 wall[2] = x;
 wall[3] = bottom;
@@ -121,7 +120,7 @@ surface_set_target(global.screen);
     {
         draw_set_alpha(0.2);
     }
-    draw_set_colour(colour);
+    draw_set_colour(global.colour);
     draw_line(x, top - 1, x, bottom - 1);
     draw_set_alpha(1);
 surface_reset_target();

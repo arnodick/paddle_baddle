@@ -97,7 +97,7 @@ if (global.gamepads[player_num] == true)
     if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer == 0 and global.gameover == false 
     {
         control = true;
-        if last_length &lt; global.dead_zone and player_num == rinkside.player_side //and x!= (room_width/2) - 1
+        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
             start_slap_timer = true;
         }

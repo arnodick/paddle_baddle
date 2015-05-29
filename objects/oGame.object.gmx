@@ -64,6 +64,9 @@ top_wall[0] = 0;
 top_wall[1] = 0;
 bot_wall[0] = 0;
 bot_wall[1] = room_height;
+
+global.colour = c_white;
+hue = 0;
 </string>
           </argument>
         </arguments>
@@ -185,6 +188,15 @@ if keyboard_check(vk_escape)
 {
     game_end();
 }
+if global.coolmode == true
+{
+    global.colour = make_color_hsv(hue, 255, 255);
+    hue += 10;
+}
+else
+{
+    colour = c_white;
+}
 </string>
           </argument>
         </arguments>
@@ -220,13 +232,13 @@ surface_set_target(global.screen);
     
     if countdowntimer &gt; 0
     {
-        draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), c_white, c_white, c_white, c_white, 1);
+        draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), global.colour, global.colour, global.colour, global.colour, 1);
     }
     
     draw_text_colour(10, 2, string(global.playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
     draw_text_colour(room_width - 10, 2, string(global.playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
     draw_set_alpha(0.1);
-    draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, c_white, c_white);
+    draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, global.colour, global.colour);
     draw_set_alpha(1);
 
 surface_reset_target();
