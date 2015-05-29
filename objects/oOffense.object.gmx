@@ -44,8 +44,8 @@ decel = 40;
 
 slap_timer = 0;
 start_slap_timer = false;
-slap_timer_threshhold = 1;
-slap_length = 0.55;
+slap_timer_threshhold = 3;
+slap_length = 0.9;
 if global.coolmode == true
 {
     slap_length = 0;
@@ -116,6 +116,10 @@ if (global.gamepads[player_num] == true)
         speed = length;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
+            slap = true;
+        }
+        if slap == true
+        {
             if slap_timer &lt; slap_timer_threshhold
             {
                 if length &gt; slap_length
@@ -131,6 +135,7 @@ if (global.gamepads[player_num] == true)
             else
             {
                 slap_timer = 0;
+                slap = false;
             }
         }
     }

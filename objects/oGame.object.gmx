@@ -41,14 +41,14 @@ count = 0;
 deathtimer = 45;
 
 countdown = true;
-countdurationinit = 0;
+//countdurationinit = 0;
 countdurationmax = 20;
-countduration = countdurationinit;
+countduration = countdurationmax;
 //countdowntimer = countdurationmax * 4;
-countdowninit = 4;
+countdowninit = 3;
 countdownswitch = countdowninit;
 
-countdowndisplay[4] = "3";
+//countdowndisplay[4] = "3";
 countdowndisplay[3] = "3";
 countdowndisplay[2] = "2";
 countdowndisplay[1] = "1";
@@ -229,31 +229,34 @@ if countdown == true
 {
     with (oOffense) control = false; //makes ball uncontrollable
     
-    if countduration == 0
+    if countduration &gt; 0
     {
-        countduration = countdurationmax;
-        countdownswitch -= 1;
-        switch (countdownswitch)
+        if countduration == countdurationmax
         {
-            case 3:
-            case 2:
-            case 1:
-                audio_play_sound(sndSelect, 2, false);
-                break;
-            case 0:
-                audio_play_sound(sndBounce, 2, false);
-                break;
+            switch (countdownswitch)
+            {
+                case 3:
+                case 2:
+                case 1:
+                    audio_play_sound(sndSelect, 2, false);
+                    break;
+                case 0:
+                    audio_play_sound(sndBounce, 2, false);
+                    break;
+            }
         }
+        countduration -= 1;
     }
     else
     {
-        countduration -= 1;
-    }
-    if countdownswitch &lt; 0
-    {
-        countdown = false;
-        countduration = countdurationinit;
-        countdownswitch = countdowninit;
+        countduration = countdurationmax;
+        countdownswitch -= 1;
+        if countdownswitch &lt; 0
+        {
+            countdown = false;
+            countduration = countdurationmax;
+            countdownswitch = countdowninit;
+        }
     }
 }
 
