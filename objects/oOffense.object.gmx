@@ -33,7 +33,7 @@ tail_length = 8;
 tail_width = 2;
 
 length = 0;
-length_max = 0.8
+length_max = 0.9
 
 hor = 0;
 ver = 0;
@@ -65,6 +65,7 @@ coll_vert[4] = 0;
 coll_horz[4] = 0;
 
 bouncetimer = 25;
+crashtimer = 70;
 controltimer = 0;
 control = true;
 
@@ -216,7 +217,7 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[
     {
         vspeed = -vspeed;
     }
-    controltimer = oGame.crashtimer;
+    controltimer = crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 
@@ -242,14 +243,14 @@ coll_horz[3] = floor(y);
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
     hspeed = -hspeed;
-    controltimer = oGame.crashtimer;
+    controltimer = crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 
 else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
 {
     hspeed = -hspeed;
-    controltimer = oGame.crashtimer;
+    controltimer = crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 

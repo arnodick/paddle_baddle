@@ -54,9 +54,6 @@ countdowndisplay[2] = "2";
 countdowndisplay[1] = "1";
 countdowndisplay[0] = "GO!";
 
-crashtimer = 50;
-
-
 def_pos[0, 0] = 10;
 def_pos[0, 1] = room_height/2 - 6;
 off_pos[0, 0] = 20;
