@@ -134,21 +134,18 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[
 {
     vspeed = -vspeed;
     controltimer = global.crashtimer;
-    audio_play_sound(sndHurt, 1, false);
 }
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3] + speed) and horwall.y &gt; y
 {
     vspeed = -vspeed;
-    controltimer = bouncetimer;
-    audio_play_sound(sndSelect, 1, false);
+    controltimer = bouncetimer;    
 }
 
 else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1] - speed, horwall.wall[2], horwall.wall[3]) and horwall.y &lt; y
 {
     vspeed = -vspeed;
     controltimer = bouncetimer;    
-    audio_play_sound(sndSelect, 1, false);
 }
 
 coll_horz[0] = ceil(x + lengthdir_x(speed, direction));
@@ -157,15 +154,13 @@ coll_horz[1] = ceil(y);
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
     hspeed = -hspeed;
-    controltimer = global.crashtimer;
-    audio_play_sound(sndHurt, 1, false);
+    controltimer = global.crashtimer;    
 }
 
 else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
 {
     hspeed = -hspeed;
-    controltimer = global.crashtimer;
-    audio_play_sound(sndHurt, 1, false);
+    controltimer = global.crashtimer;    
 }
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
@@ -174,12 +169,10 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     {
         hspeed = -hspeed;
         controltimer = bouncetimer;
-        audio_play_sound(sndSelect, 1, false);
     }
 
     else
     {
-        audio_play_sound(sndGoal, 1, false);
         resetOffense();
         global.playerpoints[player_num] += 1;
         /*
@@ -215,7 +208,6 @@ and
 instance_number(oOffense) == 2
 {
     createParticles(x, y, c_white);
-    audio_play_sound(sndDeath, 1, false);
     instance_destroy();
     //resetOffense();
 }
@@ -296,8 +288,5 @@ surface_reset_target();
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints>
-    <point>0,0</point>
-    <point>16,16</point>
-  </PhysicsShapePoints>
+  <PhysicsShapePoints/>
 </object>

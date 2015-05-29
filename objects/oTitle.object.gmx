@@ -50,11 +50,6 @@ sound[1] = sndBaddull;
 
 menu = false;
 
-button = 0;
-lastturn = 0;
-
-startgame = false;
-
 j = 0;
 
 gamepadCount = gamepad_get_device_count();
@@ -134,28 +129,8 @@ else if menu == true
 {
     angle  = 0;
     
-    if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0
-    {
-        button += 1;
-        audio_play_sound(sndSelect, 1, false);
-        if button &gt; 1
-        {
-            button = 0;
-        }
-    }
-    
     if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
     or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
-    {
-        audio_play_sound(sndBounce, 1, false);
-        startgame = true;
-    }
-    
-}
-lastturn = gamepad_axis_value(0, gp_axislv);
-if startgame == true
-{
-    if !audio_is_playing(sndBounce)
     {
         room_goto(rRink);
     }
@@ -205,23 +180,11 @@ surface_set_target(global.screen);
     {
         draw_set_colour(c_maroon);
         draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
-        draw_set_colour(c_white);
-        if button == 0
-        {
-            draw_text(room_width/2, text1position + 25, "Versus");
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text2position + 18, "Cool Mode");
-            draw_set_alpha(1);
-        }
-        else
-        {
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text1position + 25, "Versus");
-            draw_set_alpha(1);
-            draw_text(room_width/2, text2position + 18, "Cool Mode");
-        }
+        draw_text_transformed(room_width/2, text1position + 20, "Versus", 0.8, 0.8, 0);
+
         draw_set_colour(c_blue);
         draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
+        draw_text_transformed(room_width/2, text2position + 20, "Cool Mode", 0.8, 0.8, 0);
     }
     //draw_set_alpha(0.1);
     //draw_set_alpha(1);
