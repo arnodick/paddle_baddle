@@ -52,6 +52,12 @@ bouncetimer = 25;
 crashtimer = 50;
 controltimer = 0;
 control = true;
+
+defense = 0;
+sidewall = 0;
+horwall = 0;
+rinkside = 0;
+offense = 0;
 </string>
           </argument>
         </arguments>
@@ -80,12 +86,14 @@ defense = instance_nearest(x, y, oDefense);
 sidewall = instance_nearest(x, y, oSidewall);
 horwall = instance_nearest(x, y, oWall);
 rinkside = instance_nearest(x, y, oSide);
+offense = instance_furthest(x, y, oOffense);
 
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
     if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer == 0
     {
+        control = true;
         if last_length &lt; global.dead_zone and player_num == rinkside.player_side //and x!= (room_width/2) - 1
         {
             start_slap_timer = true;
@@ -113,14 +121,15 @@ if (global.gamepads[player_num] == true)
     }
     else
     {
+        control = false;
         speed -= speed/decel;
     }
     last_length = length;
     debug = string(last_length);
 }
 
-coll_vert[0] = x ;
-coll_vert[1] = y + lengthdir_y(speed, direction);
+coll_vert[0] = ceil(x);
+coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
 
 if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
@@ -140,8 +149,8 @@ else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.
     controltimer = bouncetimer;    
 }
 
-coll_horz[0] = x + lengthdir_x(speed, direction);
-coll_horz[1] = y;
+coll_horz[0] = ceil(x + lengthdir_x(speed, direction));
+coll_horz[1] = ceil(y);
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
@@ -165,11 +174,15 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
 
     else
     {
+        resetOffense();
+        global.playerpoints[player_num] += 1;
+        /*
         speed = 0;
         x = oGame.off_pos[player_num, 0];
         y = oGame.off_pos[player_num, 1];
         controltimer = 0;
-        global.playerpoints[player_num] += 1;
+        */
+        
     }
 }
 
@@ -181,6 +194,21 @@ if controltimer &gt; 0
 else
 {
     control = true;
+}
+
+if
+(
+point_in_rectangle(coll_horz[0], coll_horz[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+)
+and
+(control == false)
+{
+    repeat (10)
+    {
+        instance_create(x, y, oParticle);
+    }
+    resetOffense();
 }
 </string>
           </argument>
@@ -214,7 +242,7 @@ surface_set_target(global.screen);
     draw_set_colour(colour);
     draw_point(x, y - 1);
     
-    if speed &gt; slow_speed
+    if speed &gt; slow_speed + 0.1
     {
         draw_set_blend_mode( bm_add );
         draw_line_colour(x, y - 1, x - lengthdir_x(speed*5, direction), y - 1 -lengthdir_y(speed*5, direction), colour, c_black);

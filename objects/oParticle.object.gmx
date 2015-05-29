@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>1000</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -26,56 +26,16 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-
-global.playerpoints[0] = 0;
-global.playerpoints[1] = 0;
-
-global.deathtimer = 45;
-
-def_pos[0, 0] = 10;
-def_pos[0, 1] = room_height/2;
-off_pos[0, 0] = 20;
-off_pos[0, 1] = room_height/2;
-
-def_pos[1, 0] = room_width - 10;
-def_pos[1, 1] = room_height/2;
-off_pos[1, 0] = room_width - 20;
-off_pos[1, 1] = room_height/2;
-
-global.wall_thickness = 10;
-
-left_wall[0] = 0 - global.wall_thickness;
-left_wall[1] = 0 - global.wall_thickness;
-right_wall[0] = room_width;
-right_wall[1] = 0 - global.wall_thickness;
-
-top_wall[0] = 0;
-top_wall[1] = 0;
-bot_wall[0] = 0;
-bot_wall[1] = room_height;
-
-gamepadCount = gamepad_get_device_count();
-global.gamepads[gamepadCount] = false;
-global.dead_zone = 0.35;
-for (var i = 0; i &lt; gamepadCount; i++;)
-{
-    if gamepad_is_connected(i)
-    {
-        global.gamepads[i] = true;
-    }
-    else
-    {
-        global.gamepads[i] = false;
-    }
-    if gamepad_is_connected(i)
-    {
-        gamepad_set_axis_deadzone(i, global.dead_zone);
-    }
-}
+speed = random(0.2) + 0.3;
+direction = random(359);
+colour = c_white;
+timer = 0;
 </string>
           </argument>
         </arguments>
       </action>
+    </event>
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -92,23 +52,16 @@ for (var i = 0; i &lt; gamepadCount; i++;)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Instances
-instance_create(0, 0, oScreen);
-
-//global.player[0] = instance_create(0, 0, oPlayer);
-//global.player[1] = instance_create(0, 0, oPlayer);
-
-createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
-createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
-
-createSidewall(left_wall[0], left_wall[1], 0);
-createSidewall(right_wall[0], right_wall[1], 1);
-
-createHorizontalwall(top_wall[0], top_wall[1]);
-createHorizontalwall(bot_wall[0], bot_wall[1]);
-
-createSide(def_pos[0, 0], def_pos[0, 1], 0);
-createSide(def_pos[1, 0], def_pos[1, 1], 1);
+            <string>///Controller
+if (speed &gt; 0)
+{
+    speed -= 0.01;
+}
+timer += 1;
+if timer &gt;= global.deathtimer
+{
+    instance_destroy();
+}
 </string>
           </argument>
         </arguments>
@@ -131,16 +84,12 @@ createSide(def_pos[1, 0], def_pos[1, 1], 1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Score
+            <string>///Draw
 surface_set_target(global.screen);
-    draw_set_font(fontScore);
-    draw_set_halign(fa_center);
-    draw_text_colour(10, 2, string(global.playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
-    draw_text_colour(room_width - 10, 2, string(global.playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
-    draw_set_alpha(0.1);
-    draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, c_white, c_white);
+    draw_set_alpha(random(1));
+    draw_set_colour(colour);
+    draw_point(x, y - 1);
     draw_set_alpha(1);
-    draw_set_circle_precision(4);
 surface_reset_target();
 </string>
           </argument>
