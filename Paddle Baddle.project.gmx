@@ -16,14 +16,18 @@
   <objects name="objects">
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
-    <object>objects\oDefense</object>
-    <object>objects\oOffense</object>
+    <object>objects\oPlayer1</object>
+    <object>objects\oPlayer2</object>
+    <object>objects\oDefense1</object>
+    <object>objects\oDefense2</object>
+    <object>objects\oOffense1</object>
+    <object>objects\oOffense2</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rTitle</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41954.718450463</constant>
+    <constant name="GM_build_date">41955.1196138889</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

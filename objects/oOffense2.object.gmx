@@ -26,75 +26,22 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
+count = 0;
 
-defense_pos = 10;
-offense_pos = 20;
+length = 0;
 
-player_num = 2;
-global.player[player_num] = 0;
+debug = "no";
 
-gamepadCount = gamepad_get_device_count();
-global.gamepads[gamepadCount] = false;
-global.dead_zone = 0.35;
-for (var i = 0; i &lt; gamepadCount; i++;)
-{
-    if gamepad_is_connected(i)
-    {
-        global.gamepads[i] = true;
-    }
-    else
-    {
-        global.gamepads[i] = false;
-    }
-    if gamepad_is_connected(i)
-    {
-        gamepad_set_axis_deadzone(i, global.dead_zone);
-    }
-}
+slow_speed = 1;
+slap_speed = 2.2;
+decel = 40;
 
-def_pos = 10;
-off_pos = 20;
+slap_timer = 0;
+start_slap_timer = false;
+slap_timer_threshhold = 1;
 
-player1_def_xpos = def_pos;
-player1_off_xpos = off_pos;
-player2_def_xpos = room_width - def_pos;
-player2_off_xpos = room_width - off_pos;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Instances
-instance_create(0, 0, oScreen);
 
-    global.player[0] = instance_create(10, room_height/2, oDefense);
-    global.player[0].count = 0;
-    global.player[0].x = player1_def_xpos;
-    global.player[1] = instance_create(20, room_height/2, oOffense);
-    global.player[1].count = 0;
-    global.player[1].x = player1_off_xpos;
-    global.player[2] = instance_create(room_width - 10, room_height/2, oDefense);
-    global.player[2].count = 1;
-    global.player[2].x = player2_def_xpos;
-    global.player[3] = instance_create(20, room_height/2, oOffense);
-    global.player[3].count = 1;
-    global.player[3].x = player2_off_xpos;
-
+last_length = 0;
 </string>
           </argument>
         </arguments>
@@ -117,11 +64,83 @@ instance_create(0, 0, oScreen);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Object Controller
-
-// Deactivate objects outside of the view
-//instance_deactivate_region(0, 0, room_width, room_height, false, true);
-//instance_activate_region(view_xview[0], 0, view_wview[0], room_height, true);
+            <string>///Controls
+if (count == 0)
+{
+    colour = c_maroon;
+}
+else
+{
+    colour = c_blue;
+}
+if (global.gamepads[count] == true)
+{
+    length = point_distance(0, 0, gamepad_axis_value(count, gp_axisrh), gamepad_axis_value(count, gp_axisrv));
+    if (gamepad_axis_value(count, gp_axisrh) != 0 or gamepad_axis_value(count, gp_axisrv) != 0) and speed &lt; slow_speed
+    {
+        if last_length &lt; global.dead_zone
+        {
+            start_slap_timer = true;
+        }
+        direction = point_direction( 0, 0, gamepad_axis_value(count, gp_axisrh), gamepad_axis_value(count, gp_axisrv) );
+        speed = length;
+        if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
+        {
+            if length &gt; 0.9
+            {
+                speed = slap_speed;
+                start_slap_timer = false;
+                slap_timer = 0;
+            }
+            else
+            {
+                slap_timer += 1;
+            }
+        }
+        else
+        {
+            start_slap_timer = false;
+            slap_timer = 0;
+        }
+    }
+    else
+    {
+        speed -= speed/decel;
+    }
+    last_length = length;
+    debug = string(last_length);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Images
+surface_set_target(global.screen);
+    draw_set_colour(colour);
+    draw_point(x, y);
+    if (count == 1)
+{
+    draw_text(room_width/2, 10, debug);
+    }
+surface_reset_target();
 </string>
           </argument>
         </arguments>
