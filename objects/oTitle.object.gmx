@@ -54,6 +54,7 @@ button = 0;
 lastturn = 0;
 
 startgame = false;
+global.coolmode = false;
 
 j = 0;
 
@@ -147,6 +148,10 @@ else if menu == true
     if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
     or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
     {
+        if button == 1
+        {
+            global.coolmode = true;
+        }
         audio_play_sound(sndBounce, 1, false);
         startgame = true;
     }
@@ -159,6 +164,10 @@ if startgame == true
     {
         room_goto(rRink);
     }
+}
+if keyboard_check(vk_escape)
+{
+    game_end();
 }
 </string>
           </argument>

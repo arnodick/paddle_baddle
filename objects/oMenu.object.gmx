@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1000</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -26,21 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-player_num = 0;
+text_pos = room_height/2 - 20;
+text_line = 10;
 
-colour = c_white;
-width = 1;
-length = 12;
-move_speed = 1.5;
-vspeed = 0;
-
-top = y;
-bottom = y + length;
-
-wall[0] = x - 1;
-wall[1] = top;
-wall[2] = x;
-wall[3] = bottom;
+button = 0;
+lastturn = 0;
 </string>
           </argument>
         </arguments>
@@ -63,35 +53,33 @@ wall[3] = bottom;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Controls
-top = y;
-bottom = y + length;
-
-wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
-wall[1] = top;
-wall[2] = x;
-wall[3] = bottom;
-
-if (global.gamepads[player_num] == true)
+            <string>///Game Over
+if global.gameover == true
 {
-    if gamepad_axis_value(player_num, gp_axislv) &gt; 0 and bottom + speed &lt; room_height and global.gameover == false
+    if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0
     {
-        vspeed = move_speed;   
+        button += 1;
+        audio_play_sound(sndSelect, 1, false);
+        if button &gt; 1
+        {
+            button = 0;
+        }
     }
-    else if (gamepad_axis_value(player_num, gp_axislv) &lt; 0) and (top + speed &gt; 0) and global.gameover == false
+    
+    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
+    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
     {
-        vspeed = -move_speed;   
+        if button == 0
+        {
+            audio_play_sound(sndBounce, 1, false);
+            room_restart();
+        }
+        else
+        {
+            room_goto(rTitle);
+        }
     }
-    /*
-    else if ( vspeed != 0 ) and (bottom + vspeed &lt; room_height) and (top + vspeed &gt; 0)
-    {
-        vspeed += -vspeed/8;
-    }
-    */
-    else
-    {
-        vspeed = 0;
-    }
+    lastturn = gamepad_axis_value(0, gp_axislv);
 }
 </string>
           </argument>
@@ -115,15 +103,29 @@ if (global.gamepads[player_num] == true)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Images
+            <string>///Menu
 surface_set_target(global.screen);
-    if global.gameover == true
+if global.gameover == true
+{
+    draw_text_colour(room_width/2, text_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
+    draw_text_colour(room_width/2, text_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
+    draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
+    draw_set_colour(c_white);
+    if button == 0
+    {
+        draw_text(room_width/2, text_pos + text_line*3, "Rematch");
+        draw_set_alpha(0.2);
+        draw_text(room_width/2, text_pos + text_line*4, "Exit");
+        draw_set_alpha(1);
+    }
+    else
     {
         draw_set_alpha(0.2);
+        draw_text(room_width/2, text_pos + text_line*3, "Rematch");
+        draw_set_alpha(1);
+        draw_text(room_width/2, text_pos + text_line*4, "Exit");
     }
-    draw_set_colour(colour);
-    draw_line(x, top - 1, x, bottom - 1);
-    draw_set_alpha(1);
+}
 surface_reset_target();
 </string>
           </argument>

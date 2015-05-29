@@ -37,6 +37,7 @@
     <object>objects\oTitle</object>
     <object>objects\oGame</object>
     <object>objects\oScreen</object>
+    <object>objects\oMenu</object>
     <object>objects\oDefense</object>
     <object>objects\oOffense</object>
     <object>objects\oSidewall</object>
@@ -49,7 +50,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41967.1251723958</constant>
+    <constant name="GM_build_date">41967.1649391898</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

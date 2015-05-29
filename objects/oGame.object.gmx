@@ -43,9 +43,6 @@ countdowntimer = 0;
 global.countdown = true;
 global.crashtimer = 50;
 
-button = 0;
-lastturn = 0;
-
 def_pos[0, 0] = 10;
 def_pos[0, 1] = room_height/2 - 6;
 off_pos[0, 0] = 20;
@@ -67,9 +64,6 @@ top_wall[0] = 0;
 top_wall[1] = 0;
 bot_wall[0] = 0;
 bot_wall[1] = room_height;
-
-text_pos = room_height/2 - 20;
-text_line = 10;
 </string>
           </argument>
         </arguments>
@@ -94,6 +88,10 @@ text_line = 10;
 if !instance_exists(oScreen)
 {
     instance_create(0, 0, oScreen);
+}
+if !instance_exists(oMenu)
+{
+    instance_create(0, 0, oMenu);
 }
 
 //global.player[0] = instance_create(0, 0, oPlayer);
@@ -171,7 +169,6 @@ if global.countdown == true
         countdowntimer = 0;
     }
 }
-
 if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
 {
     global.gameover = true;
@@ -183,30 +180,10 @@ if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
             global.winner = i + 1;
         }
     }
-    if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0
-    {
-        button += 1;
-        audio_play_sound(sndSelect, 1, false);
-        if button &gt; 1
-        {
-            button = 0;
-        }
-    }
-    
-    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
-    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
-    {
-        if button == 0
-        {
-            audio_play_sound(sndBounce, 1, false);
-            room_restart();
-        }
-        else
-        {
-            room_goto(rTitle);
-        }
-    }
-    lastturn = gamepad_axis_value(0, gp_axislv);
+}
+if keyboard_check(vk_escape)
+{
+    game_end();
 }
 </string>
           </argument>
@@ -232,6 +209,11 @@ if global.playerpoints[0] &gt;= 5 or global.playerpoints[1] &gt;= 5
             <kind>1</kind>
             <string>///Score
 surface_set_target(global.screen);
+
+    if global.gameover == true
+    {
+        draw_set_alpha(0.2);
+    }
     draw_set_font(fontScore);
     draw_set_halign(fa_center);
     draw_set_circle_precision(4);
@@ -240,28 +222,7 @@ surface_set_target(global.screen);
     {
         draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), c_white, c_white, c_white, c_white, 1);
     }
-    if global.gameover == true
-    {
-        draw_text_colour(room_width/2, text_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
-        draw_text_colour(room_width/2, text_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
-        draw_text_colour(room_width/2, text_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
-        draw_set_colour(c_white);
-        if button == 0
-        {
-            draw_text(room_width/2, text_pos + text_line*3, "Rematch");
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text_pos + text_line*4, "Exit");
-            draw_set_alpha(1);
-        }
-        else
-        {
-            draw_set_alpha(0.2);
-            draw_text(room_width/2, text_pos + text_line*3, "Rematch");
-            draw_set_alpha(1);
-            draw_text(room_width/2, text_pos + text_line*4, "Exit");
-        }
-        draw_set_alpha(0.2);
-    }
+    
     draw_text_colour(10, 2, string(global.playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
     draw_text_colour(room_width - 10, 2, string(global.playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
     draw_set_alpha(0.1);

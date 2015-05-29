@@ -42,6 +42,10 @@ slap_timer = 0;
 start_slap_timer = false;
 slap_timer_threshhold = 1;
 slap_length = 0.75;
+if global.coolmode == true
+{
+    slap_length = 0;
+}
 
 last_length = 0;
 
@@ -248,6 +252,10 @@ surface_set_target(global.screen);
     draw_point(coll_vert[0], coll_vert[1] - 1);
     draw_point(coll_horz[0], coll_horz[1] - 1);
 */
+    if global.gameover == true
+    {
+        draw_set_alpha(0.2);
+    }
     draw_set_colour(colour);
     draw_point(x, y - 1);
     
@@ -267,7 +275,7 @@ surface_set_target(global.screen);
         draw_roundrect_colour_ext(x + 1 - random_range(-controltimer, controltimer)/10, y - random_range(-controltimer, controltimer)/10, x + 1 + random_range(-controltimer, controltimer)/10, y + random_range(-controltimer, controltimer)/10, 1, 1, colour, c_black, false);
         draw_set_blend_mode( bm_normal );
     }
-    
+    draw_set_alpha(1);
     /*
     if defense.x &lt; x
         draw_rectangle(defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3], false);
