@@ -3,7 +3,24 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="4" name="datafiles">
+  <datafiles number="5" name="datafiles">
+    <datafile>
+      <name>title.txt</name>
+      <exists>-1</exists>
+      <size>16</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>title.txt</filename>
+    </datafile>
     <datafile>
       <name>menu.txt</name>
       <exists>-1</exists>
@@ -48,6 +65,7 @@
     <script>scripts\createSide.gml</script>
     <script>scripts\createParticles.gml</script>
     <script>scripts\resetOffense.gml</script>
+    <script>scripts\menuInit.gml</script>
     <script>scripts\menuSelect.gml</script>
     <script>scripts\menuConfirm.gml</script>
     <script>scripts\textfileLength.gml</script>

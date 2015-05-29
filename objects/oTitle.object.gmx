@@ -147,6 +147,7 @@ else if menu == true
             button = 0;
         }
     }
+    
     if button == 1
     {
         colour = make_color_hsv(hue, 255, 255);
