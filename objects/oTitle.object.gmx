@@ -118,7 +118,7 @@ if menu == false
 }
 else
 {
-    angle  = 0;
+    angle = 0;
     
     if menuSelectbutton() == true
     {

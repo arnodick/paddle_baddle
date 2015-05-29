@@ -177,9 +177,9 @@ else
         speed = length;
         if slap_ready == true 
         {
+            slap_timer += 1;
             if slap_timer &lt; 3
             {
-                slap_timer += 1;
                 if player_num == rinkside.player_side
                 {
                     if keyArrowspress(key_control) == true
@@ -189,6 +189,7 @@ else
                         slap_timer = 0;
                     }
                 }
+                
             }
             else 
             {
