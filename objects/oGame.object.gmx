@@ -39,10 +39,14 @@ playercolour[1] = c_blue;
 count = 0;
 deathtimer = 45;
 
-countdowninit = 80;
-countdowntimer = countdowninit;
 countdown = true;
-countdownswitch = 0;
+countdurationinit = 0;
+countdurationmax = 20;
+countduration = countdurationinit;
+countdowntimer = countdurationmax * 4;
+countdowninit = 4;
+countdownswitch = countdowninit;
+
 
 countdowndisplay[3] = "3";
 countdowndisplay[2] = "2";
@@ -186,40 +190,53 @@ if count &gt;= deathtimer
 // Starts countdown when balls (huhuhu) are reset after goal (Only used for display of countodwn on screen?)
 if countdown == true
 {
-    countdowntimer -= 1;
-    countdownswitch = floor(countdowntimer/20);
-    switch (countdownswitch)
+    if countduration &gt; 0
     {
-        case 3:
-            if !audio_is_playing(sndSelect)
-            {
-                audio_play_sound(sndSelect, 1, false);
-            }
-            break;
-        case 2:
-            if !audio_is_playing(sndSelect)
-            {
-                audio_play_sound(sndSelect, 1, false);
-            }
-            break;
-        case 1:
-            if !audio_is_playing(sndSelect)
-            {
-                audio_play_sound(sndSelect, 1, false);
-            }
-            break;
-        case 0:
-            if !audio_is_playing(sndBounce)
-            {
-                audio_play_sound(sndBounce, 1, false);
-            }
-            break;
+        countduration -= 1;
     }
-    if countdowntimer &lt;= 0
+    else
+    {
+        countduration = countdurationmax;
+        countdownswitch -= 1;
+        switch (countdownswitch)
+        {
+            case 3:
+                if !audio_is_playing(sndSelect)
+                {
+                    audio_play_sound(sndSelect, 1, false);
+                }
+                break;
+            case 2:
+                if !audio_is_playing(sndSelect)
+                {
+                    audio_play_sound(sndSelect, 1, false);
+                }
+                break;
+            case 1:
+                if !audio_is_playing(sndSelect)
+                {
+                    audio_play_sound(sndSelect, 1, false);
+                }
+                break;
+            case 0:
+                if !audio_is_playing(sndBounce)
+                {
+                    audio_play_sound(sndBounce, 1, false);
+                }
+                break;
+            default:
+                if !audio_is_playing(sndBounce)
+                {
+                    audio_play_sound(sndBounce, 1, false);
+                }
+                break;
+        }
+    }
+    if countdownswitch &lt; 0
     {
         countdown = false;
-        countdowntimer = countdowninit;
-        countdownswitch = 3;
+        countduration = countdurationmax;
+        countdownswitch = countdowninit - 1;
     }
 }
 // Brings up the menu and sets a winner once 5 points are scored
@@ -285,16 +302,15 @@ draw_set_font(fontScore);
 draw_set_halign(fa_center);
 draw_set_circle_precision(4);
 
-if countdown == true
-{
-    draw_text_transformed_colour(room_width/2, room_height/2 - 5, countdowndisplay[countdownswitch], 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
-}
-
 draw_text_colour(10, 2, string(playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
 draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
 draw_set_alpha(0.1);
 draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, base_colour, base_colour);
 draw_set_alpha(1);
+if countdown == true
+{
+    draw_text_transformed_colour(room_width/2, room_height/2 - 5, countdowndisplay[countdownswitch], 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
+}
 </string>
           </argument>
         </arguments>
