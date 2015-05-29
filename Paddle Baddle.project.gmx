@@ -67,6 +67,8 @@
     <script>scripts\menuSelect.gml</script>
     <script>scripts\menuConfirm.gml</script>
     <script>scripts\menuButtons.gml</script>
+    <script>scripts\collHor.gml</script>
+    <script>scripts\collVer.gml</script>
     <script>scripts\createPaddles.gml</script>
     <script>scripts\createDefense.gml</script>
     <script>scripts\createOffense.gml</script>

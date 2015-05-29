@@ -28,6 +28,8 @@
             <string>///Variables
 player_num = 0;
 
+wall[4] = 0;
+
 colour = c_white;
 tail_length = 8;
 tail_width = 2;
@@ -119,6 +121,11 @@ key_control[1, 3] = ord('K');
             <kind>1</kind>
             <string>///Controls
 
+wall[0] = floor(x);
+wall[1] = floor(y);
+wall[2] = ceil(x);
+wall[3] = ceil(y);
+
 defense = instance_nearest(x, y, oDefense);
 sidewall = instance_nearest(x, y, oSidewall);
 horwall = instance_nearest(x, y, oWall);
@@ -168,7 +175,7 @@ else
         speed = length;
         if slap_ready == true 
         {
-            if slap_timer &lt; 5
+            if slap_timer &lt; 4
             {
                 slap_timer += 1;
                 if player_num == rinkside.player_side
@@ -200,12 +207,19 @@ else
     last_length = length;
 }
 
+coll_horz[0] = ceil(x + lengthdir_x(speed, direction));
+coll_horz[1] = ceil(y);
 coll_vert[0] = ceil(x);
 coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
-coll_vert[2] = floor(x);
-coll_vert[3] = floor(y + lengthdir_y(speed, direction));
 
-if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
+if collHor(defense)
+{
+    hspeed = -hspeed;
+    controltimer = crashtimer;
+    audio_play_sound(sndHurt, 1, false);
+}
+
+if collVer(defense)
 {
     if round(vspeed) == 0
     {
@@ -219,7 +233,7 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[
     audio_play_sound(sndHurt, 1, false);
 }
 
-if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3] + speed) and horwall.y &gt; y
+if collVer(horwall)
 {
     vspeed = -vspeed;
     if controltimer &lt; bouncetimer
@@ -229,36 +243,7 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[
     audio_play_sound(sndSelect, 1, false);
 }
 
-else if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1] - speed, horwall.wall[2], horwall.wall[3]) and horwall.y &lt; y
-{
-    vspeed = -vspeed;
-    if controltimer &lt; bouncetimer
-    {
-        controltimer = bouncetimer;
-    }
-    audio_play_sound(sndSelect, 1, false);
-}
-
-coll_horz[0] = ceil(x + lengthdir_x(speed, direction));
-coll_horz[1] = ceil(y);
-coll_horz[2] = floor(x + lengthdir_x(speed, direction));
-coll_horz[3] = floor(y);
-
-if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
-{
-    hspeed = -hspeed;
-    controltimer = crashtimer;
-    audio_play_sound(sndHurt, 1, false);
-}
-
-else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
-{
-    hspeed = -hspeed;
-    controltimer = crashtimer;
-    audio_play_sound(sndHurt, 1, false);
-}
-
-if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
+if collHor(sidewall)
 {
     if player_num == sidewall.side or oGame.gameover == true
     {
@@ -280,16 +265,17 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     }
 }
 
-if
+if collHor(offense) or collVer(offense)
+/*
 (
 // This code causes a bug: when this instance kills the enemy, the "offense.x" variables get set so that this instance's collision point is always in the given rectangle. (Why is this rectangle so big?)
 point_in_rectangle(coll_horz[0], coll_horz[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 or point_in_rectangle(coll_horz[2], coll_horz[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
+or point_in_rectangle(coll_vert[0], coll_vert[1], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 or point_in_rectangle(coll_vert[2], coll_vert[3], ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
-//point_in_rectangle(offense.x, offense.y, ceil(x), ceil(y), ceil( ), ceil(offense.y))
-//or point_in_rectangle(offense.x, offense.y, ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 )
+*/
+
 {
     if instance_number(oOffense) == 2
     {
