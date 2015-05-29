@@ -4,7 +4,10 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\sndPaddull</sound>
+    <sound>sound\sndBaddull</sound>
+  </sounds>
   <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -40,7 +43,7 @@
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41963.1195731019</constant>
+    <constant name="GM_build_date">41964.1604515625</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
