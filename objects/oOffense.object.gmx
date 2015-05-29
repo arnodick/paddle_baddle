@@ -65,6 +65,18 @@ sidewall = 0;
 horwall = 0;
 rinkside = 0;
 offense = 0;
+
+anal_sticks[2, 4] = 0; // huhuhu, anal
+
+anal_stick[0, 0] = gp_axislh;
+anal_stick[0, 1] = gp_axislv;
+anal_stick[0, 2] = gp_axisrh;
+anal_stick[0, 3] = gp_axisrv;
+
+anal_stick[1, 0] = gp_axisrh;
+anal_stick[1, 1] = gp_axisrv;
+anal_stick[1, 2] = gp_axislh;
+anal_stick[1, 3] = gp_axislv;
 </string>
           </argument>
         </arguments>
@@ -97,15 +109,15 @@ offense = instance_furthest(x, y, oOffense);
 
 if (global.gamepads[player_num] == true)
 {
-    length = point_distance(0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]));
-    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
+    length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]));
+    if (length != 0) and speed &lt; slow_speed and control == true and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
-        control = true;
+        //control = true;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
             start_slap_timer = true;
         }
-        direction = point_direction( 0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) );
+        direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
         speed = length;
         if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
         {
@@ -128,11 +140,11 @@ if (global.gamepads[player_num] == true)
     }
     else
     {
-        control = false;
+        //control = false;
         speed -= speed/decel;
     }
     last_length = length;
-    debug = string(last_length);
+    //debug = string(last_length);
 }
 
 coll_vert[0] = ceil(x);
@@ -225,16 +237,18 @@ or point_in_rectangle(coll_vert[2], coll_vert[3], ceil(offense.x), ceil(offense.
 //point_in_rectangle(offense.x, offense.y, ceil(x), ceil(y), ceil( ), ceil(offense.y))
 //or point_in_rectangle(offense.x, offense.y, ceil(offense.x), ceil(offense.y), ceil(offense.x), ceil(offense.y))
 )
-and
-offense.control == false
-and
-// This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
-instance_number(oOffense) == 2
 {
-    createParticles(offense.x, offense.y, offense.colour);
-    audio_play_sound(sndDeath, 1, false);
-    offense.hp = 0;
-    //resetOffense();
+    if instance_number(oOffense) == 2
+    {
+        if offense.control == false
+        {
+            // This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
+            createParticles(offense.x, offense.y, offense.colour);
+            audio_play_sound(sndDeath, 1, false);
+            offense.hp = 0;
+            //resetOffense();
+        }
+    }
 }
 if hp == 0
 {

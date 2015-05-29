@@ -81,18 +81,6 @@ bot_wall[1] = room_height;
 
 base_colour = c_white;
 hue = 0;
-
-anal_sticks[2, 4] = 0; // huhuhu, anal
-
-anal_stick[0, 0] = gp_axislh;
-anal_stick[0, 1] = gp_axislv;
-anal_stick[0, 2] = gp_axisrh;
-anal_stick[0, 3] = gp_axisrv;
-
-anal_stick[1, 0] = gp_axisrh;
-anal_stick[1, 1] = gp_axisrv;
-anal_stick[1, 2] = gp_axislh;
-anal_stick[1, 3] = gp_axislv;
 </string>
           </argument>
         </arguments>
@@ -316,6 +304,8 @@ if audio_is_playing(sndGoal)
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
+
+//draw_text(32, 32, "FPS = " + string(fps));
 </string>
           </argument>
         </arguments>
