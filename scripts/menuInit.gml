@@ -5,6 +5,7 @@ selected_alpha = 1; //the alpha draw of a selected menu item
 unselected_alpha = 0.2; //the alpha draw of an unselected menu item
 button_alpha[buttonamount] = selected_alpha; //the alpha of each individual button (set to either selected_alpha or unselected_alpha during step)
 button_text[buttonamount] = "A"; //the text of each individual button
+button_player = 0; //this array holds the value of the player# that pressed the button
 lastturn[global.gamepadCount] = 0; //checks the control stick direction before moving selection, to stop it from checking every step
 menu_pos = argument1; // the y position of the start of the menu
 text_line = argument2; // the amount of pixels between lines in the menu

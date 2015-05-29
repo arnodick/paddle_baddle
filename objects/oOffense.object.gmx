@@ -37,7 +37,7 @@ tail_length = 8;
 tail_width = 2;
 
 length = 0;
-length_max = 0.9
+length_max = 0.8
 
 hor = 0;
 ver = 0;
@@ -46,7 +46,7 @@ hp = 1;
 
 debug = "no";
 
-slow_speed = 1;
+//slow_speed = 0.9;
 slap_speed = 2.5;
 decel = 40;
 slap_ready = false;
@@ -137,7 +137,7 @@ offense = instance_furthest(x, y, oOffense);
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]));
-    if (length != 0) and speed &lt; slow_speed and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
+    if (length != 0) and speed &lt; length_max and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
     {
         direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]) );
         speed = length * length_max;
@@ -158,7 +158,7 @@ if (global.gamepads[player_num] == true)
 }
 else
 {
-    if keyArrowspressed(key_control) == true and speed &lt; slow_speed and control == true
+    if keyArrowspressed(key_control) == true and speed &lt; length_max and control == true
     {
         length = length_max;
         if keyboard_check (key_control[player_num, 0]) 
@@ -342,7 +342,7 @@ if oGame.gameover == true
 
 draw_point_colour(x, y, colour);
 
-if speed &gt; slow_speed + 0.1
+if speed &gt; length_max + 0.1
 {
     draw_set_blend_mode( bm_add );
     draw_line_width_colour(x, y, x - lengthdir_x(speed*tail_length, direction), y - lengthdir_y(speed*tail_length, direction), tail_width, colour, c_black);
