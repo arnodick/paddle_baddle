@@ -304,8 +304,6 @@ if audio_is_playing(sndGoal)
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
-
-//draw_text(32, 32, "FPS = " + string(fps));
 </string>
           </argument>
         </arguments>
