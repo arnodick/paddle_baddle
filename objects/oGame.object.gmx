@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>1000</depth>
+  <depth>-1000</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -228,24 +228,9 @@ if goal == true
 {
     with (oOffense) control = false;
     // Brings up the menu and sets a winner once 5 points are scored
-    if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
-    {
-        gameover = true;
-        if !instance_exists(oMenu)
-        {
-            instance_create(0, 0, oMenu);
-        }
-        var i;
-        for (i = 0; i &lt; 2; i++)
-        {
-            if playerpoints[i] &gt;= 5
-            {
-                winner = i + 1;
-            }
-        }
-    }
+
     //global.coolmode = true;
-    else if !audio_is_playing(sndGoal)
+    if !audio_is_playing(sndGoal)
     {
         goal = false;
         countdown = true;
@@ -254,6 +239,23 @@ if goal == true
     {
         base_colour = make_color_hsv(hue, 255, 255);
         hue += 10;
+    }
+}
+
+else if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
+{
+    gameover = true;
+    if !instance_exists(oMenu)
+    {
+        instance_create(0, 0, oMenu);
+    }
+    var i;
+    for (i = 0; i &lt; 2; i++)
+    {
+        if playerpoints[i] &gt;= 5
+        {
+            winner = i + 1;
+        }
     }
 }
 
