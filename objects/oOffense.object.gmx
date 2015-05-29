@@ -126,7 +126,7 @@ coll_horz[1] = y;
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
     or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
-    or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3])
+    or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] +speed, paddle.defense_wall[3])
 {
     hspeed = -hspeed;
 }
@@ -161,18 +161,15 @@ surface_set_target(global.screen);
 */
     draw_set_colour(colour);
     draw_point(x, y - 1);
+    
     /*
+    draw_rectangle(paddle.defense_wall[0] - speed , paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3], false);
     if (player_num == 1)
     {
         draw_text(room_width/2, 10, debug);
     }
     */
 surface_reset_target();
-
-coll_vert[0] = x ;
-coll_vert[1] = y + lengthdir_y(speed, direction);
-coll_horz[0] = x + lengthdir_x(speed, direction);
-coll_horz[1] = y;
 </string>
           </argument>
         </arguments>

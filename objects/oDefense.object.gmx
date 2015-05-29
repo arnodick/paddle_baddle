@@ -67,7 +67,7 @@ defense_wall[3] = bottom;
 top = y;
 bottom = y + length;
 
-defense_wall[0] = x - 1; // this causes a big: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
+defense_wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
 defense_wall[1] = top;
 defense_wall[2] = x;
 defense_wall[3] = bottom;
