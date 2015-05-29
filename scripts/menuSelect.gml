@@ -1,15 +1,34 @@
 //if left stick is pushed up, move selection up, and vice versa
-direction = point_direction( 0, 0, 0, gamepad_axis_value(0, gp_axislv) ); //gets only vertical direciton of left stick (is it bad the the oMenu has a direciton? could it fly out of bounds?)
-if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0 //if left stick is pushed vertically, and wasn't pushed last step, increment or decrement the menu selection
+for (var j = 0; j < global.gamepadCount; j += 1) //loops through each gamepad
 {
-    if direction < 180
+    if gamepad_axis_value(j, gp_axislv) != 0 and lastturn[j] == 0 //if left stick is pushed vertically, and wasn't pushed last step, increment or decrement the menu selection
     {
-        selection -= 1; //if left stick pushed up, move selected button up
+        direction = point_direction( 0, 0, 0, gamepad_axis_value(j, gp_axislv) ); //gets only vertical direciton of left stick (is it bad the the oMenu has a direciton? could it fly out of bounds?)
+        if direction < 180
+        {
+            selection -= 1; //if left stick pushed up, move selected button up
+        }
+        else
+        {
+            selection += 1; //if left stick pushed down, move selected buttond own
+        }
+        //makes sure the selection doesn't go out of bounds (is there a simpler way to do this?)
+        if selection >= buttonamount
+        {
+            selection = 0;
+        }
+        else if selection < 0
+        {
+            selection = buttonamount - 1;
+        }
+        audio_play_sound(sndSelect, 1, false); //play the seleciton change noise
     }
-    else
-    {
-        selection += 1; //if left stick pushed down, move selected buttond own
-    }
+    lastturn[j] = gamepad_axis_value(j, gp_axislv); // saves the position of the left stick this step, for use next step
+}
+if keyboard_check_pressed(vk_up)
+{
+    selection -= 1; //if left stick pushed up, move selected button up
+    audio_play_sound(sndSelect, 1, false); //play the seleciton change noise
     //makes sure the selection doesn't go out of bounds (is there a simpler way to do this?)
     if selection >= buttonamount
     {
@@ -19,8 +38,22 @@ if gamepad_axis_value(0, gp_axislv) != 0 and lastturn == 0 //if left stick is pu
     {
         selection = buttonamount - 1;
     }
-    audio_play_sound(sndSelect, 1, false); //play the seleciton change noise
 }
+else if keyboard_check_pressed(vk_down)
+{
+    selection += 1; //if left stick pushed down, move selected buttond own
+    audio_play_sound(sndSelect, 1, false); //play the seleciton change noise
+    //makes sure the selection doesn't go out of bounds (is there a simpler way to do this?)
+    if selection >= buttonamount
+    {
+        selection = 0;
+    }
+    else if selection < 0
+    {
+        selection = buttonamount - 1;
+    }
+}
+
 //loops through all the buttons and checks if they are selected
 for (var i = 0; i < buttonamount; i++)
 {
@@ -33,4 +66,3 @@ for (var i = 0; i < buttonamount; i++)
         button_alpha[i] = unselected_alpha; //if a button isn't selected, set it's alpha to almost transparent
     }
 }
-lastturn = gamepad_axis_value(0, gp_axislv); // saves the position of the left stick this step, for use next step

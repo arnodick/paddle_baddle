@@ -37,8 +37,6 @@ text2position = text1position + 15;
 text1positionmenu = 5;
 text2positionmenu = text1positionmenu + 15;
 
-menuInit(working_directory + "title.txt", text1position + 25, 8);
-
 flip = 0;
 angle = 0;
 rotatespeed = 1;
@@ -59,6 +57,7 @@ startgame = false;
 global.coolmode = false;
 
 gamepadsInit();
+menuInit(working_directory + "title.txt", text1position + 25, 8);
 </string>
           </argument>
         </arguments>
