@@ -37,10 +37,10 @@ vspeed = 0;
 top = y;
 bottom = y + length;
 
-defense_wall[0] = x;
-defense_wall[1] = top;
-defense_wall[2] = x + 1;
-defense_wall[3] = bottom;
+wall[0] = x - 1;
+wall[1] = top;
+wall[2] = x;
+wall[3] = bottom;
 </string>
           </argument>
         </arguments>
@@ -67,10 +67,10 @@ defense_wall[3] = bottom;
 top = y;
 bottom = y + length;
 
-defense_wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
-defense_wall[1] = top;
-defense_wall[2] = x;
-defense_wall[3] = bottom;
+wall[0] = x - 1; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shit (width of paddle wall = 0)
+wall[1] = top;
+wall[2] = x;
+wall[3] = bottom;
 
 if (global.gamepads[player_num] == true)
 {

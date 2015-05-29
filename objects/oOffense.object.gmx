@@ -41,7 +41,7 @@ decel = 40;
 slap_timer = 0;
 start_slap_timer = false;
 slap_timer_threshhold = 1;
-slap_length = 0.8;
+slap_length = 0.75;
 
 last_length = 0;
 
@@ -111,15 +111,15 @@ if (global.gamepads[player_num] == true)
     debug = string(last_length);
 }
 
-paddle = instance_nearest(x, y, oDefense);
-sidewall = instance_nearest(x, y, oWall);
+defense = instance_nearest(x, y, oDefense);
+sidewall = instance_nearest(x, y, oSidewall);
+horwall = instance_nearest(x, y, oWall);
 
 coll_vert[0] = x ;
 coll_vert[1] = y + lengthdir_y(speed, direction);
 
-if point_in_rectangle(coll_vert[0], coll_vert[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
-or point_in_rectangle(coll_vert[0], coll_vert[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
-or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle.defense_wall[1], paddle.defense_wall[2], paddle.defense_wall[3])
+if point_in_rectangle(coll_vert[0], coll_vert[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3]) 
+or point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
 {
     vspeed = -vspeed;
     controltimer = 0;
@@ -128,12 +128,24 @@ or point_in_rectangle(coll_vert[0], coll_vert[1], paddle.defense_wall[0], paddle
 coll_horz[0] = x + lengthdir_x(speed, direction);
 coll_horz[1] = y;
 
-if point_in_rectangle(coll_horz[0], coll_horz[1], global.bottom_wall[0], global.bottom_wall[1], global.bottom_wall[2], global.bottom_wall[3]) 
-or point_in_rectangle(coll_horz[0], coll_horz[1], global.top_wall[0], global.top_wall[1], global.top_wall[2], global.top_wall[3])
-or point_in_rectangle(coll_horz[0], coll_horz[1], paddle.defense_wall[0] - speed, paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3])
+/*
+if point_in_rectangle(coll_horz[0], coll_horz[1], horwall.wall[0], horwall.wall[1], horwall.wall[2], horwall.wall[3]) 
 {
     hspeed = -hspeed;
     controltimer = 0;
+}
+*/
+
+if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
+{
+    hspeed = -hspeed;
+    controltimer = 0;    
+}
+
+else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
+{
+    hspeed = -hspeed;
+    controltimer = 0;    
 }
 
 if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wall[1], sidewall.wall[2], sidewall.wall[3])
@@ -191,7 +203,10 @@ surface_set_target(global.screen);
     draw_point(x, y - 1);
     
     /*
-    draw_rectangle(paddle.defense_wall[0] - speed , paddle.defense_wall[1], paddle.defense_wall[2] + speed, paddle.defense_wall[3], false);
+    if defense.x &lt; x
+        draw_rectangle(defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3], false);
+    else if defense.x &gt; x
+        draw_rectangle(defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3], false);
     if (player_num == 1)
     {
         draw_text(room_width/2, 10, debug);

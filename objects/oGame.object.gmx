@@ -47,6 +47,11 @@ left_wall[1] = 0 - global.wall_thickness;
 right_wall[0] = room_width;
 right_wall[1] = 0 - global.wall_thickness;
 
+top_wall[0] = 0;
+top_wall[1] = 0;
+bot_wall[0] = 0;
+bot_wall[1] = room_height;
+
 gamepadCount = gamepad_get_device_count();
 global.gamepads[gamepadCount] = false;
 global.dead_zone = 0.35;
@@ -97,15 +102,8 @@ createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_b
 createSidewall(left_wall[0], left_wall[1], 0);
 createSidewall(right_wall[0], right_wall[1], 1);
 
-global.bottom_wall[0] = 0;
-global.bottom_wall[1] = room_height;
-global.bottom_wall[2] = room_width;
-global.bottom_wall[3] = room_height + global.wall_thickness;
-
-global.top_wall[0] = 0;
-global.top_wall[1] = -global.wall_thickness;
-global.top_wall[2] = room_width;
-global.top_wall[3] = 0;
+createHorizontalwall(top_wall[0], top_wall[1]);
+createHorizontalwall(bot_wall[0], bot_wall[1]);
 </string>
           </argument>
         </arguments>
