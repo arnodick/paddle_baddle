@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1000</depth>
+  <depth>-500</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -44,11 +44,11 @@ countdown = true;
 countdurationinit = 0;
 countdurationmax = 20;
 countduration = countdurationinit;
-countdowntimer = countdurationmax * 4;
+//countdowntimer = countdurationmax * 4;
 countdowninit = 4;
 countdownswitch = countdowninit;
 
-
+countdowndisplay[4] = "3";
 countdowndisplay[3] = "3";
 countdowndisplay[2] = "2";
 countdowndisplay[1] = "1";
@@ -188,47 +188,30 @@ if count &gt;= deathtimer
     audio_play_sound(sndRespawn, 1, false);
     count = 0;
 }
-// Starts countdown when balls (huhuhu) are reset after goal (Only used for display of countodwn on screen?)
-if countdown == true
-{
-    with (oOffense) control = false; //makes ball uncontrollable
-    if countduration &gt; 0
-    {
-        countduration -= 1;
-    }
-    else
-    {
-        countduration = countdurationmax;
-        countdownswitch -= 1;
-        switch (countdownswitch)
-        {
-            case 3:
-                audio_play_sound(sndSelect, 2, false);
-                break;
-            case 2:
-                audio_play_sound(sndSelect, 2, false);
-                break;
-            case 1:
-                audio_play_sound(sndSelect, 2, false);
-                break;
-            case 0:
-                audio_play_sound(sndBounce, 2, false);
-                break;
-        }
-    }
-    if countdownswitch &lt; 0
-    {
-        countdown = false;
-        countduration = countdurationmax;
-        countdownswitch = countdowninit - 1;
-    }
-}
+
 
 if goal == true
 {
     with (oOffense) control = false;
     // Brings up the menu and sets a winner once 5 points are scored
-
+    if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
+    {
+        //with (oOffense) control = false;
+        gameover = true;
+        goal = false;
+        if !instance_exists(oMenu)
+        {
+            instance_create(0, 0, oMenu);
+        }
+        var i;
+        for (i = 0; i &lt; 2; i++)
+        {
+            if playerpoints[i] &gt;= 5
+            {
+                winner = i + 1;
+            }
+        }
+    }
     //global.coolmode = true;
     if !audio_is_playing(sndGoal)
     {
@@ -241,21 +224,36 @@ if goal == true
         hue += 10;
     }
 }
-
-else if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
+// Starts countdown when balls (huhuhu) are reset after goal (Only used for display of countodwn on screen?)
+if countdown == true
 {
-    gameover = true;
-    if !instance_exists(oMenu)
+    with (oOffense) control = false; //makes ball uncontrollable
+    
+    if countduration == 0
     {
-        instance_create(0, 0, oMenu);
-    }
-    var i;
-    for (i = 0; i &lt; 2; i++)
-    {
-        if playerpoints[i] &gt;= 5
+        countduration = countdurationmax;
+        countdownswitch -= 1;
+        switch (countdownswitch)
         {
-            winner = i + 1;
+            case 3:
+            case 2:
+            case 1:
+                audio_play_sound(sndSelect, 2, false);
+                break;
+            case 0:
+                audio_play_sound(sndBounce, 2, false);
+                break;
         }
+    }
+    else
+    {
+        countduration -= 1;
+    }
+    if countdownswitch &lt; 0
+    {
+        countdown = false;
+        countduration = countdurationinit;
+        countdownswitch = countdowninit;
     }
 }
 
@@ -304,7 +302,7 @@ if countdown == true
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, countdowndisplay[countdownswitch], 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
-if audio_is_playing(sndGoal)
+if goal == true and gameover == false
 {
     draw_text_transformed_colour(room_width/2, room_height/2 - 5, "GOAL!", 2, 2, 0, base_colour, base_colour, base_colour, base_colour, 1);
 }
