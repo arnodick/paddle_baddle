@@ -30,8 +30,6 @@ player_num = 0;
 
 player_stick = false;
 
-gp_length = 0;
-
 wall[4] = 0;
 
 colour = c_white;
@@ -179,7 +177,7 @@ else
         speed = length;
         if slap_ready == true 
         {
-            if slap_timer &lt; 4
+            if slap_timer &lt; 3
             {
                 slap_timer += 1;
                 if player_num == rinkside.player_side
@@ -237,14 +235,14 @@ if collVer(defense)
     {
         if defense.y &lt; y
         {
-            y = defense.wall[3] + 1;
+            y = defense.wall[3] + 2;
         }
         else
         {
-            y = defense.wall[1] - 1;
+            y = defense.wall[1] - 2;
         }
     }
-    if defense.speed &gt; 0
+    if defense.speed &gt; speed
     {
         vspeed = defense.vspeed * 1.2;
     }

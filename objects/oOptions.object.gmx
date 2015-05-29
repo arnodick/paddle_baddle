@@ -66,7 +66,7 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
     {
     case 0: //Invert sticks? Y/N
         audio_play_sound(sndBounce, 1, false);
-        if global.reverse[button_player] = true
+        if global.reverse[button_player] == true
         {
             global.reverse[button_player] = false;
         }

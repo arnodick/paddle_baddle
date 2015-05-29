@@ -100,8 +100,8 @@
     <font>fonts\fontScore</font>
   </fonts>
   <objects name="objects">
-    <object>objects\oTitle</object>
     <object>objects\oScreen</object>
+    <object>objects\oTitle</object>
     <object>objects\oOptions</object>
     <object>objects\oMenu</object>
     <object>objects\oOffense</object>
