@@ -98,8 +98,10 @@ instance_create(0, 0, oScreen);
 //global.player[0] = instance_create(0, 0, oPlayer);
 //global.player[1] = instance_create(0, 0, oPlayer);
 
+/*
 createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
 createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
+*/
 
 createSidewall(left_wall[0], left_wall[1], 0);
 createSidewall(right_wall[0], right_wall[1], 1);
@@ -109,6 +111,33 @@ createHorizontalwall(bot_wall[0], bot_wall[1]);
 
 createSide(def_pos[0, 0], def_pos[0, 1], 0);
 createSide(def_pos[1, 0], def_pos[1, 1], 1);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if instance_number(oOffense) == 0
+{
+    createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
+    createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
+}
 </string>
           </argument>
         </arguments>
