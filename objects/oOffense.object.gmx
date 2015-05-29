@@ -30,6 +30,8 @@ player_num = 0;
 
 player_stick = false;
 
+gp_length = 0;
+
 wall[4] = 0;
 
 colour = c_white;
@@ -141,7 +143,7 @@ if (global.gamepads[player_num] == true)
     {
         direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]) );
         speed = length * length_max;
-        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side)// or global.coolmode == true //and x!= (room_width/2) - 1
+        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
             if length &gt;= slap_length
             {
@@ -216,6 +218,10 @@ coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
 
 if collHor(defense)
 {
+    if global.coolmode == true
+    {
+        hp = 0;
+    }
     hspeed = -hspeed;
     controltimer = crashtimer;
     audio_play_sound(sndHurt, 1, false);
@@ -223,6 +229,10 @@ if collHor(defense)
 
 if collVer(defense)
 {
+    if global.coolmode == true
+    {
+        hp = 0;
+    }
     if point_in_rectangle(x, y, defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
     {
         if defense.y &lt; y

@@ -64,7 +64,7 @@
     <option_android_use_test_ads>0</option_android_use_test_ads>
     <option_argumenterrors>True</option_argumenterrors>
     <option_audioGroupCount>1</option_audioGroupCount>
-    <option_author></option_author>
+    <option_author>Ashley Pringle</option_author>
     <option_backimage>nil</option_backimage>
     <option_changed>false</option_changed>
     <option_changeresolution>false</option_changeresolution>
@@ -181,20 +181,20 @@
     <option_mac_appstore_incoming_allow>0</option_mac_appstore_incoming_allow>
     <option_mac_appstore_outgoing_allow>0</option_mac_appstore_outgoing_allow>
     <option_mac_build_version>0</option_mac_build_version>
-    <option_mac_copyright_info>(c)2012 CompanyName Ltd...</option_mac_copyright_info>
-    <option_mac_create_app_store>-1</option_mac_create_app_store>
+    <option_mac_copyright_info>Ashley Pringle</option_mac_copyright_info>
+    <option_mac_create_app_store>0</option_mac_create_app_store>
     <option_mac_display_name>PADDLE BADDLE</option_mac_display_name>
     <option_mac_enable_steam>0</option_mac_enable_steam>
-    <option_mac_fullscreen>0</option_mac_fullscreen>
+    <option_mac_fullscreen>-1</option_mac_fullscreen>
     <option_mac_icon_png>Configs\Default\mac\icon512.png</option_mac_icon_png>
-    <option_mac_interpolate>-1</option_mac_interpolate>
+    <option_mac_interpolate>0</option_mac_interpolate>
     <option_mac_major_version>1</option_mac_major_version>
     <option_mac_menu_dock>0</option_mac_menu_dock>
     <option_mac_minor_version>0</option_mac_minor_version>
-    <option_mac_output_dir>~/GameMaker-Studio/Introver 1</option_mac_output_dir>
-    <option_mac_scale>-1</option_mac_scale>
+    <option_mac_output_dir>~/GameMaker-Studio/PaddleBaddle</option_mac_output_dir>
+    <option_mac_scale>0</option_mac_scale>
     <option_mac_screenkey>-1</option_mac_screenkey>
-    <option_mac_showcursor>-1</option_mac_showcursor>
+    <option_mac_showcursor>0</option_mac_showcursor>
     <option_mac_sizeable>0</option_mac_sizeable>
     <option_mac_splash_png>Configs\Default\mac\splash.png</option_mac_splash_png>
     <option_mac_steam_app_id>0</option_mac_steam_app_id>
@@ -286,9 +286,9 @@
     <option_tizen_usesplash>False</option_tizen_usesplash>
     <option_use_new_audio>True</option_use_new_audio>
     <option_variableerrors>False</option_variableerrors>
-    <option_version>100</option_version>
-    <option_version_build>1</option_version_build>
-    <option_version_company></option_version_company>
+    <option_version>1</option_version>
+    <option_version_build>0</option_version_build>
+    <option_version_company>Ashley Pringle</option_version_company>
     <option_version_copyright></option_version_copyright>
     <option_version_description></option_version_description>
     <option_version_major>1</option_version_major>
@@ -331,8 +331,8 @@
     <option_win8_texture_page>1024</option_win8_texture_page>
     <option_win8_wide_logo>Configs\Default\Windows8\logos\logo310.png</option_win8_wide_logo>
     <option_windowcolor>clBlack</option_windowcolor>
-    <option_windows_build_version>1</option_windows_build_version>
-    <option_windows_company_info></option_windows_company_info>
+    <option_windows_build_version>0</option_windows_build_version>
+    <option_windows_company_info>Ashley Pringle</option_windows_company_info>
     <option_windows_copyright_info></option_windows_copyright_info>
     <option_windows_description_info></option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
