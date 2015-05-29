@@ -42,10 +42,10 @@ slow_speed = 1;
 slap_speed = 2.5;
 decel = 40;
 
-slap_timer = 0;
-start_slap_timer = false;
-slap_timer_threshhold = 3;
-slap_length = 0.9;
+//slap_timer = 0;
+//start_slap_timer = false;
+//slap_timer_threshhold = 3;
+slap_length = 0.8;
 if global.coolmode == true
 {
     slap_length = 0;
@@ -114,19 +114,16 @@ if (global.gamepads[player_num] == true)
     {
         direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_num, 2]), gamepad_axis_value(player_num, anal_stick[player_num, 3]) );
         speed = length;
-        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
+        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side)// or global.coolmode == true //and x!= (room_width/2) - 1
         {
-            slap = true;
-        }
-        if slap == true
-        {
-            if slap_timer &lt; slap_timer_threshhold
-            {
-                if length &gt; slap_length
+            //if slap_timer &lt; slap_timer_threshhold
+            //{
+                if length &gt;= slap_length
                 {
                     speed = slap_speed;
-                    slap_timer = 0;
+                    //slap_timer = 0;
                 }
+                /*
                 else
                 {
                     slap_timer += 1;
@@ -135,8 +132,8 @@ if (global.gamepads[player_num] == true)
             else
             {
                 slap_timer = 0;
-                slap = false;
             }
+            */
         }
     }
     else
@@ -305,6 +302,9 @@ if control == false
 }
 draw_set_blend_mode( bm_normal );
 draw_set_alpha(1);
+
+draw_text_transformed_colour(room_width/2, room_height/2 - 5 - (player_num+1)*5, length, 1, 1, 0, c_white, c_white, c_white, c_white, 1);
+
 
 /*
 if defense.x &lt; x

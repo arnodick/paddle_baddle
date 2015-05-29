@@ -29,6 +29,8 @@
 
 title_pos = room_height/2 - 20; // the y position of the title
 
+restartgame = false;
+
 menuInit(working_directory + "menu.txt", 40, 10); //opens and reads a text file, making buttons out of each line of text. argument1 is y position of top of menu, argument2 is line height
 </string>
           </argument>
@@ -61,19 +63,27 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
 {
     switch (selection) //executes whichever option was selected when button pressed
     {
-        case 0: //rematch
-            audio_play_sound(sndBounce, 1, false);
-            room_restart();
-            instance_destroy();
-            break;
-        case 1: //return to title
-            room_goto(rTitle);
-            instance_destroy();
-            break;
-        default: //default return to title (it's important to have this, in case you don't set switch option for all of the buttons that were created!)
-            room_goto(rTitle);
-            instance_destroy();
-            break;
+    case 0: //rematch
+        audio_play_sound(sndBounce, 1, false);
+        restartgame = true;
+        break;
+    case 1: //return to title
+        room_goto(rTitle);
+        instance_destroy();
+        break;
+    default: //default return to title (it's important to have this, in case you don't set switch option for all of the buttons that were created!)
+        room_goto(rTitle);
+        instance_destroy();
+        break;
+    }
+}
+
+if restartgame == true
+{
+    if !audio_is_playing(sndBounce)
+    {
+        instance_destroy();
+        room_restart();
     }
 }
 </string>
