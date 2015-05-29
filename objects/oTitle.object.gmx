@@ -108,13 +108,12 @@ if menu == false
         }
     }
     
-    if gamepad_button_check_pressed(0, gp_face1) or gamepad_button_check_pressed(0, gp_face2) or gamepad_button_check_pressed(0, gp_face3) or gamepad_button_check_pressed(0, gp_face4) or gamepad_button_check_pressed(0, gp_start)
-    or gamepad_button_check_pressed(1, gp_face1) or gamepad_button_check_pressed(1, gp_face2) or gamepad_button_check_pressed(1, gp_face3) or gamepad_button_check_pressed(1, gp_face4) or gamepad_button_check_pressed(1, gp_start)
+    if menuConfirm() == true
     {
         menu = true;
     }
 }
-else if menu == true
+else
 {
     angle  = 0;
 
@@ -182,37 +181,35 @@ if keyboard_check(vk_escape)
           <argument>
             <kind>1</kind>
             <string>///Title
-surface_set_target(global.screen);
-    draw_set_font(fontScore);
-    draw_set_halign(fa_center);
-    if menu == false
+draw_set_font(fontScore);
+draw_set_halign(fa_center);
+if menu == false
+{
+    if !audio_is_playing(sound[1])
     {
-        if !audio_is_playing(sound[1])
-        {
-            draw_set_colour(c_maroon);
-            draw_text_transformed(room_width/2, text1position, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
-        }
-        else
-        {
-            draw_set_colour(c_blue);
-            draw_text_transformed(room_width/2, text2position, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
-        }
+        draw_set_colour(c_maroon);
+        draw_text_transformed(room_width/2, text1position, "PADDLE", 2 + extrasize, 2 + extrasize, angle);
     }
     else
     {
-        draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + selection, text1positionmenu + selection, "PADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
-        draw_set_colour(c_maroon);
-        draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
-        
-        draw_set_colour(colour);
-        draw_text_transformed(room_width/2 + selection, text2positionmenu + selection, "BADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
         draw_set_colour(c_blue);
-        draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 + extrasizelimit, 2 + extrasizelimit, angle);
-        
-        menuButtons(menu_pos, text_line, colour);
+        draw_text_transformed(room_width/2, text2position, "BADDLE", 2 + extrasize, 2 + extrasize, angle);
     }
-surface_reset_target();
+}
+else
+{
+    draw_set_colour(colour);
+    draw_text_transformed(room_width/2 + selection, text1positionmenu + selection, "PADDLE", 2 , 2 , angle);
+    draw_set_colour(c_maroon);
+    draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 , 2 , angle);
+    
+    draw_set_colour(colour);
+    draw_text_transformed(room_width/2 + selection, text2positionmenu + selection, "BADDLE", 2 , 2 , angle);
+    draw_set_colour(c_blue);
+    draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 , 2 , angle);
+    
+    menuButtons(menu_pos, text_line, colour);
+}
 </string>
           </argument>
         </arguments>

@@ -85,12 +85,10 @@ if timer &gt;= global.deathtimer
           <argument>
             <kind>1</kind>
             <string>///Draw
-surface_set_target(global.screen);
-    draw_set_alpha(random(1));
-    draw_set_colour(colour);
-    draw_point(x, y - 1);
-    draw_set_alpha(1);
-surface_reset_target();
+draw_set_alpha(random(1));
+draw_set_colour(colour);
+draw_point(x, y - 1);
+draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

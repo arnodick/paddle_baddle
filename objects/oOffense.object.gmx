@@ -262,46 +262,45 @@ if hp == 0
           <argument>
             <kind>1</kind>
             <string>///Images
-surface_set_target(global.screen);
 /*
     draw_set_colour(c_white);
     draw_point(coll_vert[0], coll_vert[1] - 1);
     draw_point(coll_horz[0], coll_horz[1] - 1);
 */
-    if global.gameover == true
-    {
-        draw_set_alpha(0.2);
-    }
-    draw_set_colour(colour);
-    draw_point(x, y - 1);
-    
-    if speed &gt; slow_speed + 0.1
-    {
-        draw_set_blend_mode( bm_add );
-        draw_line_width_colour(x, y - 1, x - lengthdir_x(speed*tail_length, direction), y - 1 -lengthdir_y(speed*tail_length, direction), tail_width, colour, c_black);
-        //draw_point(x - lengthdir_x(speed, direction), y - 1 - lengthdir_y(speed, direction));
-    }
-    
-    if control == false
-    {
-        draw_set_blend_mode( bm_add );
-        //draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
-        draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
-        draw_roundrect_colour_ext(x + 1 - random_range(-controltimer, controltimer)/10, y - random_range(-controltimer, controltimer)/10, x + 1 + random_range(-controltimer, controltimer)/10, y + random_range(-controltimer, controltimer)/10, 1, 1, colour, c_black, false);
-    }
-    draw_set_blend_mode( bm_normal );
-    draw_set_alpha(1);
-    /*
-    if defense.x &lt; x
-        draw_rectangle(defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3], false);
-    else if defense.x &gt; x
-        draw_rectangle(defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3], false);
-    if (player_num == 1)
-    {
-        draw_text(room_width/2, 10, debug);
-    }
-    */
-surface_reset_target();
+if global.gameover == true
+{
+    draw_set_alpha(0.2);
+}
+
+draw_point_colour(x, y - 1, colour);
+
+if speed &gt; slow_speed + 0.1
+{
+    draw_set_blend_mode( bm_add );
+    draw_line_width_colour(x, y - 1, x - lengthdir_x(speed*tail_length, direction), y - 1 -lengthdir_y(speed*tail_length, direction), tail_width, colour, c_black);
+    //draw_point(x - lengthdir_x(speed, direction), y - 1 - lengthdir_y(speed, direction));
+}
+
+if control == false
+{
+    draw_set_blend_mode( bm_add );
+    //draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
+    draw_circle_colour(x + 1 + random_range(-controltimer, controltimer)/20, y + random_range(-controltimer, controltimer)/20, controltimer/10, colour, c_black, false);
+    draw_roundrect_colour_ext(x + 1 - random_range(-controltimer, controltimer)/10, y - random_range(-controltimer, controltimer)/10, x + 1 + random_range(-controltimer, controltimer)/10, y + random_range(-controltimer, controltimer)/10, 1, 1, colour, c_black, false);
+}
+draw_set_blend_mode( bm_normal );
+draw_set_alpha(1);
+
+/*
+if defense.x &lt; x
+    draw_rectangle(defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3], false);
+else if defense.x &gt; x
+    draw_rectangle(defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3], false);
+if (player_num == 1)
+{
+    draw_text(room_width/2, 10, debug);
+}
+*/
 </string>
           </argument>
         </arguments>
