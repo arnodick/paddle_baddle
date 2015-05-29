@@ -97,15 +97,15 @@ offense = instance_furthest(x, y, oOffense);
 
 if (global.gamepads[player_num] == true)
 {
-    length = point_distance(0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv));
-    if (gamepad_axis_value(player_num, gp_axisrh) != 0 or gamepad_axis_value(player_num, gp_axisrv) != 0) and speed &lt; slow_speed and controltimer == 0 and global.gameover == false 
+    length = point_distance(0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]));
+    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and global.gameover == false 
     {
         control = true;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
         {
             start_slap_timer = true;
         }
-        direction = point_direction( 0, 0, gamepad_axis_value(player_num, gp_axisrh), gamepad_axis_value(player_num, gp_axisrv) );
+        direction = point_direction( 0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) );
         speed = length;
         if start_slap_timer == true and slap_timer &lt; slap_timer_threshhold
         {
@@ -200,7 +200,7 @@ if point_in_rectangle(coll_horz[0], coll_horz[1], sidewall.wall[0], sidewall.wal
     {
         audio_play_sound(sndGoal, 1, false);
         resetOffense();
-        global.playerpoints[player_num] += 1;
+        oGame.playerpoints[player_num] += 1;
         /*
         speed = 0;
         x = oGame.off_pos[player_num, 0];

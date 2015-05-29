@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>///Variables
 
-global.playerpoints[0] = 0;
-global.playerpoints[1] = 0;
+playerpoints[0] = 0;
+playerpoints[1] = 0;
 
 global.gameover = false;
 global.winner = 0;
