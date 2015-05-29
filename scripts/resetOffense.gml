@@ -5,6 +5,6 @@ for (i = 0; i < instance_number(oOffense); i += 1)
    off.speed = 0;
    off.x = oGame.off_pos[off.player_num, 0];
    off.y = oGame.off_pos[off.player_num, 1];
-   off.controltimer = global.crashtimer;
+   off.controltimer = oGame.crashtimer;
 }
-global.countdown = true;
+oGame.countdown = true;

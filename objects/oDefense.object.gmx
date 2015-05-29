@@ -28,6 +28,8 @@
             <string>///Variables
 player_num = 0;
 
+colour = c_yellow;
+
 width = 1;
 length = 12;
 move_speed = 1.5;
@@ -63,6 +65,9 @@ wall[3] = bottom;
           <argument>
             <kind>1</kind>
             <string>///Controls
+
+colour = oGame.base_colour;
+
 top = y;
 bottom = y + length;
 
@@ -73,11 +78,11 @@ wall[3] = bottom;
 
 if (global.gamepads[player_num] == true)
 {
-    if gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &gt; 0 and bottom + speed &lt; room_height and global.gameover == false
+    if gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &gt; 0 and bottom + speed &lt; room_height and oGame.gameover == false
     {
         vspeed = move_speed;   
     }
-    else if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &lt; 0) and (top + speed &gt; 0) and global.gameover == false
+    else if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 1]) &lt; 0) and (top + speed &gt; 0) and oGame.gameover == false
     {
         vspeed = -move_speed;   
     }
@@ -115,11 +120,11 @@ if (global.gamepads[player_num] == true)
           <argument>
             <kind>1</kind>
             <string>///Images
-if global.gameover == true
+if oGame.gameover == true
 {
     draw_set_alpha(0.2);
 }
-draw_set_colour(global.colour);
+draw_set_colour(colour);
 draw_line(x, top - 1, x, bottom - 1);
 draw_set_alpha(1);
 </string>

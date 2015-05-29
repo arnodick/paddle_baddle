@@ -98,7 +98,7 @@ offense = instance_furthest(x, y, oOffense);
 if (global.gamepads[player_num] == true)
 {
     length = point_distance(0, 0, gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]), gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]));
-    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and global.gameover == false 
+    if (gamepad_axis_value(player_num, oGame.anal_stick[player_num, 2]) != 0 or gamepad_axis_value(player_num, oGame.anal_stick[player_num, 3]) != 0) and speed &lt; slow_speed and controltimer == 0 and oGame.gameover == false 
     {
         control = true;
         if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
@@ -150,7 +150,7 @@ if point_in_rectangle(coll_vert[0], coll_vert[1], defense.wall[0], defense.wall[
     {
         vspeed = -vspeed;
     }
-    controltimer = global.crashtimer;
+    controltimer = oGame.crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 
@@ -176,14 +176,14 @@ coll_horz[3] = floor(y);
 if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0] - speed, defense.wall[1], defense.wall[2], defense.wall[3]) and defense.x &lt; x
 {
     hspeed = -hspeed;
-    controltimer = global.crashtimer;
+    controltimer = oGame.crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 
 else if point_in_rectangle(coll_horz[0], coll_horz[1], defense.wall[0], defense.wall[1], defense.wall[2] + speed, defense.wall[3]) and defense.x &gt; x
 {
     hspeed = -hspeed;
-    controltimer = global.crashtimer;
+    controltimer = oGame.crashtimer;
     audio_play_sound(sndHurt, 1, false);
 }
 
@@ -237,7 +237,7 @@ and
 // This code fixes the above bug, but means that both offense pucks can NEVER be destroyed at the same time. Which one gets destroyed if both crash into each other seems arbitrary. Problem?
 instance_number(oOffense) == 2
 {
-    createParticles(offense.x, offense.y, global.colour);
+    createParticles(offense.x, offense.y, offense.colour);
     audio_play_sound(sndDeath, 1, false);
     offense.hp = 0;
     //resetOffense();
@@ -274,7 +274,7 @@ if hp == 0
     draw_point(coll_vert[0], coll_vert[1] - 1);
     draw_point(coll_horz[0], coll_horz[1] - 1);
 */
-if global.gameover == true
+if oGame.gameover == true
 {
     draw_set_alpha(0.2);
 }

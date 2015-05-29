@@ -101,11 +101,11 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
             <string>///Menu
 //winner title stuff
 //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
-draw_text_colour(room_width/2, title_pos, "PLAYER " + string(global.winner), c_maroon, c_maroon, c_red, c_red, 1);
+draw_text_colour(room_width/2, title_pos, "PLAYER " + string(oGame.winner), c_maroon, c_maroon, c_red, c_red, 1);
 draw_text_colour(room_width/2, title_pos + text_line, "HAS BECOME", c_maroon, c_maroon, c_red, c_red, 1);
 draw_text_colour(room_width/2, title_pos + text_line*2, "THE WINNER", c_maroon, c_maroon, c_red, c_red, 1);
 
-menuButtons(menu_pos, text_line, global.colour);
+menuButtons(menu_pos, text_line, oGame.base_colour);
 </string>
           </argument>
         </arguments>

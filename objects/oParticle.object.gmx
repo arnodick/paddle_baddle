@@ -58,7 +58,7 @@ if (speed &gt; 0)
     speed -= 0.01;
 }
 timer += 1;
-if timer &gt;= global.deathtimer
+if timer &gt;= oGame.deathtimer
 {
     instance_destroy();
 }

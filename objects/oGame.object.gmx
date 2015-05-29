@@ -30,18 +30,18 @@
 playerpoints[0] = 0;
 playerpoints[1] = 0;
 
-global.gameover = false;
-global.winner = 0;
+gameover = false;
+winner = 0;
 
-global.playercolour[0] = c_maroon;
-global.playercolour[1] = c_blue;
+playercolour[0] = c_maroon;
+playercolour[1] = c_blue;
 
 count = 0;
-global.deathtimer = 45;
+deathtimer = 45;
 
 countdowntimer = 0;
-global.countdown = true;
-global.crashtimer = 50;
+countdown = true;
+crashtimer = 50;
 
 def_pos[0, 0] = 10;
 def_pos[0, 1] = room_height/2 - 6;
@@ -53,19 +53,19 @@ def_pos[1, 1] = room_height/2  - 6;
 off_pos[1, 0] = room_width - 20;
 off_pos[1, 1] = room_height/2;
 
-global.wall_thickness = 10;
+wall_thickness = 10;
 
-left_wall[0] = 0 - global.wall_thickness;
-left_wall[1] = 0 - global.wall_thickness;
+left_wall[0] = 0 - wall_thickness;
+left_wall[1] = 0 - wall_thickness;
 right_wall[0] = room_width;
-right_wall[1] = 0 - global.wall_thickness;
+right_wall[1] = 0 - wall_thickness;
 
 top_wall[0] = 0;
 top_wall[1] = 0;
 bot_wall[0] = 0;
 bot_wall[1] = room_height;
 
-global.colour = c_white;
+base_colour = c_white;
 hue = 0;
 
 anal_sticks[2, 4] = 0; // huhuhu, anal
@@ -114,8 +114,8 @@ if !instance_exists(oScreen)
 createDefense(def_pos[0, 0], def_pos[0, 1], 0);
 createDefense(def_pos[1, 0], def_pos[1, 1], 1);
 
-createSidewall(left_wall[0], left_wall[1], 0);
-createSidewall(right_wall[0], right_wall[1], 1);
+createSidewall(left_wall[0], left_wall[1], wall_thickness, 0);
+createSidewall(right_wall[0], right_wall[1], wall_thickness, 1);
 
 createHorizontalwall(top_wall[0], top_wall[1]);
 createHorizontalwall(bot_wall[0], bot_wall[1]);
@@ -147,15 +147,15 @@ createSide(def_pos[1, 0], def_pos[1, 1], 1);
             <string>///Object Controller
 if instance_number(oOffense) == 0
 {
-    createOffense(off_pos[0, 0], off_pos[0, 1], 0, global.playercolour[0]);
-    createOffense(off_pos[1, 0], off_pos[1, 1], 1, global.playercolour[1]);
+    createOffense(off_pos[0, 0], off_pos[0, 1], 0, playercolour[0]);
+    createOffense(off_pos[1, 0], off_pos[1, 1], 1, playercolour[1]);
     resetOffense();
 }
 if instance_number(oOffense) == 1
 {
     count += 1;
 }
-if count &gt;= global.deathtimer
+if count &gt;= deathtimer
 {
     var opp = instance_nearest(x, y, oOffense);
     if opp.player_num == 0
@@ -166,23 +166,23 @@ if count &gt;= global.deathtimer
     {
         var num = 0;
     }
-    createOffense(off_pos[num, 0], off_pos[num, 1], num, global.playercolour[num]);
-    createParticles(off_pos[num, 0], off_pos[num, 1], global.playercolour[num]);
+    createOffense(off_pos[num, 0], off_pos[num, 1], num, playercolour[num]);
+    createParticles(off_pos[num, 0], off_pos[num, 1], playercolour[num]);
     audio_play_sound(sndRespawn, 1, false);
     count = 0;
 }
-if global.countdown == true
+if countdown == true
 {
     countdowntimer += 1;
-    if countdowntimer &gt;= global.crashtimer
+    if countdowntimer &gt;= crashtimer
     {
-        global.countdown = false;
+        countdown = false;
         countdowntimer = 0;
     }
 }
 if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
 {
-    global.gameover = true;
+    gameover = true;
     if !instance_exists(oMenu)
     {
         instance_create(0, 0, oMenu);
@@ -192,7 +192,7 @@ if playerpoints[0] &gt;= 5 or playerpoints[1] &gt;= 5
     {
         if playerpoints[i] &gt;= 5
         {
-            global.winner = i + 1;
+            winner = i + 1;
         }
     }
 }
@@ -202,12 +202,12 @@ if keyboard_check(vk_escape)
 }
 if global.coolmode == true
 {
-    global.colour = make_color_hsv(hue, 255, 255);
+    base_colour = make_color_hsv(hue, 255, 255);
     hue += 10;
 }
 else
 {
-    colour = c_white;
+    base_colour = c_white;
 }
 </string>
           </argument>
@@ -232,7 +232,7 @@ else
           <argument>
             <kind>1</kind>
             <string>///Score
-if global.gameover == true
+if gameover == true
 {
     draw_set_alpha(0.2);
 }
@@ -242,13 +242,13 @@ draw_set_circle_precision(4);
 
 if countdowntimer &gt; 0
 {
-    draw_text_colour(room_width/2, room_height/2, ceil((global.crashtimer/countdowntimer)*4), global.colour, global.colour, global.colour, global.colour, 1);
+    draw_text_colour(room_width/2, room_height/2, ceil((crashtimer/countdowntimer)*4), base_colour, base_colour, base_colour, base_colour, 1);
 }
 
 draw_text_colour(10, 2, string(playerpoints[0]), c_red, c_red, c_red, c_red, 0.2);
 draw_text_colour(room_width - 10, 2, string(playerpoints[1]), c_blue, c_blue, c_blue, c_blue, 0.2);
 draw_set_alpha(0.1);
-draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, global.colour, global.colour);
+draw_line_width_colour(room_width/2, -1, room_width/2, room_height, 2, base_colour, base_colour);
 draw_set_alpha(1);
 </string>
           </argument>
