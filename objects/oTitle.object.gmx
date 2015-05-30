@@ -61,7 +61,7 @@ gamepadsInit();
 
 global.reverse[2] = false;
 
-menuInit(working_directory + "title.txt", text1position + 25, 8);
+menuInit(working_directory + "title.txt", text1position + 20, 8);
 </string>
           </argument>
         </arguments>
@@ -148,6 +148,10 @@ else
                 startgame = true;
                 break;
             case 1:
+                // TODO: SET CODE FOR AI PLAYER HERE!
+                room_goto(rRink);
+                break;
+            case 2:
                 room_goto(rOptions);
                 break;
             default: 
