@@ -90,10 +90,10 @@ anal_stick[1, 1] = gp_axisrv;
 anal_stick[1, 2] = gp_axislh;
 anal_stick[1, 3] = gp_axislv;
 
-key_control[0, 0] = ord('F');
-key_control[0, 1] = ord('H');
-key_control[0, 2] = ord('T');
-key_control[0, 3] = ord('G');
+key_control[0, 0] = vk_left;
+key_control[0, 1] = vk_right;
+key_control[0, 2] = vk_up;
+key_control[0, 3] = vk_down;
 
 key_control[1, 0] = ord('J');
 key_control[1, 1] = ord('L');

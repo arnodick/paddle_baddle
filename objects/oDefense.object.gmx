@@ -59,13 +59,13 @@ anal_stick[1, 3] = gp_axislv;
 
 key_control[0, 0] = ord('A');
 key_control[0, 1] = ord('D');
-key_control[0, 2] = ord('W');
-key_control[0, 3] = ord('S');
+key_control[0, 2] = ord('Z');
+key_control[0, 3] = ord('X');
 
 key_control[1, 0] = vk_left;
 key_control[1, 1] = vk_right;
-key_control[1, 2] = vk_up;
-key_control[1, 3] = vk_down;
+key_control[1, 2] = ord('N');
+key_control[1, 3] = ord('M');
 </string>
           </argument>
         </arguments>
