@@ -9,3 +9,4 @@ if off.player_stick > 1
 {
     off.player_stick = 0;
 }
+return off;

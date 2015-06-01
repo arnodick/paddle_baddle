@@ -30,9 +30,7 @@
 colour = c_yellow;
 colour2 = c_orange;
 
-title_pos = room_height/2 - 20; // the y position of the title
-
-menuInit(working_directory + "options.txt", title_pos, 10); //opens and reads a text file, making buttons out of each line of text. argument1 is y position of top of menu, argument2 is line height
+title_pos = 1; // the y position of the title
 </string>
           </argument>
         </arguments>
@@ -55,50 +53,7 @@ menuInit(working_directory + "options.txt", title_pos, 10); //opens and reads a 
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Options
-
-menuSelect(); //checks which button is selected given gamepad left stick input
-
-//checks for confirmation button press of selected option (can't really make a generic script out of this, because each menu does different things, so switch will vary a lot
-if menuConfirm() == true //checks if gamepad has pressed A or Start
-{
-    switch (selection) //executes whichever option was selected when button pressed
-    {
-    case 0: //Invert sticks? Y/N
-        audio_play_sound(sndBounce, 1, false);
-        if global.secret == true
-        {
-            global.secret = false;
-        }
-        else
-        {
-            global.secret = true;
-        }
-        /*
-        if global.reverse[button_player] == true
-        {
-            global.reverse[button_player] = false;
-        }
-        else
-        {
-            global.reverse[button_player] = true;
-        }
-        */
-        break;
-    case 1: //return to title
-        room_goto(rInstructions);
-        instance_destroy();
-        break;
-    case 2: //return to title
-        room_goto(rTitle);
-        instance_destroy();
-        break;
-    default: //default return to title (it's important to have this, in case you don't set switch option for all of the buttons that were created!)
-        room_goto(rTitle);
-        instance_destroy();
-        break;
-    }
-}
+            <string>/// Instructions
 
 if keyboard_check_pressed(vk_escape)
 {
@@ -129,12 +84,10 @@ if keyboard_check_pressed(vk_escape)
             <string>///Menu
 //winner title stuff
 //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
-draw_text_colour(room_width/2, title_pos, "OPTION", colour, colour, colour2, colour2, 1);
-menuButtons(title_pos + 15, 10, colour);
-draw_text_transformed_colour(10,                 title_pos + 15, "*", 1, 1, 0, c_green, c_green, c_green, c_green, global.secret);
-draw_text_transformed_colour(room_width - 10,    title_pos + 15, "*", 1, 1, 0, c_green, c_green, c_green, c_green, global.secret);
-//draw_text_transformed_colour(10,                 title_pos + 15, "*", 1, 1, 0, c_green, c_green, c_green, c_green, global.reverse[0]);
-//draw_text_transformed_colour(room_width - 10,    title_pos + 15, "*", 1, 1, 0, c_green, c_green, c_green, c_green, global.reverse[1]);
+draw_set_font(fontInst);
+draw_text_colour(room_width/2, title_pos, "BUTTONS = PADDLE#STICK = BALL#IN YOUR END#DOUBLE TAP STICK #= SLAPSHOT#GO BECOME CHAMPION", colour, colour, colour2, colour2, 1);
+draw_set_font(fontScore);
+
 </string>
           </argument>
         </arguments>

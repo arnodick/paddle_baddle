@@ -7,3 +7,4 @@ if def.player_stick > 1
 {
     def.player_stick = 0;
 }
+return def;

@@ -100,6 +100,37 @@ wall[1] = top;
 wall[2] = x;
 wall[3] = bottom;
 
+if global.practice == true
+{
+    if instance_exists(oOffense)
+    {
+        if (player_num == 1)
+        {    
+            if instance_exists(global.offense0)
+            {    
+                if (irandom(6) == 0)
+                {
+                    if (global.offense0.y &lt; (y-(irandom(6)+2)) )
+                    {
+                       keyboard_key_press(ord('N'));
+                       keyboard_key_release(ord('M'));
+                    }
+                    else if (global.offense0.y &gt; (y+(irandom(6) + 2)) )
+                    {
+                        keyboard_key_press(ord('M'));
+                        keyboard_key_release(ord('N'));
+                    }
+                    else
+                    {
+                        keyboard_key_release(ord('M'));
+                        keyboard_key_release(ord('N'));
+                    }
+                }
+            }
+        }
+    }
+}
+
 if (global.gamepads[player_num] == true)
 {
     gp_length = point_distance(0, 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 1]));
@@ -126,7 +157,7 @@ else
 {
     if keyboard_check(key_control[player_num, 2]) and top + speed &gt; 0 and oGame.gameover == false
     {
-        vspeed = -move_speed;   
+        vspeed = -move_speed;
     }
     else if keyboard_check(key_control[player_num, 3]) and bottom + speed &lt; room_height  and oGame.gameover == false
     {

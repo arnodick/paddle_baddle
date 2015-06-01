@@ -81,8 +81,8 @@
     <script>scripts\gamepadsInit.gml</script>
     <script>scripts\menuInit.gml</script>
     <script>scripts\menuCreate.gml</script>
-    <script>scripts\menuSelect.gml</script>
     <script>scripts\menuConfirm.gml</script>
+    <script>scripts\menuSelect.gml</script>
     <script>scripts\menuSelectbutton.gml</script>
     <script>scripts\menuButtons.gml</script>
     <script>scripts\collHor.gml</script>
@@ -98,11 +98,14 @@
   </scripts>
   <fonts name="fonts">
     <font>fonts\fontScore</font>
+    <font>fonts\fontInst</font>
   </fonts>
   <objects name="objects">
+    <object>objects\oStart</object>
     <object>objects\oScreen</object>
     <object>objects\oTitle</object>
     <object>objects\oOptions</object>
+    <object>objects\oInstructions</object>
     <object>objects\oMenu</object>
     <object>objects\oOffense</object>
     <object>objects\oDefense</object>
@@ -113,8 +116,10 @@
     <object>objects\oGame</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rStart</room>
     <room>rooms\rTitle</room>
     <room>rooms\rOptions</room>
+    <room>rooms\rInstructions</room>
     <room>rooms\rRink</room>
   </rooms>
   <constants number="2">

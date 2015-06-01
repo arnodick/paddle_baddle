@@ -47,7 +47,7 @@ hp = 1;
 debug = "no";
 
 //slow_speed = 0.9;
-slap_speed = 2.5;
+slap_speed = 3;
 decel = 40;
 slap_ready = false;
 slap_timer = 0;
@@ -133,6 +133,54 @@ sidewall = instance_nearest(x, y, oSidewall);
 horwall = instance_nearest(x, y, oWall);
 rinkside = instance_nearest(x, y, oSide);
 offense = instance_furthest(x, y, oOffense);
+
+if (player_num == rinkside.player_side)
+{
+    length_max = 0.8;
+}
+else
+{
+    length_max = 0.6;
+}
+
+if global.practice == true
+{
+    if instance_exists(oDefense)
+    {
+        if (player_num == 1)
+        {    
+            if instance_exists(global.defense0)
+            {    
+                if (irandom(6) == 0)
+                {
+                    if (global.defense0.y &lt; (y+(irandom(6)+2)) )
+                    {
+                       keyboard_key_press(ord('I'));
+                       keyboard_key_release(ord('K'));
+                    }
+                    else if (global.defense0.y &gt; (y-(irandom(6) + 2)) )
+                    {
+                        keyboard_key_press(ord('K'));
+                        keyboard_key_release(ord('I'));
+                    }
+                    else
+                    {
+                        keyboard_key_release(ord('I'));
+                        keyboard_key_release(ord('K'));
+                    }
+                }
+            }
+            if (irandom(1) == 0)
+            {
+                keyboard_key_press(ord('J'));
+            }
+            else
+            {
+                keyboard_key_release(ord('J'));
+            }
+        }
+    }
+}
 
 if (global.gamepads[player_num] == true)
 {

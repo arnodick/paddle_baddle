@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Screen Create
+            <string>/// Title Menu
 if !instance_exists(oScreen)
 {
     instance_create(0, 0, oScreen);
@@ -54,8 +54,8 @@ hue = 0;
 
 menu = false;
 startgame = false;
-global.coolmode = false;
-secret = false;
+
+global.practice = false;
 
 gamepadsInit();
 
@@ -122,14 +122,14 @@ else
     
     if menuSelectbutton() == true
     {
-        if secret == false
+        if global.secret == false
         {
-            secret = true;
+            global.secret = true;
             button_text[0] = "Cool Mode";
         }
         else
         {
-            secret = false;
+            global.secret = false;
             button_text[0] = "Versus";
         }
     }
@@ -137,21 +137,32 @@ else
     menuSelect();
     if menuConfirm() == true
     {
+        if global.secret == true
+        {
+            global.coolmode = true;
+        }
+        else
+        {
+            global.coolmode = false;
+        }
         switch (selection)
         {
             case 0:
-                if secret == true
-                {
-                    global.coolmode = true;
-                }
                 audio_play_sound(sndBounce, 1, false);
+                global.practice = false;
+                keyboard_key_release(ord('I'));
+                keyboard_key_release(ord('K'));
+                keyboard_key_release(ord('J'));
                 startgame = true;
                 break;
             case 1:
                 // TODO: SET CODE FOR AI PLAYER HERE!
-                room_goto(rRink);
+                global.practice = true;
+                audio_play_sound(sndBounce, 1, false);
+                startgame = true;
                 break;
             case 2:
+                global.practice = false;
                 room_goto(rOptions);
                 break;
             default: 
@@ -160,7 +171,7 @@ else
                 break;
         }
     }
-    if secret == true
+    if global.secret == true
     {
         colour = make_color_hsv(hue, 255, 255);
         hue += 10;
@@ -177,7 +188,7 @@ if startgame == true
         room_goto(rRink);
     }
 }
-if keyboard_check(vk_escape)
+if keyboard_check_pressed(vk_escape)
 {
     game_end();
 }
@@ -222,12 +233,12 @@ if menu == false
 else
 {
     draw_set_colour(colour);
-    draw_text_transformed(room_width/2 + secret, text1positionmenu + secret, "PADDLE", 2 , 2 , angle);
+    draw_text_transformed(room_width/2 + global.secret, text1positionmenu + global.secret, "PADDLE", 2 , 2 , angle);
     draw_set_colour(c_maroon);
     draw_text_transformed(room_width/2, text1positionmenu, "PADDLE", 2 , 2 , angle);
     
     draw_set_colour(colour);
-    draw_text_transformed(room_width/2 + secret, text2positionmenu + secret, "BADDLE", 2 , 2 , angle);
+    draw_text_transformed(room_width/2 + global.secret, text2positionmenu + global.secret, "BADDLE", 2 , 2 , angle);
     draw_set_colour(c_blue);
     draw_text_transformed(room_width/2, text2positionmenu, "BADDLE", 2 , 2 , angle);
     

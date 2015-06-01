@@ -116,8 +116,8 @@ if !instance_exists(oScreen)
 //createPaddles(def_pos[0, 0], def_pos[0, 1], off_pos[0, 0], off_pos[0, 1], 0, c_maroon);
 //createPaddles(def_pos[1, 0], def_pos[1, 1], off_pos[1, 0], off_pos[1, 1], 1, c_blue);
 
-createDefense(def_pos[0, 0], def_pos[0, 1], 0);
-createDefense(def_pos[1, 0], def_pos[1, 1], 1);
+global.defense0 = createDefense(def_pos[0, 0], def_pos[0, 1], 0);
+global.defense1 = createDefense(def_pos[1, 0], def_pos[1, 1], 1);
 
 createSidewall(left_wall[0], left_wall[1], wall_thickness, 0);
 createSidewall(right_wall[0], right_wall[1], wall_thickness, 1);
@@ -165,8 +165,8 @@ else
 // Creates both the balls if none exist (Should only happen when the game starts)
 if instance_number(oOffense) == 0
 {
-    createOffense(off_pos[0, 0], off_pos[0, 1], 0, playercolour[0]);
-    createOffense(off_pos[1, 0], off_pos[1, 1], 1, playercolour[1]);
+    global.offense0 = createOffense(off_pos[0, 0], off_pos[0, 1], 0, playercolour[0]);
+    global.offense1 = createOffense(off_pos[1, 0], off_pos[1, 1], 1, playercolour[1]);
     resetOffense();
 }
 // Starts the counter to respawn a ball that's been destroyed
@@ -186,7 +186,14 @@ if count &gt;= deathtimer
     {
         var num = 0;
     }
-    createOffense(off_pos[num, 0], off_pos[num, 1], num, playercolour[num]);
+    if (num == 0)
+    {
+        global.offense0 = createOffense(off_pos[num, 0], off_pos[num, 1], num, playercolour[num]);
+    }
+    else
+    {
+        global.offense1 = createOffense(off_pos[num, 0], off_pos[num, 1], num, playercolour[num]);
+    }
     createParticles(off_pos[num, 0], off_pos[num, 1], playercolour[num]);
     audio_play_sound(sndRespawn, 1, false);
     count = 0;
@@ -272,9 +279,9 @@ if countdown == true
 }
 
 // Quits the game if escape is pressed
-if keyboard_check(vk_escape)
+if keyboard_check_pressed(vk_escape)
 {
-    game_end();
+    room_goto(rTitle);
 }
 </string>
           </argument>
