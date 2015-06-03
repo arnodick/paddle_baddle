@@ -85,7 +85,7 @@ if (keyboard_check_pressed(vk_escape))
 //winner title stuff
 //MAKE THIS TEXT RED OR BLUE DEPENDING ON WHO WON!
 draw_set_font(fontInst);
-draw_text_colour(room_width/2, title_pos, "BUTTONS = PADDLE#STICK = BALL#IN YOUR END#DOUBLE TAP STICK #= SLAPSHOT#GO BECOME CHAMPION", colour, colour, colour2, colour2, 1);
+draw_text_colour(room_width/2, title_pos, "BUTTONS = PADDLE#STICK = BALL#DOUBLE TAP STICK#IN YOUR END #= SLAPSHOT#GO BECOME CHAMPION", colour, colour, colour2, colour2, 1);
 draw_set_font(fontScore);
 
 </string>
