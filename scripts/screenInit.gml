@@ -4,7 +4,7 @@ view_surface_id[0] = screen;
 
     // If the screen surface can't be created because surfaces are not supported by the graphics card, then:
     // Destroy the oScreen object, reverting to the viewport method
-if screen = -1
+if (screen = -1)
 {
     instance_destroy();
 }

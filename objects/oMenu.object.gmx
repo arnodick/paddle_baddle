@@ -62,7 +62,7 @@ menuInit(working_directory + "menu.txt", 40, 10); //opens and reads a text file,
 menuSelect(); //checks which button is selected given gamepad left stick input
 
 //checks for confirmation button press of selected option (can't really make a generic script out of this, because each menu does different things, so switch will vary a lot
-if menuConfirm() == true //checks if gamepad has pressed A or Start
+if (menuConfirm() == true) //checks if gamepad has pressed A or Start
 {
     switch (selection) //executes whichever option was selected when button pressed
     {

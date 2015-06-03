@@ -60,13 +60,13 @@ menuInit(working_directory + "options.txt", title_pos, 10); //opens and reads a 
 menuSelect(); //checks which button is selected given gamepad left stick input
 
 //checks for confirmation button press of selected option (can't really make a generic script out of this, because each menu does different things, so switch will vary a lot
-if menuConfirm() == true //checks if gamepad has pressed A or Start
+if (menuConfirm() == true) //checks if gamepad has pressed A or Start
 {
     switch (selection) //executes whichever option was selected when button pressed
     {
     case 0: //Invert sticks? Y/N
         audio_play_sound(sndBounce, 1, false);
-        if global.secret == true
+        if (global.secret == true)
         {
             global.secret = false;
         }
@@ -100,7 +100,7 @@ if menuConfirm() == true //checks if gamepad has pressed A or Start
     }
 }
 
-if keyboard_check_pressed(vk_escape)
+if (keyboard_check_pressed(vk_escape))
 {
     room_goto(rTitle);
 }

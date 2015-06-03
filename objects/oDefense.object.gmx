@@ -92,30 +92,30 @@ key_control[1, 3] = ord('M');
 
 colour = oGame.base_colour;
 
-top = y - length/2;
-bottom = y + length/2;
+top = (y - (length/2));
+bottom = (y + (length/2));
 
 wall[0] = x ; // this causes a bug: if pixel is directly next to left paddle, will go through with slap shot (width of paddle wall = 0)
 wall[1] = top;
 wall[2] = x;
 wall[3] = bottom;
 
-if global.practice == true
+if (global.practice == true)
 {
-    if instance_exists(oOffense)
+    if (instance_exists(oOffense))
     {
         if (player_num == 1)
         {    
-            if instance_exists(global.offense0)
+            if (instance_exists(global.offense0))
             {    
                 if (irandom(6) == 0)
                 {
-                    if (global.offense0.y &lt; (y-(irandom(6)+2)) )
+                    if ( (global.offense0.y) &lt; (y-(irandom(6)+2)) )
                     {
                        keyboard_key_press(ord('N'));
                        keyboard_key_release(ord('M'));
                     }
-                    else if (global.offense0.y &gt; (y+(irandom(6) + 2)) )
+                    else if ( (global.offense0.y) &gt; (y+(irandom(6) + 2)) )
                     {
                         keyboard_key_press(ord('M'));
                         keyboard_key_release(ord('N'));
@@ -131,35 +131,38 @@ if global.practice == true
     }
 }
 
-if (global.gamepads[player_num] == true)
+if ( gamepad_is_connected(player_num) )
 {
-    gp_length = point_distance(0, 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 1]));
-    if gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &gt; 0 and bottom + speed &lt; room_height and oGame.gameover == false
+    if (global.gamepads[player_num] == true)
     {
-        vspeed = gp_length * move_speed;   
-    }
-    else if (gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &lt; 0) and (top + speed &gt; 0) and oGame.gameover == false
-    {
-        vspeed = -gp_length * move_speed;
-    }
-    /*
-    else if ( vspeed != 0 ) and (bottom + vspeed &lt; room_height) and (top + vspeed &gt; 0)
-    {
-        vspeed += -vspeed/8;
-    }
-    */
-    else
-    {
-        vspeed = 0;
+        gp_length = point_distance(0, 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 1]));
+        if ( (gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &gt; 0) and ((bottom + speed) &lt; (room_height)) and (oGame.gameover == false) )
+        {
+            vspeed = gp_length * move_speed;   
+        }
+        else if ( (gamepad_axis_value(player_num, anal_stick[player_stick, 1]) &lt; 0) and (top + speed &gt; 0) and (oGame.gameover == false) )
+        {
+            vspeed = -gp_length * move_speed;
+        }
+        /*
+        else if ( vspeed != 0 ) and (bottom + vspeed &lt; room_height) and (top + vspeed &gt; 0)
+        {
+            vspeed += -vspeed/8;
+        }
+        */
+        else
+        {
+            vspeed = 0;
+        }
     }
 }
 else
 {
-    if keyboard_check(key_control[player_num, 2]) and top + speed &gt; 0 and oGame.gameover == false
+    if ( (keyboard_check(key_control[player_num, 2])) and ((top + speed) &gt; 0) and (oGame.gameover == false) )
     {
         vspeed = -move_speed;
     }
-    else if keyboard_check(key_control[player_num, 3]) and bottom + speed &lt; room_height  and oGame.gameover == false
+    else if ( (keyboard_check(key_control[player_num, 3])) and ((bottom + speed) &lt; room_height)  and (oGame.gameover == false) )
     {
         vspeed = move_speed;   
     }
@@ -191,7 +194,7 @@ else
           <argument>
             <kind>1</kind>
             <string>///Images
-if oGame.gameover == true
+if (oGame.gameover == true)
 {
     draw_set_alpha(0.2);
 }

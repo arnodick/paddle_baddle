@@ -1,6 +1,6 @@
     // If the screen surface is destroyed (b/c of alt+enter for example) then:
     // Re-create the screen surface
-if !surface_exists(screen)
+if (!surface_exists(screen))
 {
     screen = surface_create(display_get_gui_width(), display_get_gui_height());
     view_surface_id[0] = screen;

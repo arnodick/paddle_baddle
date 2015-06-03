@@ -3,7 +3,7 @@ global.gamepads[global.gamepadCount] = false;
 global.dead_zone = 0.35;
 for (var i = 0; i < global.gamepadCount; i++;)
 {
-    if gamepad_is_connected(i)
+    if (gamepad_is_connected(i))
     {
         global.gamepads[i] = true;
     }
@@ -11,7 +11,7 @@ for (var i = 0; i < global.gamepadCount; i++;)
     {
         global.gamepads[i] = false;
     }
-    if gamepad_is_connected(i)
+    if (gamepad_is_connected(i))
     {
         gamepad_set_axis_deadzone(i, global.dead_zone);
     }

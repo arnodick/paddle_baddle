@@ -55,7 +55,7 @@ title_pos = 1; // the y position of the title
             <kind>1</kind>
             <string>/// Instructions
 
-if keyboard_check_pressed(vk_escape)
+if (keyboard_check_pressed(vk_escape))
 {
     room_goto(rTitle);
 }

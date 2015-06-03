@@ -57,7 +57,7 @@ slap_timer = 0;
 //start_slap_timer = false;
 //slap_timer_threshhold = 3;
 slap_length = 0.8;
-if global.coolmode == true
+if (global.coolmode == true)
 {
     slap_length = 0;
 }
@@ -143,22 +143,22 @@ else
     length_max = 0.6;
 }
 
-if global.practice == true
+if (global.practice == true)
 {
-    if instance_exists(oDefense)
+    if (instance_exists(oDefense))
     {
         if (player_num == 1)
         {    
-            if instance_exists(global.defense0)
+            if (instance_exists(global.defense0))
             {    
                 if (irandom(6) == 0)
                 {
-                    if (global.defense0.y &lt; (y+(irandom(6)+2)) )
+                    if ( (global.defense0.y) &lt; (y+(irandom(6)+2)) )
                     {
                        keyboard_key_press(ord('I'));
                        keyboard_key_release(ord('K'));
                     }
-                    else if (global.defense0.y &gt; (y-(irandom(6) + 2)) )
+                    else if ( (global.defense0.y) &gt; (y-(irandom(6) + 2)) )
                     {
                         keyboard_key_press(ord('K'));
                         keyboard_key_release(ord('I'));
@@ -182,31 +182,34 @@ if global.practice == true
     }
 }
 
-if (global.gamepads[player_num] == true)
+if ( gamepad_is_connected(player_num) )
 {
-    length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]));
-    if (length != 0) and speed &lt; length_max and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
+    if (global.gamepads[player_num] == true)
     {
-        direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]) );
-        speed = length * length_max;
-        if (last_length &lt; global.dead_zone and player_num == rinkside.player_side) or global.coolmode == true //and x!= (room_width/2) - 1
+        length = point_distance(0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]));
+        if (length != 0) and speed &lt; length_max and control == true //and oGame.gameover == false and oGame.goal == false and oGame.countdown == false
         {
-            if length &gt;= slap_length
+            direction = point_direction( 0, 0, gamepad_axis_value(player_num, anal_stick[player_stick, 2]), gamepad_axis_value(player_num, anal_stick[player_stick, 3]) );
+            speed = length * length_max;
+            if ( ((last_length &lt; global.dead_zone) and (player_num == rinkside.player_side)) or (global.coolmode == true) ) //and x!= (room_width/2) - 1
             {
-                speed = slap_speed;
+                if (length &gt;= slap_length)
+                {
+                    speed = slap_speed;
+                }
             }
         }
+        else
+        {
+            speed -= speed/decel;
+        }
+        last_length = length;
+        //debug = string(last_length);
     }
-    else
-    {
-        speed -= speed/decel;
-    }
-    last_length = length;
-    //debug = string(last_length);
 }
 else
 {
-    if keyArrowspressed(key_control) == true and speed &lt; length_max and control == true
+    if ( (keyArrowspressed(key_control) == true) and (speed &lt; length_max) and (control == true) )
     {
         length = length_max;
         if keyboard_check (key_control[player_num, 0]) 
@@ -223,7 +226,7 @@ else
             {ver = 0;}
         direction = point_direction( 0, 0, hor, ver );
         speed = length;
-        if slap_ready == true 
+        if (slap_ready == true)
         {
             slap_timer += 1;
             if slap_timer &lt; 3
@@ -245,7 +248,7 @@ else
                 slap_timer = 0;
             }
         }
-        else if keyArrowspress(key_control) == true
+        else if (keyArrowspress(key_control) == true)
         {
             slap_ready = true;
         }
@@ -265,7 +268,7 @@ coll_vert[1] = ceil(y + lengthdir_y(speed, direction));
 
 if collHor(defense)
 {
-    if global.coolmode == true
+    if (global.coolmode == true)
     {
         hp = 0;
     }
@@ -276,13 +279,13 @@ if collHor(defense)
 
 if collVer(defense)
 {
-    if global.coolmode == true
+    if (global.coolmode == true)
     {
         hp = 0;
     }
     if point_in_rectangle(x, y, defense.wall[0], defense.wall[1], defense.wall[2], defense.wall[3])
     {
-        if defense.y &lt; y
+        if (defense.y &lt; y)
         {
             y = defense.wall[3] + 2;
         }
@@ -291,7 +294,7 @@ if collVer(defense)
             y = defense.wall[1] - 2;
         }
     }
-    if defense.speed &gt; speed
+    if (defense.speed &gt; speed)
     {
         vspeed = defense.vspeed * 1.2;
     }
@@ -306,7 +309,7 @@ if collVer(defense)
 if collVer(horwall)
 {
     vspeed = -vspeed;
-    if controltimer &lt; bouncetimer
+    if (controltimer &lt; bouncetimer)
     {
         controltimer = bouncetimer;
     }
@@ -315,10 +318,10 @@ if collVer(horwall)
 
 if collHor(sidewall)
 {
-    if player_num == sidewall.side or oGame.gameover == true
+    if ( (player_num == sidewall.side) or (oGame.gameover == true) )
     {
         hspeed = -hspeed;
-        if controltimer &lt; bouncetimer
+        if (controltimer &lt; bouncetimer)
         {
             controltimer = bouncetimer;
         }
@@ -335,17 +338,17 @@ if collHor(sidewall)
     }
 }
 
-if collHor(offense) or collVer(offense)
+if (collHor(offense) or collVer(offense))
 {
-    if instance_number(oOffense) == 2
+    if (instance_number(oOffense) == 2)
     {
-        if offense.control == false
+        if (offense.control == false)
         {
             offense.hp = 0;
         }
     }
 }
-if controltimer &gt; 0
+if (controltimer &gt; 0)
 {
     control = false;
     controltimer -= 1;
@@ -354,11 +357,11 @@ else
 {
     control = true;
 }
-if y &gt; room_height or y &lt; 0
+if ( (y &gt; room_height) or (y &lt; 0) )
 {
     hp = 0;
 }
-if hp == 0
+if (hp == 0)
 {
     createParticles(x, y, colour);
     audio_play_sound(sndDeath, 1, false);
